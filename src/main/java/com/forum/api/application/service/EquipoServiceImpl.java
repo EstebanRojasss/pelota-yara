@@ -1,0 +1,44 @@
+package com.forum.api.application.service;
+
+import com.forum.api.application.in.EquipoService;
+import com.forum.api.application.out.EquipoRepository;
+import com.forum.api.domain.Equipo;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class EquipoServiceImpl implements EquipoService {
+
+    private final EquipoRepository repository;
+
+    public EquipoServiceImpl(EquipoRepository repository) {
+        this.repository = repository;
+    }
+
+    @Override
+    public Equipo agregarNuevoEquipo(Equipo equipo) {
+        return repository.save(equipo);
+    }
+
+    @Override
+    public void eliminarEquipo(Long id) {
+
+    }
+
+    @Override
+    public Optional<Equipo> cambiarDatosEquipo(Equipo equipo) {
+        return null;
+    }
+
+    @Override
+    public List<Equipo> listarTodosLosEquipos() {
+        return repository.findAllEquipos();
+    }
+
+    @Override
+    public Equipo encontrarEquipoPorId(Long id) {
+        return null;
+    }
+}
