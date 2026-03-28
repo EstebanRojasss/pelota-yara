@@ -1,6 +1,7 @@
 package com.forum.api.domain;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 public class Equipo {
@@ -8,36 +9,26 @@ public class Equipo {
     private String nombre;
     private String apodo;
     private LocalDate fundacion;
+    private Set<Competencias> competencias;
 
-    private Set<Jugador> jugador;
-    private Estadio estadio;
-
-
-    public Equipo() {
-    }
-
-    public void setId(Long id) {
+    private Equipo(Long id, String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias) {
         this.id = id;
-    }
-
-    public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public void setApodo(String apodo) {
         this.apodo = apodo;
-    }
-
-    public void setFundacion(LocalDate fundacion) {
         this.fundacion = fundacion;
+        this.competencias = competencias;
     }
 
-    public void setJugador(Set<Jugador> jugador) {
-        this.jugador = jugador;
+    public static Equipo restore(Long id, String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias){
+        return new Equipo(id, nombre, apodo, fundacion, competencias);
     }
 
-    public void setEstadio(Estadio estadio) {
-        this.estadio = estadio;
+    public static Equipo create(String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias){
+        return new Equipo(null, nombre, apodo, fundacion, competencias);
+    }
+
+    public Set<Competencias> getCompetencias() {
+        return competencias;
     }
 
     public Long getId() {
@@ -56,11 +47,15 @@ public class Equipo {
         return fundacion;
     }
 
-    public Set<Jugador> getJugador() {
-        return jugador;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Equipo equipo = (Equipo) o;
+        return Objects.equals(id, equipo.id) && Objects.equals(nombre, equipo.nombre) && Objects.equals(apodo, equipo.apodo) && Objects.equals(fundacion, equipo.fundacion) && Objects.equals(competencias, equipo.competencias);
     }
 
-    public Estadio getEstadio() {
-        return estadio;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nombre, apodo, fundacion, competencias);
     }
 }
