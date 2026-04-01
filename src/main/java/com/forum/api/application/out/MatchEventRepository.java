@@ -1,6 +1,6 @@
 package com.forum.api.application.out;
 
-import com.forum.api.domain.MatchEvent;
+import com.forum.api.domain.model.MatchEvent;
 
 import java.util.Optional;
 

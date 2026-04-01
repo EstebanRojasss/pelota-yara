@@ -1,7 +1,7 @@
 package com.forum.api.application.service;
 
 import com.forum.api.application.in.MatchEventService;
-import com.forum.api.domain.MatchEvent;
+import com.forum.api.domain.model.MatchEvent;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

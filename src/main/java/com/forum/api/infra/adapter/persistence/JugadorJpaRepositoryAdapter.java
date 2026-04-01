@@ -1,15 +1,13 @@
 package com.forum.api.infra.adapter.persistence;
 
 import com.forum.api.application.out.JugadorRepository;
-import com.forum.api.domain.Equipo;
-import com.forum.api.domain.Jugador;
+import com.forum.api.domain.model.Jugador;
 import com.forum.api.infra.adapter.persistence.entities.JugadorEntityJpa;
 import com.forum.api.infra.adapter.persistence.repository.JugadorJpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 @Component
 public class JugadorJpaRepositoryAdapter implements JugadorRepository {

@@ -2,7 +2,7 @@ package com.forum.api.application.service;
 
 import com.forum.api.application.in.EquipoService;
 import com.forum.api.application.out.EquipoRepository;
-import com.forum.api.domain.Equipo;
+import com.forum.api.domain.model.Equipo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

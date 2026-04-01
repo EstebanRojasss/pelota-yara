@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.persistence.entities;
 
-import com.forum.api.domain.EventoPartido;
-import com.forum.api.domain.MatchEvent;
+import com.forum.api.domain.model.EventoPartido;
+import com.forum.api.domain.model.MatchEvent;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,6 +1,6 @@
 package com.forum.api.infra.adapter.persistence.entities;
 
-import com.forum.api.domain.Jugador;
+import com.forum.api.domain.model.Jugador;
 import jakarta.persistence.*;
 import lombok.*;
 

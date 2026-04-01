@@ -1,6 +1,6 @@
 package com.forum.api.application.out;
 
-import com.forum.api.domain.Partido;
+import com.forum.api.domain.model.Partido;
 
 import java.util.Optional;
 

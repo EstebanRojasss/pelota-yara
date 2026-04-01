@@ -2,12 +2,12 @@ package com.forum.api.application.service;
 
 import com.forum.api.application.in.JugadorService;
 import com.forum.api.application.out.JugadorRepository;
-import com.forum.api.domain.Jugador;
+import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.exception.JugadorNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
+
 @Service
 public class JugadorServiceImpl implements JugadorService {
 

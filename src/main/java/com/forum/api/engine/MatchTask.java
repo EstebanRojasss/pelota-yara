@@ -2,10 +2,10 @@ package com.forum.api.engine;
 
 
 import com.forum.api.application.in.MatchEventService;
-import com.forum.api.domain.EventoPartido;
-import com.forum.api.domain.MatchEvent;
-import com.forum.api.domain.Partido;
-import com.forum.api.domain.StatusPartido;
+import com.forum.api.domain.model.EventoPartido;
+import com.forum.api.domain.model.MatchEvent;
+import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.StatusPartido;
 
 import java.util.Random;
 

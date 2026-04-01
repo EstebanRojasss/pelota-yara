@@ -1,7 +1,7 @@
 package com.forum.api.application.out;
 
-import com.forum.api.domain.Equipo;
-import com.forum.api.domain.Jugador;
+import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
 
 import java.util.List;
 import java.util.Optional;

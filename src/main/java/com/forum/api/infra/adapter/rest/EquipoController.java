@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.rest;
 
 import com.forum.api.application.in.EquipoService;
-import com.forum.api.domain.Equipo;
+import com.forum.api.domain.model.Equipo;
 import com.forum.api.infra.adapter.rest.dto.EquipoRequestDto;
 import com.forum.api.infra.adapter.rest.dto.EquipoResponseDto;
 import org.springframework.http.ResponseEntity;

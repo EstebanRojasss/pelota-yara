@@ -1,6 +1,6 @@
 package com.forum.api.application.in;
 
-import com.forum.api.domain.Equipo;
+import com.forum.api.domain.model.Equipo;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.persistence.entities;
 
-import com.forum.api.domain.Competencias;
-import com.forum.api.domain.Equipo;
+import com.forum.api.domain.model.Competencias;
+import com.forum.api.domain.model.Equipo;
 import jakarta.persistence.*;
 import lombok.*;
 

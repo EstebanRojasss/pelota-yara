@@ -1,6 +1,6 @@
 package com.forum.api;
 
-import com.forum.api.domain.Competencias;
+import com.forum.api.domain.model.Competencias;
 import com.forum.api.infra.adapter.persistence.entities.EquipoEntityJpa;
 import com.forum.api.infra.adapter.persistence.repository.EquipoJpaRepository;
 import org.junit.jupiter.api.Test;

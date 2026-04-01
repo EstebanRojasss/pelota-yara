@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.rest.dto;
 
-import com.forum.api.domain.Competencias;
-import com.forum.api.domain.Equipo;
+import com.forum.api.domain.model.Competencias;
+import com.forum.api.domain.model.Equipo;
 
 import java.time.LocalDate;
 import java.util.Set;

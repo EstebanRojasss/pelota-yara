@@ -1,6 +1,6 @@
 package com.forum.api.infra.adapter.rest.dto;
 
-import com.forum.api.domain.Jugador;
+import com.forum.api.domain.model.Jugador;
 
 public record JugadorResponseDto(Long id, String nombre, Integer edad, String nacionalidad, EquipoResponseDto responseDto) {
     public static JugadorResponseDto fromDomain(Jugador jugador){

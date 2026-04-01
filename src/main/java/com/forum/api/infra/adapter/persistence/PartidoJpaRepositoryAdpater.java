@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.persistence;
 
 import com.forum.api.application.out.PartidoRepository;
-import com.forum.api.domain.Partido;
+import com.forum.api.domain.model.Partido;
 import com.forum.api.infra.adapter.persistence.entities.PartidoJpaEntity;
 import com.forum.api.infra.adapter.persistence.repository.PartidoJpaRepository;
 import org.springframework.stereotype.Component;

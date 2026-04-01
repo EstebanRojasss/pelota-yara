@@ -1,4 +1,4 @@
-package com.forum.api.domain;
+package com.forum.api.domain.model;
 
 import com.forum.api.domain.exception.CompetenciaNotFoundException;
 

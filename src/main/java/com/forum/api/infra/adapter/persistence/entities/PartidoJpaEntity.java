@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.persistence.entities;
 
-import com.forum.api.domain.Partido;
-import com.forum.api.domain.StatusPartido;
+import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.StatusPartido;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,8 +1,8 @@
 package com.forum.api.infra.adapter.persistence;
 
 import com.forum.api.application.out.EquipoRepository;
-import com.forum.api.domain.Equipo;
-import com.forum.api.domain.Jugador;
+import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
 import com.forum.api.infra.adapter.persistence.entities.EquipoEntityJpa;
 import com.forum.api.infra.adapter.persistence.repository.EquipoJpaRepository;
 import org.springframework.stereotype.Component;

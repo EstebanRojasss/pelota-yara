@@ -2,7 +2,7 @@ package com.forum.api.application.service;
 
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.out.PartidoRepository;
-import com.forum.api.domain.Partido;
+import com.forum.api.domain.model.Partido;
 import com.forum.api.domain.exception.PartidoNotFoundException;
 import org.springframework.stereotype.Service;
 

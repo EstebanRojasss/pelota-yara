@@ -1,6 +1,6 @@
 package com.forum.api.application.in;
 
-import com.forum.api.domain.Jugador;
+import com.forum.api.domain.model.Jugador;
 
 
 import java.util.List;

@@ -1,8 +1,6 @@
 package com.forum.api.application.in;
 
-import com.forum.api.domain.Partido;
-
-import java.util.Optional;
+import com.forum.api.domain.model.Partido;
 
 
 public interface PartidoService {
