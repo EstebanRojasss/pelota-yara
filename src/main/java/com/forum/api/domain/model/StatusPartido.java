@@ -5,5 +5,6 @@ public enum StatusPartido {
     SEGUNDO_TIEMPO,
     MEDIO_TIEMPO,
     NO_INICIADO,
-    EN_JUEGO
+    EN_JUEGO,
+    PRIMER_TIEMPO;
 }
