@@ -38,7 +38,7 @@ public class PartidoJpaEntity {
     public static PartidoJpaEntity fromDomain(Partido partido){
         return new PartidoJpaEntity(
                 partido.getId(),
-                partido.getStatus(),
+                partido.getEstadoPartidoPersistencia(),
                 EquipoEntityJpa.fromDomain(partido.getEquipoLocal()),
                 EquipoEntityJpa.fromDomain(partido.getEquipoVisitante()),
                 partido.getGolVisitante(),
