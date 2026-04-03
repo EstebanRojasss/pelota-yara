@@ -8,7 +8,8 @@ import java.util.Objects;
 public class Partido {
 
     private final Long id;
-    private StatusPartido status;
+    private StatusPartido estadoPartidoPersistencia;
+    private EstadoPartido estadoPartido;
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
     private Integer golVisitante;
