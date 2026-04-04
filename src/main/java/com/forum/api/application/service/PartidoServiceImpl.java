@@ -46,4 +46,9 @@ public class PartidoServiceImpl implements PartidoService {
     public Partido actualizarDatosDePartido(Partido partido) {
         return null;
     }
+
+    @Override
+    public Partido encontrarTodosLosPartidosEnVivo() {
+        return null;
+    }
 }
