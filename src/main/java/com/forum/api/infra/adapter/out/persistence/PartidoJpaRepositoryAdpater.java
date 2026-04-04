@@ -25,7 +25,9 @@ public class PartidoJpaRepositoryAdpater implements PartidoRepository {
 
     @Override
     public Optional<Partido> findPartidoById(Long id) {
-        return repository.findById(id).map(PartidoJpaEntity::toDomainExistent);
+        return repository
+                .findById(id)
+                .map(PartidoJpaEntity::toDomainExistent);
     }
 
     @Override
