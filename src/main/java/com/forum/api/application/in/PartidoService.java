@@ -9,5 +9,5 @@ public interface PartidoService {
     void borrarPartido(Long id);
     Partido guardarNuevoPartido(Partido partido);
     Partido actualizarDatosDePartido(Partido partido);
-
+    Partido encontrarTodosLosPartidosEnVivo();
 }
