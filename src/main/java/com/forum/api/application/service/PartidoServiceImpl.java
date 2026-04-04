@@ -33,6 +33,12 @@ public class PartidoServiceImpl implements PartidoService {
 
     @Override
     public Partido guardarNuevoPartido(Partido partido) {
+        Equipo equipoLocal = equipoRepository
+                .findEquipoById(partido.getEquipoLocal().getId())
+                .orElseThrow(() -> new EquipoNotFoundException("Error, el equipo no existe"));
+        Equipo equipoVisitante = equipoRepository.findEquipoById(partido.getEquipoVisitante().getId())
+                .orElseThrow(() -> new EquipoNotFoundException("Error, el equipo no existe"));
+
         return partidoRepository.savePartido(partido);
     }
 
