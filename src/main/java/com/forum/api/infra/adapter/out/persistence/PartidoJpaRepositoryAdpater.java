@@ -1,12 +1,14 @@
-package com.forum.api.infra.adapter.persistence;
+package com.forum.api.infra.adapter.out.persistence;
 
 import com.forum.api.application.out.PartidoRepository;
 import com.forum.api.domain.model.Partido;
-import com.forum.api.infra.adapter.persistence.entities.PartidoJpaEntity;
-import com.forum.api.infra.adapter.persistence.repository.PartidoJpaRepository;
+import com.forum.api.infra.adapter.out.persistence.entities.PartidoJpaEntity;
+import com.forum.api.infra.adapter.out.persistence.repository.PartidoJpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 public class PartidoJpaRepositoryAdpater implements PartidoRepository {
@@ -33,5 +35,13 @@ public class PartidoJpaRepositoryAdpater implements PartidoRepository {
     @Override
     public void deletePartido(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public List<Partido> findPartidosByStatus(String statusPartido) {
+        return repository.findByStatusEquals(statusPartido)
+                .stream()
+                .map(PartidoJpaEntity::toDomainExistent)
+                .collect(Collectors.toList());
     }
 }
