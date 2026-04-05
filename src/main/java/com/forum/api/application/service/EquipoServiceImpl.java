@@ -26,7 +26,11 @@ public class EquipoServiceImpl implements EquipoService {
 
     @Override
     public void eliminarEquipo(Long id) {
-
+        try {
+            equipoRepository.delete(id);
+        } catch (RuntimeException e){
+            throw new JugadorNotFoundException(e.getMessage());
+        }
     }
 
     @Override
