@@ -21,7 +21,7 @@ public class EquipoServiceImpl implements EquipoService {
 
     @Override
     public Equipo agregarNuevoEquipo(Equipo equipo) {
-        return repository.save(equipo);
+        return equipoRepository.save(equipo);
     }
 
     @Override
