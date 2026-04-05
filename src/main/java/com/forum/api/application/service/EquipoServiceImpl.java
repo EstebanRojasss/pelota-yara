@@ -11,10 +11,12 @@ import java.util.Optional;
 @Service
 public class EquipoServiceImpl implements EquipoService {
 
-    private final EquipoRepository repository;
+    private final EquipoRepository equipoRepository;
+    private final JugadorRepository jugadorRepository;
 
-    public EquipoServiceImpl(EquipoRepository repository) {
-        this.repository = repository;
+    public EquipoServiceImpl(EquipoRepository repository, JugadorRepository jugadorRepository) {
+        this.equipoRepository = repository;
+        this.jugadorRepository = jugadorRepository;
     }
 
     @Override
