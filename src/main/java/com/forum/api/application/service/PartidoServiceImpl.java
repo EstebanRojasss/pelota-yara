@@ -49,8 +49,7 @@ public class PartidoServiceImpl implements PartidoService {
 
     @Override
     public List<Partido> encontrarTodosLosPartidosEnVivo() {
-        final String enVivo = StatusPartido.PRIMER_TIEMPO.name();
-        
+        final String enVivo = StatusPartido.EN_JUEGO.name();
         return partidoRepository.findPartidosByStatus(enVivo);
     }
 
