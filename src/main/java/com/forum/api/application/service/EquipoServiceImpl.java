@@ -45,6 +45,13 @@ public class EquipoServiceImpl implements EquipoService {
 
     @Override
     public Equipo encontrarEquipoPorId(Long id) {
-        return null;
+        return equipoRepository
+                .findEquipoById(id)
+                .orElseThrow(() -> new EquipoNotFoundException("El equipo no encontrado."));
+    }
+
+    @Override
+    public List<Jugador> listarJugadoresEquipo(Long id) {
+        return jugadorRepository.listarJugadoresPorEquipo(id);
     }
 }
