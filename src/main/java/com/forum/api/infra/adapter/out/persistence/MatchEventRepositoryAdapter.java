@@ -27,6 +27,6 @@ public class MatchEventRepositoryAdapter implements MatchEventRepository {
 
     @Override
     public Optional<MatchEvent> findMatchEventById(Long id) {
-        return Optional.empty();
+        return repository.findById(id).map(MatchEventJpaEntity::toDomain);
     }
 }
