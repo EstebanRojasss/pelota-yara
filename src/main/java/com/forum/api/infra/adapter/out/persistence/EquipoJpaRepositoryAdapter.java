@@ -39,7 +39,8 @@ public class EquipoJpaRepositoryAdapter implements EquipoRepository {
 
     @Override
     public List<Equipo> findAllEquipos() {
-        return jpaRepository.findCompetenciasEquipos()
+        return jpaRepository
+                .findCompetenciasEquipos()
                 .stream()
                 .map(EquipoEntityJpa::toDomainExistent)
                 .collect(Collectors.toList());
