@@ -46,8 +46,4 @@ public class EquipoJpaRepositoryAdapter implements EquipoRepository {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Jugador> listarTodosLosJugadoresDelEquipo() {
-        return List.of();
-    }
 }
