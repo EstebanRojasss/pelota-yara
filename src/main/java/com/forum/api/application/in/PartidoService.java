@@ -8,7 +8,7 @@ public interface PartidoService {
 
     Partido encontrarPartido(Long id);
     void borrarPartido(Long id);
-    Partido guardarNuevoPartido(Partido partido);
+    Partido guardarNuevoPartido(CrearPartidoCommand partidoCommand);
     Partido actualizarDatosDePartido(Partido partido);
     List<Partido> encontrarTodosLosPartidosEnVivo();
 }
