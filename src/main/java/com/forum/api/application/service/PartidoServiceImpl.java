@@ -53,4 +53,9 @@ public class PartidoServiceImpl implements PartidoService {
         
         return partidoRepository.findPartidosByStatus(enVivo);
     }
+
+    @Override
+    public List<Partido> listarTodosLosPartidos() {
+        return List.of();
+    }
 }
