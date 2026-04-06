@@ -4,8 +4,8 @@ import java.util.Objects;
 
 public class MatchEvent {
     private Long id;
-    private Partido partido;
-    private Equipo equipo;
+    private Set<Partido> partidos;
+    private Set<Equipo> equipos;
     private Jugador jugador;
     private Integer minuto;
     private EventoPartido eventoPartido;
