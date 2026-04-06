@@ -38,6 +38,10 @@ public class MatchEvent {
         };
     }
 
+    private void addPartido(Partido partido){
+        this.partidos.add(partido);
+    }
+
 
     public Long getId() {
         return id;
