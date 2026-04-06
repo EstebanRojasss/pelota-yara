@@ -58,6 +58,6 @@ public class PartidoServiceImpl implements PartidoService {
 
     @Override
     public List<Partido> listarTodosLosPartidos() {
-        return List.of();
+        return partidoRepository.findAllPartidos();
     }
 }
