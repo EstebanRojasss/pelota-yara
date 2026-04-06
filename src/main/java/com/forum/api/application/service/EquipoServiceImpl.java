@@ -40,7 +40,7 @@ public class EquipoServiceImpl implements EquipoService {
 
     @Override
     public List<Equipo> listarTodosLosEquipos() {
-        return repository.findAllEquipos();
+        return equipoRepository.findAllEquipos();
     }
 
     @Override
