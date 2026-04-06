@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 public class PartidoServiceImpl implements PartidoService {
 
     private final PartidoRepository partidoRepository;
+    private final EquipoService equipoService;
 
-    public PartidoServiceImpl(PartidoRepository partidoRepository) {
+    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService) {
         this.partidoRepository = partidoRepository;
+        this.equipoService = equipoService;
     }
 
     @Override
@@ -32,12 +34,13 @@ public class PartidoServiceImpl implements PartidoService {
     }
 
     @Override
-    public Partido guardarNuevoPartido(Partido partido) {
-        Equipo equipoLocal = equipoRepository
-                .findEquipoById(partido.getEquipoLocal().getId())
-                .orElseThrow(() -> new EquipoNotFoundException("Error, el equipo no existe"));
-        Equipo equipoVisitante = equipoRepository.findEquipoById(partido.getEquipoVisitante().getId())
-                .orElseThrow(() -> new EquipoNotFoundException("Error, el equipo no existe"));
+    public Partido guardarNuevoPartido(CrearPartidoCommand partidoCommand) {
+        Equipo equipoLocal = equipoService
+                .encontrarEquipoPorId(partidoCommand.equipoLocalId());
+        Equipo equipoVisitante = equipoService
+                .encontrarEquipoPorId(partidoCommand.equipoVisitanteId());
+
+        Partido partido = Partido.create(equipoLocal, equipoVisitante);
 
         return partidoRepository.savePartido(partido);
     }
