@@ -53,20 +53,12 @@ public class MatchEvent {
         this.id = id;
     }
 
-    public Partido getPartido() {
-        return partido;
+    public Set<Partido> getPartidos() {
+        return partidos;
     }
 
-    public void setPartido(Partido partido) {
-        this.partido = partido;
-    }
-
-    public Equipo getEquipo() {
-        return equipo;
-    }
-
-    public void setEquipo(Equipo equipo) {
-        this.equipo = equipo;
+    public Set<Equipo> getEquipos() {
+        return equipos;
     }
 
     public Jugador getJugador() {
