@@ -11,4 +11,5 @@ public interface PartidoService {
     Partido guardarNuevoPartido(CrearPartidoCommand partidoCommand);
     Partido actualizarDatosDePartido(Partido partido);
     List<Partido> encontrarTodosLosPartidosEnVivo();
+    List<Partido> listarTodosLosPartidos();
 }
