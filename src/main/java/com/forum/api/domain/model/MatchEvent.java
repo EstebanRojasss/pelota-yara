@@ -10,16 +10,16 @@ public class MatchEvent {
     private Integer minuto;
     private EventoPartido eventoPartido;
 
-    private MatchEvent(Long id, Set<Partido> partidos, Set<Equipo> equipos, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
+    private MatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
         this.id = id;
-        this.partidos = partidos;
-        this.equipos = equipos;
+        addPartido(partido);
+        addEquipo(equipo);
         this.jugador = jugador;
         this.minuto = minuto;
         this.eventoPartido = eventoPartido;
     }
 
-    public static MatchEvent restoreMatchEvent(Long id, Set<Partido> partidos, Set<Equipo> equipos , Jugador jugador, Integer minuto, EventoPartido eventoPartido){
+    public static MatchEvent restoreMatchEvent(Long id, Partido partidos, Equipo equipos , Jugador jugador, Integer minuto, EventoPartido eventoPartido){
         return new MatchEvent(
                 id,
                 partidos,
