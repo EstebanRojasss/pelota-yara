@@ -46,8 +46,12 @@ public class PartidoServiceImpl implements PartidoService {
     }
 
     @Override
-    public Partido actualizarDatosDePartido(Partido partido) {
-        return null;
+    public Partido actualizarDatosDePartido(Partido datosPartidoActualizar) {
+        partidoRepository
+                .findPartidoById(datosPartidoActualizar.getId())
+                .orElseThrow(() -> new PartidoNotFoundException("Partido no encontrado."));
+
+        return partidoRepository.savePartido(datosPartidoActualizar);
     }
 
     @Override
