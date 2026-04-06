@@ -32,7 +32,9 @@ public class EquipoJpaRepositoryAdapter implements EquipoRepository {
 
     @Override
     public Optional<Equipo> findEquipoById(Long id) {
-        return Optional.empty();
+        return jpaRepository
+                .findById(id)
+                .map(EquipoEntityJpa::toDomainExistent);
     }
 
     @Override
