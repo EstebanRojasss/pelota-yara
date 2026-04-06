@@ -10,5 +10,5 @@ public interface PartidoRepository {
     Optional <Partido>findPartidoById(Long id);
     void deletePartido(Long id);
     List<Partido>findPartidosByStatus(String statusPartido);
-
+    List<Partido> findAllPartidos();
 }

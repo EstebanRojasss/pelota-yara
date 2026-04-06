@@ -44,4 +44,13 @@ public class PartidoJpaRepositoryAdpater implements PartidoRepository {
                 .map(PartidoJpaEntity::toDomainExistent)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Partido> findAllPartidos() {
+        return repository
+                .findAll()
+                .stream()
+                .map(PartidoJpaEntity::toDomainExistent)
+                .collect(Collectors.toList());
+    }
 }
