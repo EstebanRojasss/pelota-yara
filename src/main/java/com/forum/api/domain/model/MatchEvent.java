@@ -41,7 +41,9 @@ public class MatchEvent {
     private void addPartido(Partido partido){
         this.partidos.add(partido);
     }
-
+    private void addEquipo(Equipo equipo){
+        this.equipos.add(equipo);
+    }
 
     public Long getId() {
         return id;
