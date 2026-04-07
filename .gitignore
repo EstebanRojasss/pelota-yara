@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Env
+.env
+# Logs
+*.log
+# OS
+.DS_Store
+# Editor
+*.swp
+*.swo
