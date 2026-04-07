@@ -26,7 +26,10 @@ public class EquipoEntityJpa {
     private LocalDate fundacion;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "equipo_competencias")
+    @CollectionTable(
+            name = "equipo_competencias",
+            joinColumns = @JoinColumn(name = "equipo_id")
+    )
     @Column(name = "competencias")
     @Enumerated(value = EnumType.STRING)
     private Set<Competencias> competencias;
