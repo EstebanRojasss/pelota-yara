@@ -25,11 +25,11 @@ implements EngineUseCase {
         EventoPartido evento = this.generadorEventos.generarEvento(partido);
         Equipo equipo = this.equipoRandom(partido);
         Jugador jugador = this.jugadorRandom(this.jugadorService.listarJugadoresEquipo(equipo.getId()));
-        return MatchEvent.generateMatchEvent((Partido)partido, (Equipo)equipo, (Jugador)jugador, (Integer)partido.getMinutoActual(), (EventoPartido)evento);
+        return MatchEvent.generateMatchEvent(partido, equipo, jugador, partido.getMinutoActual(),evento);
     }
 
     private Equipo equipoRandom(Partido partido) {
-        return (Equipo)partido.equiposDelPartido().get(this.random.nextInt(0, 2));
+        return partido.equiposDelPartido().get(this.random.nextInt(0, 2));
     }
 
     private Jugador jugadorRandom(List<Jugador> jugadores) {
