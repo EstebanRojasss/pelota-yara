@@ -20,11 +20,11 @@ public class MatchEventJpaEntity {
     private PartidoJpaEntity partido;
 
     @OneToOne
-    @JoinColumn(name = "equipo")
+    @JoinColumn(name = "id_equipo")
     private EquipoEntityJpa equipo;
 
     @OneToOne
-    @JoinColumn(name = "jugador")
+    @JoinColumn(name = "id_jugador")
     private JugadorEntityJpa jugador;
 
     private Integer minuto;
