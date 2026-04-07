@@ -5,7 +5,6 @@ public class Jugador {
     private String nombre;
     private Integer edad;
     private String nacionalidad;
-
     private Equipo equipo;
 
     private Jugador(Long id, String nombre, Integer edad, String nacionalidad, Equipo equipo) {
@@ -16,32 +15,40 @@ public class Jugador {
         this.equipo = equipo;
     }
 
-
-    public static Jugador create(String nombre, Integer edad, String nacionalidad, Equipo equipo){
-        return new Jugador(null, nombre, edad, nacionalidad, equipo);
+    public static Jugador create(String nombre, Integer edad, String nacionalidad, Equipo equipo) {
+        return new Jugador(null,
+                nombre,
+                edad,
+                nacionalidad,
+                equipo);
     }
 
-    public static Jugador restore(Long id, String nombre, Integer edad, String nacionalidad, Equipo equipo){
-        return new Jugador(id, nombre, edad, nacionalidad, equipo);
+    public static Jugador restore(Long id, String nombre, Integer edad, String nacionalidad, Equipo equipo) {
+        return new Jugador(id,
+                nombre,
+                edad,
+                nacionalidad,
+                equipo);
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public Integer getEdad() {
-        return edad;
+        return this.edad;
     }
 
     public String getNacionalidad() {
-        return nacionalidad;
+        return this.nacionalidad;
     }
 
     public Equipo getEquipo() {
-        return equipo;
+        return this.equipo;
     }
 }
+

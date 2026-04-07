@@ -1,14 +1,20 @@
 package com.forum.api.application.out;
 
 import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.StatusPartido;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface PartidoRepository {
-    Partido savePartido(Partido partido);
-    Optional <Partido>findPartidoById(Long id);
-    void deletePartido(Long id);
-    List<Partido>findPartidosByStatus(String statusPartido);
-    List<Partido> findAllPartidos();
+     Partido savePartido(Partido var1);
+
+     Optional<Partido> findPartidoById(Long var1);
+
+     void deletePartido(Long var1);
+
+     List<Partido> findPartidosByStatus(StatusPartido var1);
+
+     List<Partido> findAllPartidos();
 }
+

@@ -2,15 +2,19 @@ package com.forum.api.application.service;
 
 import com.forum.api.application.in.EquipoService;
 import com.forum.api.application.out.EquipoRepository;
+import com.forum.api.application.out.JugadorRepository;
+import com.forum.api.domain.exception.EquipoNotFoundException;
+import com.forum.api.domain.exception.JugadorNotFoundException;
 import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EquipoServiceImpl implements EquipoService {
-
+public class EquipoServiceImpl
+implements EquipoService {
     private final EquipoRepository equipoRepository;
     private final JugadorRepository jugadorRepository;
 
@@ -19,39 +23,33 @@ public class EquipoServiceImpl implements EquipoService {
         this.jugadorRepository = jugadorRepository;
     }
 
-    @Override
     public Equipo agregarNuevoEquipo(Equipo equipo) {
-        return equipoRepository.save(equipo);
+        return this.equipoRepository.save(equipo);
     }
 
-    @Override
     public void eliminarEquipo(Long id) {
         try {
-            equipoRepository.delete(id);
-        } catch (RuntimeException e){
+            this.equipoRepository.delete(id);
+        }
+        catch (RuntimeException e) {
             throw new JugadorNotFoundException(e.getMessage());
         }
     }
 
-    @Override
     public Optional<Equipo> cambiarDatosEquipo(Equipo equipo) {
         return null;
     }
 
-    @Override
     public List<Equipo> listarTodosLosEquipos() {
-        return equipoRepository.findAllEquipos();
+        return this.equipoRepository.findAllEquipos();
     }
 
-    @Override
     public Equipo encontrarEquipoPorId(Long id) {
-        return equipoRepository
-                .findEquipoById(id)
-                .orElseThrow(() -> new EquipoNotFoundException("El equipo no encontrado."));
+        return (Equipo)this.equipoRepository.findEquipoById(id).orElseThrow(() -> new EquipoNotFoundException("El equipo no encontrado."));
     }
 
-    @Override
     public List<Jugador> listarJugadoresEquipo(Long id) {
-        return jugadorRepository.listarJugadoresPorEquipo(id);
+        return this.jugadorRepository.listarJugadoresPorEquipo(id);
     }
 }
+

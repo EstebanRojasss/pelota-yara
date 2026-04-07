@@ -19,43 +19,48 @@ public class Equipo {
         this.competencias = competencias;
     }
 
-    public static Equipo restore(Long id, String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias){
+    public static Equipo restore(Long id, String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias) {
         return new Equipo(id, nombre, apodo, fundacion, competencias);
     }
 
-    public static Equipo create(String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias){
+    public static Equipo create(String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias) {
         return new Equipo(null, nombre, apodo, fundacion, competencias);
     }
 
     public Set<Competencias> getCompetencias() {
-        return competencias;
+        return this.competencias;
     }
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public String getApodo() {
-        return apodo;
+        return this.apodo;
     }
 
     public LocalDate getFundacion() {
-        return fundacion;
+        return this.fundacion;
     }
 
-    @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Equipo equipo = (Equipo) o;
-        return Objects.equals(id, equipo.id) && Objects.equals(nombre, equipo.nombre) && Objects.equals(apodo, equipo.apodo) && Objects.equals(fundacion, equipo.fundacion) && Objects.equals(competencias, equipo.competencias);
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Equipo equipo = (Equipo)o;
+        return Objects.equals(this.id, equipo.id) && Objects.equals(this.nombre, equipo.nombre) && Objects.equals(this.apodo, equipo.apodo) && Objects.equals(this.fundacion, equipo.fundacion) && Objects.equals(this.competencias, equipo.competencias);
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(id, nombre, apodo, fundacion, competencias);
+        return Objects.hash(this.id, this.nombre, this.apodo, this.fundacion, this.competencias);
+    }
+
+    public String toString() {
+        return "Equipo{id=" + this.id + ", nombre='" + this.nombre + "', apodo='" + this.apodo + "', fundacion=" + String.valueOf(this.fundacion) + ", competencias=" + String.valueOf(this.competencias) + "}";
     }
 }
+

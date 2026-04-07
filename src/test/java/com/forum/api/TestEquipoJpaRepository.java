@@ -1,8 +1,8 @@
 package com.forum.api;
 
 import com.forum.api.domain.model.Competencias;
-import com.forum.api.infra.adapter.persistence.entities.EquipoEntityJpa;
-import com.forum.api.infra.adapter.persistence.repository.EquipoJpaRepository;
+import com.forum.api.infra.adapter.out.persistence.entities.EquipoEntityJpa;
+import com.forum.api.infra.adapter.out.persistence.repository.EquipoJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;

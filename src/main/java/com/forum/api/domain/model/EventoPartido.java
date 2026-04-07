@@ -5,11 +5,7 @@ public enum EventoPartido {
     TARGETA_AMARILLA(10),
     TARGETA_ROJA(5),
     FALTA(40),
-    SUSTITUCION(5),
-    FIN_PARTIDO(0),
-    INICIO_DEL_SEGUNDO_TIEMPO(0),
-    DESCANSO(0),
-    MINUTOS_ADICIONADOS(0);
+    SUSTITUCION(5);
 
     private final Integer probabilidad;
 
@@ -18,6 +14,7 @@ public enum EventoPartido {
     }
 
     public Integer getProbabilidad() {
-        return probabilidad;
+        return this.probabilidad;
     }
 }
+

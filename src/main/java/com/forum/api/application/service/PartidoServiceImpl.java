@@ -1,14 +1,20 @@
 package com.forum.api.application.service;
 
+import com.forum.api.application.in.EquipoService;
 import com.forum.api.application.in.PartidoService;
+import com.forum.api.application.in.command.CrearPartidoCommand;
 import com.forum.api.application.out.PartidoRepository;
-import com.forum.api.domain.model.Partido;
 import com.forum.api.domain.exception.PartidoNotFoundException;
+import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.StatusPartido;
 import org.springframework.stereotype.Service;
 
-@Service
-public class PartidoServiceImpl implements PartidoService {
+import java.util.List;
 
+@Service
+public class PartidoServiceImpl
+implements PartidoService {
     private final PartidoRepository partidoRepository;
     private final EquipoService equipoService;
 
@@ -17,51 +23,38 @@ public class PartidoServiceImpl implements PartidoService {
         this.equipoService = equipoService;
     }
 
-    @Override
     public Partido encontrarPartido(Long id) {
-        return partidoRepository.
-                findPartidoById(id).
-                orElseThrow(() -> new PartidoNotFoundException("El partido no se encuentra"));
+        return (Partido)this.partidoRepository.findPartidoById(id).orElseThrow(() -> new PartidoNotFoundException("El partido no se encuentra"));
     }
 
-    @Override
     public void borrarPartido(Long id) {
         try {
-            partidoRepository.deletePartido(id);
-        } catch (RuntimeException e){
+            this.partidoRepository.deletePartido(id);
+        }
+        catch (RuntimeException e) {
             throw new PartidoNotFoundException("El partido no se encuentra");
         }
     }
 
-    @Override
     public Partido guardarNuevoPartido(CrearPartidoCommand partidoCommand) {
-        Equipo equipoLocal = equipoService
-                .encontrarEquipoPorId(partidoCommand.equipoLocalId());
-        Equipo equipoVisitante = equipoService
-                .encontrarEquipoPorId(partidoCommand.equipoVisitanteId());
-
-        Partido partido = Partido.create(equipoLocal, equipoVisitante);
-
-        return partidoRepository.savePartido(partido);
+        Equipo equipoLocal = this.equipoService.encontrarEquipoPorId(partidoCommand.equipoLocalId());
+        Equipo equipoVisitante = this.equipoService.encontrarEquipoPorId(partidoCommand.equipoVisitanteId());
+        Partido partido = Partido.create((Equipo)equipoLocal, (Equipo)equipoVisitante);
+        return this.partidoRepository.savePartido(partido);
     }
 
-    @Override
     public Partido actualizarDatosDePartido(Partido datosPartidoActualizar) {
-        partidoRepository
-                .findPartidoById(datosPartidoActualizar.getId())
-                .orElseThrow(() -> new PartidoNotFoundException("Partido no encontrado."));
-
-        return partidoRepository.savePartido(datosPartidoActualizar);
+        this.partidoRepository.findPartidoById(datosPartidoActualizar.getId()).orElseThrow(() -> new PartidoNotFoundException("Partido no encontrado."));
+        return this.partidoRepository.savePartido(datosPartidoActualizar);
     }
 
-    @Override
     public List<Partido> encontrarTodosLosPartidosEnVivo() {
-        final StatusPartido enVivo = StatusPartido.EN_JUEGO;
-        return partidoRepository.findPartidosByStatus(enVivo);
+        StatusPartido enVivo = StatusPartido.EN_JUEGO;
+        return this.partidoRepository.findPartidosByStatus(enVivo);
     }
 
-    @Override
     public List<Partido> listarTodosLosPartidos() {
-        return partidoRepository.findAllPartidos();
+        return this.partidoRepository.findAllPartidos();
     }
 }
+

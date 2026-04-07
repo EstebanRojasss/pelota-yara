@@ -1,40 +1,39 @@
-package com.forum.api.infra.adapter.persistence.entities;
+package com.forum.api.infra.adapter.out.persistence.entities;
 
-import com.forum.api.domain.model.EventoPartido;
-import com.forum.api.domain.model.MatchEvent;
+import com.forum.api.domain.model.*;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Entity
+@Table(name = "match_events")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "MatchEvent")
 public class MatchEventJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Setter(AccessLevel.NONE)
     private Long id;
+
     @OneToOne
     @JoinColumn(name = "partido")
     private PartidoJpaEntity partido;
+
     @OneToOne
     @JoinColumn(name = "equipo")
     private EquipoEntityJpa equipo;
+
     @OneToOne
     @JoinColumn(name = "jugador")
     private JugadorEntityJpa jugador;
+
     private Integer minuto;
-    @Enumerated(EnumType.STRING)
+
+    @Enumerated(value = EnumType.STRING)
     private EventoPartido eventoPartido;
 
-
-
-    public MatchEvent toDomain(){
-        return MatchEvent.restoreMatchEvent(
-                id,
+    public MatchEvent toDomain() {
+        return MatchEvent.restoreMatchEvent(id,
                 partido.toDomainExistent(),
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
@@ -42,14 +41,15 @@ public class MatchEventJpaEntity {
                 eventoPartido);
     }
 
-    public static MatchEventJpaEntity fromDomain(MatchEvent matchEvent){
+    public static MatchEventJpaEntity fromDomain(MatchEvent matchEvent) {
         return new MatchEventJpaEntity(
                 matchEvent.getId(),
                 PartidoJpaEntity.fromDomain(matchEvent.getPartido()),
                 EquipoEntityJpa.fromDomain(matchEvent.getEquipo()),
                 JugadorEntityJpa.fromDomain(matchEvent.getJugador()),
                 matchEvent.getMinuto(),
-                matchEvent.getEventoPartido()
-        );
+                matchEvent.getEventoPartido());
     }
+
 }
+

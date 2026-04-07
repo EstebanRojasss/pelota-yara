@@ -4,65 +4,58 @@ import java.util.Objects;
 
 public class MatchEvent {
     private Long id;
-    private Set<Partido> partidos;
-    private Set<Equipo> equipos;
+    private Partido partido;
+    private Equipo equipo;
     private Jugador jugador;
     private Integer minuto;
     private EventoPartido eventoPartido;
 
     private MatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
         this.id = id;
-        addPartido(partido);
-        addEquipo(equipo);
+        this.partido = partido;
+        this.equipo = equipo;
         this.jugador = jugador;
         this.minuto = minuto;
         this.eventoPartido = eventoPartido;
     }
 
-    public static MatchEvent restoreMatchEvent(Long id, Partido partidos, Equipo equipos , Jugador jugador, Integer minuto, EventoPartido eventoPartido){
-        return new MatchEvent(
-                id,
-                partidos,
-                equipos,
-                jugador,
-                minuto,
-                eventoPartido
-        );
+    public static MatchEvent restoreMatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
+        return new MatchEvent(id, partido, equipo, jugador, minuto, eventoPartido);
     }
 
-    public static MatchEvent generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido){
+    public static MatchEvent generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
         return switch (eventoPartido) {
-            case GOL, FALTA, TARGETA_ROJA, TARGETA_AMARILLA ->
-                    new MatchEvent(null, partido, equipo, jugador, minuto, eventoPartido);
+            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new MatchEvent(null, partido, equipo, jugador, minuto, eventoPartido);
             default -> new MatchEvent(null, partido, null, null, null, eventoPartido);
         };
     }
 
-    private void addPartido(Partido partido){
-        this.partidos.add(partido);
-    }
-    private void addEquipo(Equipo equipo){
-        this.equipos.add(equipo);
-    }
-
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Set<Partido> getPartidos() {
-        return partidos;
+    public Partido getPartido() {
+        return this.partido;
     }
 
-    public Set<Equipo> getEquipos() {
-        return equipos;
+    public void setPartido(Partido partido) {
+        this.partido = partido;
+    }
+
+    public Equipo getEquipo() {
+        return this.equipo;
+    }
+
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
     }
 
     public Jugador getJugador() {
-        return jugador;
+        return this.jugador;
     }
 
     public void setJugador(Jugador jugador) {
@@ -70,7 +63,7 @@ public class MatchEvent {
     }
 
     public Integer getMinuto() {
-        return minuto;
+        return this.minuto;
     }
 
     public void setMinuto(Integer minuto) {
@@ -78,24 +71,23 @@ public class MatchEvent {
     }
 
     public EventoPartido getEventoPartido() {
-        return eventoPartido;
+        return this.eventoPartido;
     }
 
     public void setEventoPartido(EventoPartido eventoPartido) {
         this.eventoPartido = eventoPartido;
     }
 
-    @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        MatchEvent that = (MatchEvent) o;
-        return Objects.equals(id, that.id) && Objects.equals(partido, that.partido) && Objects.equals(equipo, that.equipo) && Objects.equals(jugador, that.jugador) && Objects.equals(minuto, that.minuto) && eventoPartido == that.eventoPartido;
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        MatchEvent that = (MatchEvent)o;
+        return Objects.equals(this.id, that.id) && Objects.equals(this.partido, that.partido) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto) && this.eventoPartido == that.eventoPartido;
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(id, partido, equipo, jugador, minuto, eventoPartido);
+        return Objects.hash(this.id, this.partido, this.equipo, this.jugador, this.minuto, this.eventoPartido);
     }
 }
-
 

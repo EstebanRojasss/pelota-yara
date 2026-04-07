@@ -1,14 +1,15 @@
 package com.forum.api.domain.model;
 
+import com.forum.api.domain.estado.EstadoPartido;
+import com.forum.api.domain.estado.PrimerTiempo;
 import com.forum.api.domain.exception.EquipoNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Partido {
-
     private final Long id;
-    private StatusPartido estadoPartidoPersistencia;
+    private StatusPartido status;
     private EstadoPartido estadoPartido;
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
@@ -18,16 +19,7 @@ public class Partido {
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
 
-
-    public Partido(Long id,
-                   StatusPartido status,
-                   Equipo equipoLocal,
-                   Equipo equipoVisitante,
-                   Integer golVisitante,
-                   Integer golLocal,
-                   Integer minutoActual,
-                   Integer minutoAdicional1T,
-                   Integer minutoAdicional2T) {
+    private Partido(Long id, StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
@@ -37,19 +29,12 @@ public class Partido {
         this.minutoActual = minutoActual;
         this.minutoAdicional1T = minutoAdicional1T;
         this.minutoAdicional2T = minutoAdicional2T;
+        this.estadoPartido = new PrimerTiempo();
     }
 
-    public static Partido restore(Long id,
-                                  StatusPartido status,
-                                  Equipo equipoLocal,
-                                  Equipo equipoVisitante,
-                                  Integer golLocal,
-                                  Integer golVisitante,
-                                  Integer minutoActual,
-                                  Integer minutoAdicional1T,
-                                  Integer minutoAdicional2T) {
+    public static Partido restore(Long id, StatusPartido estadoPersitencia, Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
         return new Partido(id,
-                status,
+                estadoPersitencia,
                 equipoLocal,
                 equipoVisitante,
                 golVisitante,
@@ -59,16 +44,13 @@ public class Partido {
                 minutoAdicional2T);
     }
 
-    public static Partido create(Equipo equipoLocal,
-                                 Equipo equipoVisitante,
-                                 Integer golLocal,
-                                 Integer golVisitante) {
+    public static Partido create(Equipo equipoLocal, Equipo equipoVisitante) {
         return new Partido(null,
                 StatusPartido.EN_JUEGO,
                 equipoLocal,
                 equipoVisitante,
-                golVisitante,
-                golLocal,
+                0,
+                0,
                 0,
                 0,
                 0);
@@ -81,9 +63,11 @@ public class Partido {
     public void aplicarEvento(MatchEvent matchEvent) {
         switch (matchEvent.getEventoPartido()) {
             case GOL -> aumentarMarcador(matchEvent);
-            case DESCANSO -> this.status = StatusPartido.MEDIO_TIEMPO;
-            case FIN_PARTIDO -> this.status = StatusPartido.FINALIZADO;
         }
+    }
+
+    public void ejecutar() {
+        this.estadoPartido.ejecutar(this);
     }
 
     private void aumentarMarcador(MatchEvent matchEvent) {
@@ -92,87 +76,84 @@ public class Partido {
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
 
+    private void setMinutoActual(int minutoActual) {
+        this.minutoActual = minutoActual;
+    }
+
+    public void cambiarEstado(EstadoPartido estado) {
+        this.estadoPartido = estado;
+    }
+
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public StatusPartido getStatus() {
-        return status;
+        return this.status;
+    }
+
+    public EstadoPartido getEstadoPartido() {
+        return this.estadoPartido;
     }
 
     public Equipo getEquipoLocal() {
-        return equipoLocal;
+        return this.equipoLocal;
     }
 
     public Equipo getEquipoVisitante() {
-        return equipoVisitante;
+        return this.equipoVisitante;
     }
 
     public Integer getGolVisitante() {
-        return golVisitante;
+        return this.golVisitante;
     }
 
     public Integer getGolLocal() {
-        return golLocal;
+        return this.golLocal;
     }
 
     public Integer getMinutoActual() {
-        return minutoActual;
+        return this.minutoActual;
     }
 
     public List<Equipo> equiposDelPartido() {
-        return List.of(equipoLocal, equipoVisitante);
+        return List.of(this.equipoLocal, this.equipoVisitante);
     }
 
     public void setStatus(StatusPartido status) {
         this.status = status;
     }
 
-    public void setEquipoLocal(Equipo equipoLocal) {
-        this.equipoLocal = equipoLocal;
-    }
-
-    public void setEquipoVisitante(Equipo equipoVisitante) {
-        this.equipoVisitante = equipoVisitante;
-    }
-
-    public void setGolVisitante(Integer golVisitante) {
-        this.golVisitante = golVisitante;
-    }
-
-    public void setGolLocal(Integer golLocal) {
-        this.golLocal = golLocal;
-    }
-
-    public void setMinutoActual(Integer minutoActual) {
-        this.minutoActual = minutoActual;
-    }
-
-    public Integer getMinutoAdicional1T() {
-        return minutoAdicional1T;
-    }
-
     public void setMinutoAdicional1T(Integer minutoAdicional1T) {
         this.minutoAdicional1T = minutoAdicional1T;
-    }
-
-    public Integer getMinutoAdicional2T() {
-        return minutoAdicional2T;
     }
 
     public void setMinutoAdicional2T(Integer minutoAdicional2T) {
         this.minutoAdicional2T = minutoAdicional2T;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Partido partido = (Partido) o;
-        return Objects.equals(id, partido.id) && status == partido.status && Objects.equals(equipoLocal, partido.equipoLocal) && Objects.equals(equipoVisitante, partido.equipoVisitante) && Objects.equals(golVisitante, partido.golVisitante) && Objects.equals(golLocal, partido.golLocal) && Objects.equals(minutoActual, partido.minutoActual);
+    public Integer getMinutoAdicional1T() {
+        return this.minutoAdicional1T;
     }
 
-    @Override
+    public Integer getMinutoAdicional2T() {
+        return this.minutoAdicional2T;
+    }
+
+    public boolean equals(Object o) {
+        if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Partido partido = (Partido) o;
+        return Objects.equals(this.id, partido.id) && this.estadoPartido == partido.estadoPartido && Objects.equals(this.equipoLocal, partido.equipoLocal) && Objects.equals(this.equipoVisitante, partido.equipoVisitante) && Objects.equals(this.golVisitante, partido.golVisitante) && Objects.equals(this.golLocal, partido.golLocal) && Objects.equals(this.minutoActual, partido.minutoActual);
+    }
+
     public int hashCode() {
-        return Objects.hash(id, status, equipoLocal, equipoVisitante, golVisitante, golLocal, minutoActual);
+        return Objects.hash(this.id, this.estadoPartido, this.equipoLocal, this.equipoVisitante, this.golVisitante, this.golLocal, this.minutoActual);
+    }
+
+    public String toString() {
+        return "Partido{id=" + this.id + ", status=" + String.valueOf(this.status) + ", estadoPartido=" + String.valueOf(this.estadoPartido) + ", equipoLocal=" + String.valueOf(this.equipoLocal) + ", equipoVisitante=" + String.valueOf(this.equipoVisitante) + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoActual=" + this.minutoActual + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
     }
 }
+

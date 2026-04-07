@@ -1,9 +1,12 @@
-package com.forum.api.infra.adapter.persistence.entities;
+package com.forum.api.infra.adapter.out.persistence.entities;
 
 import com.forum.api.domain.model.Competencias;
 import com.forum.api.domain.model.Equipo;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Generated;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -25,18 +28,15 @@ public class EquipoEntityJpa {
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "equipo_competencias")
     @Column(name = "competencias")
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private Set<Competencias> competencias;
 
     public Equipo toDomainExistent() {
-        return Equipo.restore(
-                id,
+        return Equipo.restore(id,
                 nombre,
                 apodo,
                 fundacion,
-                competencias
-
-        );
+                competencias);
     }
 
     public Equipo toNewDomain() {
@@ -55,4 +55,6 @@ public class EquipoEntityJpa {
         entity.setCompetencias(equipo.getCompetencias());
         return entity;
     }
+
 }
+

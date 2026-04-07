@@ -1,9 +1,6 @@
 package com.forum.api;
 
-import com.forum.api.infra.adapter.persistence.entities.EquipoEntityJpa;
-import com.forum.api.infra.adapter.persistence.entities.JugadorEntityJpa;
-import com.forum.api.infra.adapter.persistence.repository.JugadorJpaRepository;
-import org.junit.jupiter.api.Test;
+import com.forum.api.infra.adapter.out.persistence.repository.JugadorJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager;

@@ -13,36 +13,34 @@ public enum Competencias {
     INTEGRADO("integrado"),
     COPA_PY("copa_py");
 
-
     private final String valor;
+    private static final Map<String, Competencias> NOMBRES;
 
-    private final static Map<String, Competencias> NOMBRES = Arrays
-            .stream(Competencias.values())
-            .collect(Collectors.toMap(Competencias::getValor, c -> c));
-
-    Competencias(String valor) {
+     Competencias(String valor) {
         this.valor = valor;
     }
 
-    private static Optional<Competencias> from(String nombre){
+    private static Optional<Competencias> from(String nombre) {
         return Optional.ofNullable(NOMBRES.get(nombre));
     }
 
-    public static Competencias fromValor(String nombreCompetencia){
-
-        String normalizacion = nombreCompetencia
-                .toLowerCase()
-                .replace("-", "_");
-
-        return from(normalizacion).orElseThrow(
-                () -> new CompetenciaNotFoundException("Competencia inválida ->> " + nombreCompetencia));
+    public static Competencias fromValor(String nombreCompetencia) {
+        String normalizacion = nombreCompetencia.toLowerCase().replace("-", "_");
+        return Competencias.from(normalizacion).orElseThrow(() -> new CompetenciaNotFoundException("Competencia no disponible ->> " + nombreCompetencia));
     }
 
     public String getValor() {
-        return valor;
+        return this.valor;
     }
 
-    public boolean comprobarCompetencia(String nombre){
+    public boolean comprobarCompetencia(String nombre) {
         return NOMBRES.containsKey(nombre);
     }
+
+    static {
+        NOMBRES = Arrays
+                .stream(Competencias.values())
+                .collect(Collectors.toMap(Competencias::getValor, c -> c));
+    }
 }
+
