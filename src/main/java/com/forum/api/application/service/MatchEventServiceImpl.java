@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class MatchEventServiceImpl
-implements MatchEventService {
+public class MatchEventServiceImpl implements MatchEventService {
     private final MatchEventRepository repository;
 
     public MatchEventServiceImpl(MatchEventRepository repository) {
@@ -35,7 +34,10 @@ implements MatchEventService {
     }
 
     public MatchEvent encotrarMatchEvent(Long id) {
-        return (MatchEvent)this.repository.findMatchEventById(id).orElseThrow(() -> new MatchEventNotFoundException("No se encontr\u00f3 el match event"));
+        return repository
+                .findMatchEventById(id)
+                .orElseThrow(
+                        () -> new MatchEventNotFoundException("No se encuentra el match event"));
     }
 }
 
