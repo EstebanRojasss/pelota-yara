@@ -27,7 +27,7 @@ public class MatchTaskSchedule {
         return partidoService.encontrarTodosLosPartidosEnVivo().getFirst();
     }
 
-    @Scheduled(fixedRate=5000)
+    @Scheduled(fixedRate=7000)
     public void ejecutarPartido() {
         //Encontrar partidos en vivo
         Partido partido = partidoEnProceso();
