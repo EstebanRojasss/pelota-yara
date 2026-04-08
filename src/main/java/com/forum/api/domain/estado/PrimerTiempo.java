@@ -15,7 +15,7 @@ public class PrimerTiempo implements EstadoPartido {
         }
         if (partido.getMinutoActual() == partido.getMinutoActual() + partido.getMinutoAdicional1T()) {
             partido.cambiarEstado(new Descanso());
-            partido.setStatus(StatusPartido.EN_JUEGO);
+            partido.setStatus(StatusPartido.MEDIO_TIEMPO);
         }
         partido.aumentarMinuto();
     }
