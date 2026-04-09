@@ -33,6 +33,10 @@ public class MatchEngine implements EngineUseCase {
         return partido.equiposDelPartido().get(random.nextInt(0, 2));
     }
 
+    private Jugador jugadorRandom(List<Jugador> jugadores){
+        return jugadores.get(random.nextInt(jugadores.size()));
+    }
+
     private Jugador jugadoresDelEquipo(Equipo equipo) {
         if(jugadores.isEmpty()){
              jugadores = jugadorService
