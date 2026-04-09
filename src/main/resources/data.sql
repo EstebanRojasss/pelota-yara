@@ -25,3 +25,6 @@ VALUES
 (2, 'CLAUSURA'),
 (2, 'APERTURA');
 
+INSERT INTO partidos(id, gol_local, gol_visitante, minuto_actual, minuto_adicional1t, minuto_adicional2t, status, equipo_local, equipo_visitante)
+VALUES (1, 0, 0, 0, 0, 0,'EN_JUEGO', 1, 2)
+
