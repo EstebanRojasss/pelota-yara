@@ -2,6 +2,7 @@ package com.forum.api.application.service;
 
 import com.forum.api.application.in.JugadorService;
 import com.forum.api.application.in.usecases.EngineUseCase;
+import com.forum.api.domain.exception.JugadorNotFoundException;
 import com.forum.api.domain.model.*;
 import com.forum.api.domain.service.GeneradorEventos;
 import com.forum.api.domain.service.GeneradorEventosRandom;
@@ -11,8 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 @Component
-public class MatchEngine
-implements EngineUseCase {
+public class MatchEngine implements EngineUseCase {
     private final GeneradorEventos generadorEventos = new GeneradorEventosRandom();
     private final JugadorService jugadorService;
     private final Random random = new Random();
