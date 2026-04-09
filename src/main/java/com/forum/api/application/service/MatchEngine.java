@@ -38,7 +38,7 @@ public class MatchEngine implements EngineUseCase {
              jugadores = jugadorService
                     .listarJugadoresEquipo(equipo.getId());
         }
-        throw new JugadorNotFoundException("No se encuentra ningun jugador");
+        throw new JugadorNotFoundException("Ocurrio un error al listar los jugadores");
     }
 
     private int minutoAdicionalRandom() {
