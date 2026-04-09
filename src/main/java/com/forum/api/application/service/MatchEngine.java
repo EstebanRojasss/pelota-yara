@@ -33,11 +33,10 @@ public class MatchEngine implements EngineUseCase {
         return partido.equiposDelPartido().get(random.nextInt(0, 2));
     }
 
-    private Jugador jugadorRandom(Equipo equipo) {
+    private Jugador jugadoresDelEquipo(Equipo equipo) {
         if(jugadores.isEmpty()){
-            return jugadorService
-                    .listarJugadoresEquipo(equipo.getId())
-                    .get(random.nextInt(jugadores.size()));
+             jugadores = jugadorService
+                    .listarJugadoresEquipo(equipo.getId());
         }
         throw new JugadorNotFoundException("No se encuentra ningun jugador");
     }
