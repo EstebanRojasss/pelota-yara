@@ -16,6 +16,7 @@ implements EngineUseCase {
     private final GeneradorEventos generadorEventos = new GeneradorEventosRandom();
     private final JugadorService jugadorService;
     private final Random random = new Random();
+    private List<Jugador> jugadores;
 
     public MatchEngine(JugadorService jugadorService) {
         this.jugadorService = jugadorService;
