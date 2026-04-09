@@ -25,7 +25,7 @@ public class MatchEngine implements EngineUseCase {
     public MatchEvent generarSiguienteEvento(Partido partido) {
         EventoPartido evento = generadorEventos.generarEvento(partido);
         Equipo equipo = equipoRandom(partido);
-        Jugador jugador = jugadorRandom(equipo);
+        Jugador jugador = jugadorRandom(jugadores);
         return MatchEvent.generateMatchEvent(partido, equipo, jugador, partido.getMinutoActual(), evento);
     }
 
