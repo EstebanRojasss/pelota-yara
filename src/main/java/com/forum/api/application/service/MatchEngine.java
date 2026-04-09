@@ -29,7 +29,7 @@ implements EngineUseCase {
     }
 
     private Equipo equipoRandom(Partido partido) {
-        return partido.equiposDelPartido().get(this.random.nextInt(0, 2));
+        return partido.equiposDelPartido().get(random.nextInt(0, 2));
     }
 
     private Jugador jugadorRandom(Equipo equipo) {
