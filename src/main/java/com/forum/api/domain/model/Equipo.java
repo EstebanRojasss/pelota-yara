@@ -52,7 +52,7 @@ public class Equipo {
             return false;
         }
         Equipo equipo = (Equipo)o;
-        return Objects.equals(this.id, equipo.id) && Objects.equals(this.nombre, equipo.nombre) && Objects.equals(this.apodo, equipo.apodo) && Objects.equals(this.fundacion, equipo.fundacion) && Objects.equals(this.competencias, equipo.competencias);
+        return Objects.equals(this.id, equipo.id) && Objects.equals(this.nombre, equipo.nombre) && Objects.equals(this.apodo, equipo.apodo) && Objects.equals(this.fundacion, equipo.fundacion);
     }
 
     public int hashCode() {
