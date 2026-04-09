@@ -22,18 +22,23 @@ implements EngineUseCase {
     }
 
     public MatchEvent generarSiguienteEvento(Partido partido) {
-        EventoPartido evento = this.generadorEventos.generarEvento(partido);
-        Equipo equipo = this.equipoRandom(partido);
-        Jugador jugador = this.jugadorRandom(this.jugadorService.listarJugadoresEquipo(equipo.getId()));
-        return MatchEvent.generateMatchEvent(partido, equipo, jugador, partido.getMinutoActual(),evento);
+        EventoPartido evento = generadorEventos.generarEvento(partido);
+        Equipo equipo = equipoRandom(partido);
+        Jugador jugador = jugadorRandom(equipo);
+        return MatchEvent.generateMatchEvent(partido, equipo, jugador, partido.getMinutoActual(), evento);
     }
 
     private Equipo equipoRandom(Partido partido) {
         return partido.equiposDelPartido().get(this.random.nextInt(0, 2));
     }
 
-    private Jugador jugadorRandom(List<Jugador> jugadores) {
-        return jugadores.get(this.random.nextInt(0, jugadores.size()));
+    private Jugador jugadorRandom(Equipo equipo) {
+        if(jugadores.isEmpty()){
+            return jugadorService
+                    .listarJugadoresEquipo(equipo.getId())
+                    .get(random.nextInt(jugadores.size()));
+        }
+        throw new JugadorNotFoundException("No se encuentra ningun jugador");
     }
 
     private int minutoAdicionalRandom() {
