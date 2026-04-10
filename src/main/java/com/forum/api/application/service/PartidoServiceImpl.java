@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class PartidoServiceImpl
-implements PartidoService {
+public class PartidoServiceImpl implements PartidoService {
     private final PartidoRepository partidoRepository;
     private final EquipoService equipoService;
 
