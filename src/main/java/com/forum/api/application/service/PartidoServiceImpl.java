@@ -9,6 +9,7 @@ import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Partido;
 import com.forum.api.domain.model.StatusPartido;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ implements PartidoService {
         return partidoRepository.savePartido(partido);
     }
 
+    @Transactional
     public Partido actualizarDatosDePartido(Partido datosPartidoActualizar) {
         this.partidoRepository.findPartidoById(datosPartidoActualizar.getId()).orElseThrow(() -> new PartidoNotFoundException("Partido no encontrado."));
         return partidoRepository.savePartido(datosPartidoActualizar);
