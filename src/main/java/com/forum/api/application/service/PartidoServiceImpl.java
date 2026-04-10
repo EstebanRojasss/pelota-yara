@@ -44,7 +44,6 @@ public class PartidoServiceImpl implements PartidoService {
 
     @Transactional
     public Partido actualizarDatosDePartido(Partido datosPartidoActualizar) {
-        this.partidoRepository.findPartidoById(datosPartidoActualizar.getId()).orElseThrow(() -> new PartidoNotFoundException("Partido no encontrado."));
         return partidoRepository.savePartido(datosPartidoActualizar);
     }
 
