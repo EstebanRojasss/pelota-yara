@@ -56,7 +56,7 @@ public class Equipo {
     }
 
     public int hashCode() {
-        return Objects.hash(this.id, this.nombre, this.apodo, this.fundacion, this.competencias);
+        return Objects.hash(this.id, this.nombre, this.apodo, this.fundacion);
     }
 
     public String toString() {
