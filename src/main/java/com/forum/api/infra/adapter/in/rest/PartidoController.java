@@ -22,6 +22,22 @@ public class PartidoController {
         this.partidoService = partidoService;
     }
 
+
+    @GetMapping("/partidos")
+    public ResponseEntity<List<PartidoResponseDto>> listarTodosLosPartidos() {
+        return ResponseEntity.ok().body(partidoService.listarTodosLosPartidos()
+                .stream()
+                .map(PartidoResponseDto::fromDomainExistent)
+                .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/partidos/envivo")
+    public ResponseEntity<List<PartidoResponseDto>> listarTodosLosPartidosEnVivo() {
+        return ResponseEntity.ok().body(partidoService.encontrarTodosLosPartidosEnVivo()
+                .stream()
+                .map(PartidoResponseDto::fromDomainExistent)
+                .collect(Collectors.toList()));
+    }
     @PostMapping("/partidos")
     public ResponseEntity<PartidoResponseDto> agregarNuevoPartido(@RequestBody PartidoRequestDto partidoRequest) {
 
@@ -39,22 +55,6 @@ public class PartidoController {
                 .toUri();
 
         return ResponseEntity.created(location).body(PartidoResponseDto.fromDomainExistent(response));
-    }
-
-    @GetMapping("/partidos")
-    public ResponseEntity<List<PartidoResponseDto>> listarTodosLosPartidos() {
-        return ResponseEntity.ok().body(partidoService.listarTodosLosPartidos()
-                .stream()
-                .map(PartidoResponseDto::fromDomainExistent)
-                .collect(Collectors.toList()));
-    }
-
-    @GetMapping("/partidos/envivo")
-    public ResponseEntity<List<PartidoResponseDto>> listarTodosLosPartidosEnVivo() {
-        return ResponseEntity.ok().body(partidoService.encontrarTodosLosPartidosEnVivo()
-                .stream()
-                .map(PartidoResponseDto::fromDomainExistent)
-                .collect(Collectors.toList()));
     }
 }
 
