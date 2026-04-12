@@ -2,21 +2,17 @@ package com.forum.api.domain.estado;
 
 import com.forum.api.domain.model.Partido;
 import com.forum.api.domain.model.StatusPartido;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Descanso implements EstadoPartido {
-    private Partido partido;
+    private static final Logger log = LoggerFactory.getLogger(Descanso.class);
 
     public void ejecutar(Partido partido) {
-        partido.setStatus(StatusPartido.EN_JUEGO);
+        log.info("ENTRANDO AL SEGUNDO TIEMPO...----------------------------------");
         partido.cambiarEstado(new SegundoTiempo());
+        partido.setStatus(StatusPartido.EN_JUEGO);
     }
 
-    public void setPartido(Partido partido) {
-        this.partido = partido;
-    }
-
-    public EstadoPartido getTipoEstadoPartido() {
-        return this.partido.getEstadoPartido();
-    }
 }
 
