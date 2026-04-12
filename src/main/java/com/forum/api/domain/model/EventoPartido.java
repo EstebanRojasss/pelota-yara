@@ -1,8 +1,8 @@
 package com.forum.api.domain.model;
 
 public enum EventoPartido {
-    GOL(30),
-    TARGETA_AMARILLA(10),
+    GOL(20),
+    TARGETA_AMARILLA(5),
     TARGETA_ROJA(5),
     FALTA(40),
     SUSTITUCION(5);
