@@ -71,8 +71,8 @@ public class Partido {
     }
 
     private void aumentarMarcador(MatchEvent matchEvent) {
-        if (matchEvent.getEquipo().equals(equipoLocal)) golLocal++;
-        else if (matchEvent.getEquipo().equals(equipoVisitante)) golVisitante++;
+        if (matchEvent.getEquipo().equals(this.equipoLocal))this.golLocal++;
+        else if (matchEvent.getEquipo().equals(this.equipoVisitante)) this.golVisitante++;
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
 
