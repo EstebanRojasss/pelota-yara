@@ -4,6 +4,6 @@ import com.forum.api.domain.model.MatchEvent;
 import com.forum.api.domain.model.Partido;
 
 public interface EngineUseCase {
-     MatchEvent generarSiguienteEvento(Partido var1);
+     MatchEvent generarSiguienteEvento(Partido partido);
 }
 
