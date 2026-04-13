@@ -16,7 +16,18 @@ VALUES
 (7, 26, 'Paraguaya', 'Robert Morales', 2),
 (8, 20, 'Paraguaya', 'Damián Bobadilla', 2),
 (9, 33, 'Paraguaya', 'Juan Iturbe', 2),
-(10, 29, 'Brasileña', 'Eduardo Brock', 2);
+(10, 29, 'Brasileña', 'Eduardo Brock', 2),
+(11, 41, 'Paraguaya', 'Oscar Cardozo', 3),
+(12, 19, 'Paraguaya', 'Rodrigo Villalba', 3),
+(13, 30, 'Argentina', 'Bautista Merlini', 3),
+(14, 33, 'Paraguaya', 'Matías Espinoza', 3),
+(15, 26, 'Paraguaya', 'Hernesto Caballero', 3),
+(16, 30, 'Uruguaya', 'Gaspar Servio', 4),
+(17, 24, 'Paraguaya', 'Adrián Alcaraz', 4),
+(18, 35, 'Paraguaya', 'Walter González', 4),
+(19, 22, 'Paraguaya', 'Mathías Martínez', 4),
+(20, 28, 'Argentina', 'Agustín Manzur', 4);
+
 
 INSERT INTO equipo_competencias (equipo_id, competencias)
 VALUES
@@ -26,7 +37,7 @@ VALUES
 (2, 'APERTURA');
 
 INSERT INTO partidos(id, gol_local, gol_visitante, minuto_actual, minuto_adicional1t, minuto_adicional2t, status, equipo_local, equipo_visitante)
-VALUES (1, 0, 0, 0, 0, 0,'EN_JUEGO', 1, 2)
+VALUES (1, 0, 0, 0, 0, 0,'EN_JUEGO', 1, 2);
 
 INSERT INTO partidos(id, gol_local, gol_visitante, minuto_actual, minuto_adicional1t, minuto_adicional2t, status, equipo_local, equipo_visitante)
-            VALUES (1, 0, 0, 0, 0, 0,'EN_JUEGO', 3, 4)
+VALUES (2, 0, 0, 0, 0, 0,'EN_JUEGO', 3, 4);
