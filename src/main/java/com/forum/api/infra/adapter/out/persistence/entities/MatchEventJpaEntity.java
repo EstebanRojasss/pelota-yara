@@ -12,18 +12,18 @@ import lombok.*;
 @AllArgsConstructor
 public class MatchEventJpaEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "partido")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_partido")
     private PartidoJpaEntity partido;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_equipo")
     private EquipoEntityJpa equipo;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_jugador")
     private JugadorEntityJpa jugador;
 
