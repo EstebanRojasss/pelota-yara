@@ -10,12 +10,18 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 @Component
 public class MatchTaskSchedule {
     private static final Logger log = LoggerFactory.getLogger(MatchTaskSchedule.class);
     private final MatchEventService matchService;
     private final EngineUseCase engine;
     private final PartidoService partidoService;
+    private Set<Partido> partidos = new HashSet<>();
+    private final Random random = new Random();
 
     public MatchTaskSchedule(MatchEventService matchService, EngineUseCase engine, PartidoService partidoService) {
         this.matchService = matchService;
@@ -23,27 +29,33 @@ public class MatchTaskSchedule {
         this.partidoService = partidoService;
     }
 
-    private Partido partidoEnProceso() {
-        return partidoService.encontrarTodosLosPartidosEnVivo().getFirst();
+    private Set<Partido> partidosEnProceso() {
+        int count = 0;
+        log.info("CONTADOR DE VECES QUE ENTRA EN METODO partidoEnProceso: {} ", count++);
+        return new HashSet<>(partidoService.encontrarTodosLosPartidosEnVivo());
     }
 
-    @Scheduled(fixedRate=7000)
+    @Scheduled(fixedRate = 5000)
     public void ejecutarPartido() {
-        //Encontrar partidos en vivo
-        Partido partido = partidoEnProceso();
+        if (this.partidos.isEmpty()) {
+            partidos = partidosEnProceso();
+        }
 
-        log.info("MINUTO PARTIDO: {}", partido.getMinutoActual());
+        for (Partido partido : partidos) {
+            partido.ejecutar();
+            log.info("PARTIDO: {}", partido.getId());
+            if (random.nextDouble() < 0.6) {
+                MatchEvent evento = engine.generarSiguienteEvento(partido);
+                partido.aplicarEvento(evento);
+                matchService.agregarNuevoMatchEvent(evento);
+            }
 
-        //ejecutar estados
-        partido.ejecutar();
+            partidoService.actualizarDatosDePartido(partido);
+            log.info("MINUTO PARTIDO: {}", partido.getMinutoActual());
+        }
 
-        MatchEvent evento = engine.generarSiguienteEvento(partido);
 
-        partido.aplicarEvento(evento);
 
-        partidoService.actualizarDatosDePartido(partido);
-
-        matchService.agregarNuevoMatchEvent(evento);
     }
 }
 
