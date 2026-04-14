@@ -18,7 +18,7 @@ import java.util.Set;
 @Setter
 public class EquipoEntityJpa {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
