@@ -78,7 +78,7 @@ public class TestEquipoJpaRepository {
         entityManager.clear();
 
         List<EquipoEntityJpa> teams =
-                equipoRepository.findCompetenciasEquipos();
+                equipoRepository.findEquiposWithCompetencias();
 
         System.out.println("Resultado: " + teams.stream().toList());
     }
