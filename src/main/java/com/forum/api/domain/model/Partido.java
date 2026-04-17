@@ -76,6 +76,12 @@ public class Partido {
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
 
+    public void restarMarcador(Equipo equipo){
+        if(equipo.equals(this.equipoLocal))this.golLocal--;
+        else if (equipo.equals(this.equipoVisitante)) this.golVisitante--;
+        else throw new EquipoNotFoundException("El equipo no forma parte del partido");
+    }
+
     private void setMinutoActual(int minutoActual) {
         this.minutoActual = minutoActual;
     }
