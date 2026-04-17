@@ -30,7 +30,7 @@ public class MatchEventJpaEntity {
     private Integer minuto;
 
     @Enumerated(value = EnumType.STRING)
-    private EventoPartido eventoPartido;
+    private TipoEventoPartido tipoEventoPartido;
 
     public MatchEvent toDomain() {
         return MatchEvent.restoreMatchEvent(id,
@@ -38,7 +38,7 @@ public class MatchEventJpaEntity {
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
                 minuto,
-                eventoPartido);
+                tipoEventoPartido);
     }
 
     public static MatchEventJpaEntity fromDomain(MatchEvent matchEvent) {

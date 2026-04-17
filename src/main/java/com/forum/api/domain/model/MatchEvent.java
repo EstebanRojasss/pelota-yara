@@ -8,25 +8,25 @@ public class MatchEvent {
     private Equipo equipo;
     private Jugador jugador;
     private Integer minuto;
-    private EventoPartido eventoPartido;
+    private TipoEventoPartido tipoEventoPartido;
 
-    private MatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
+    private MatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
         this.id = id;
         this.partido = partido;
         this.equipo = equipo;
         this.jugador = jugador;
         this.minuto = minuto;
-        this.eventoPartido = eventoPartido;
+        this.tipoEventoPartido = tipoEventoPartido;
     }
 
-    public static MatchEvent restoreMatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
-        return new MatchEvent(id, partido, equipo, jugador, minuto, eventoPartido);
+    public static MatchEvent restoreMatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
+        return new MatchEvent(id, partido, equipo, jugador, minuto, tipoEventoPartido);
     }
 
-    public static MatchEvent generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, EventoPartido eventoPartido) {
-        return switch (eventoPartido) {
-            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new MatchEvent(null, partido, equipo, jugador, minuto, eventoPartido);
-            default -> new MatchEvent(null, partido, null, null, null, eventoPartido);
+    public static MatchEvent generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
+        return switch (tipoEventoPartido) {
+            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new MatchEvent(null, partido, equipo, jugador, minuto, tipoEventoPartido);
+            default -> new MatchEvent(null, partido, null, null, null, tipoEventoPartido);
         };
     }
 
@@ -70,12 +70,12 @@ public class MatchEvent {
         this.minuto = minuto;
     }
 
-    public EventoPartido getEventoPartido() {
-        return this.eventoPartido;
+    public TipoEventoPartido getEventoPartido() {
+        return this.tipoEventoPartido;
     }
 
-    public void setEventoPartido(EventoPartido eventoPartido) {
-        this.eventoPartido = eventoPartido;
+    public void setEventoPartido(TipoEventoPartido tipoEventoPartido) {
+        this.tipoEventoPartido = tipoEventoPartido;
     }
 
     public boolean equals(Object o) {
@@ -83,11 +83,11 @@ public class MatchEvent {
             return false;
         }
         MatchEvent that = (MatchEvent)o;
-        return Objects.equals(this.id, that.id) && Objects.equals(this.partido, that.partido) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto) && this.eventoPartido == that.eventoPartido;
+        return Objects.equals(this.id, that.id) && Objects.equals(this.partido, that.partido) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto) && this.tipoEventoPartido == that.tipoEventoPartido;
     }
 
     public int hashCode() {
-        return Objects.hash(this.id, this.partido, this.equipo, this.jugador, this.minuto, this.eventoPartido);
+        return Objects.hash(this.id, this.partido, this.equipo, this.jugador, this.minuto, this.tipoEventoPartido);
     }
 }
 
