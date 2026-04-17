@@ -70,9 +70,9 @@ public class Partido {
         this.estadoPartido.ejecutar(this);
     }
 
-    private void aumentarMarcador(MatchEvent matchEvent) {
-        if (matchEvent.getEquipo().equals(this.equipoLocal))this.golLocal++;
-        else if (matchEvent.getEquipo().equals(this.equipoVisitante)) this.golVisitante++;
+    public void aumentarMarcador(Equipo equipo) {
+        if (equipo.equals(this.equipoLocal))this.golLocal++;
+        else if (equipo.equals(this.equipoVisitante)) this.golVisitante++;
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
 
