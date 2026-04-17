@@ -3,10 +3,7 @@ package com.forum.api.infra.adapter.out.persistence.entities;
 import com.forum.api.domain.model.Competencias;
 import com.forum.api.domain.model.Equipo;
 import jakarta.persistence.*;
-import lombok.Generated;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -34,6 +31,13 @@ public class EquipoEntityJpa {
     @Enumerated(value = EnumType.STRING)
     private Set<Competencias> competencias;
 
+    private EquipoEntityJpa(Long id, String nombre, String apodo, Set<Competencias> competencias){
+        this.id = id;
+        this.nombre = nombre;
+        this.apodo = apodo;
+        this.competencias = competencias;
+    }
+
     public Equipo toDomainExistent() {
         return Equipo.restore(id,
                 nombre,
@@ -50,13 +54,23 @@ public class EquipoEntityJpa {
     }
 
     public static EquipoEntityJpa fromDomain(Equipo equipo) {
-        EquipoEntityJpa entity = new EquipoEntityJpa();
-        entity.setId(equipo.getId());
-        entity.setNombre(equipo.getNombre());
-        entity.setApodo(equipo.getApodo());
-        entity.setFundacion(equipo.getFundacion());
-        entity.setCompetencias(equipo.getCompetencias());
-        return entity;
+        EquipoEntityJpa entityFromDomain = new EquipoEntityJpa();
+        entityFromDomain.setId(equipo.getId());
+        entityFromDomain.setNombre(equipo.getNombre());
+        entityFromDomain.setApodo(equipo.getApodo());
+        entityFromDomain.setFundacion(equipo.getFundacion());
+        entityFromDomain.setCompetencias(equipo.getCompetencias());
+        return entityFromDomain;
+    }
+
+    public static EquipoEntityJpa createNewEntity(String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias){
+        EquipoEntityJpa newEntity = new EquipoEntityJpa();
+        newEntity.setId(null);
+        newEntity.setNombre(nombre);
+        newEntity.setApodo(apodo);
+        newEntity.setFundacion(fundacion);
+        newEntity.setCompetencias(competencias);
+        return newEntity;
     }
 
 }

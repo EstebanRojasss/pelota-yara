@@ -52,22 +52,36 @@ public class TestEquipoJpaRepository {
         EquipoEntityJpa equipo3 = new EquipoEntityJpa();
 
         EquipoEntityJpa equipo1 = new EquipoEntityJpa();
+        equipo1.setId(null);
         equipo1.setNombre("Olimpia");
         equipo1.setApodo("El decano");
-        Set<Competencias> competencias = new HashSet<>();
-        competencias.add(Competencias.APERTURA);
-        competencias.add(Competencias.CLAUSURA);
-        competencias.add(Competencias.INTEGRADO);
+        Set<Competencias> competencias1 = new HashSet<>();
+        Set<Competencias> competencias2= new HashSet<>();
+        Set<Competencias> competencias3 = new HashSet<>();
 
-        equipo1.setCompetencias(competencias);
+        competencias1.add(Competencias.APERTURA);
+        competencias1.add(Competencias.CLAUSURA);
+        competencias1.add(Competencias.INTEGRADO);
 
+        competencias2.add(Competencias.APERTURA);
+        competencias2.add(Competencias.INTEGRADO);
+        competencias2.add(Competencias.CLAUSURA);
+
+        competencias3.add(Competencias.APERTURA);
+        competencias3.add(Competencias.CLAUSURA);
+        competencias3.add(Competencias.INTEGRADO);
+
+        equipo1.setCompetencias(competencias1);
+
+        equipo2.setId(null);
         equipo2.setNombre("Cerro");
         equipo2.setApodo("El ciclon");
-        equipo2.setCompetencias(competencias);
+        equipo2.setCompetencias(competencias2);
 
+        equipo3.setId(null);
         equipo3.setNombre("2 mayo");
         equipo3.setApodo("El gallo nortenho");
-        equipo3.setCompetencias(competencias);
+        equipo3.setCompetencias(competencias3);
 
 
         entityManager.persist(equipo1);
