@@ -5,8 +5,7 @@ import com.forum.api.domain.model.Partido;
 
 import java.util.Random;
 
-public class GeneradorEventosRandom
-implements GeneradorEventos {
+public class GeneradorEventosRandom implements GeneradorEventos {
     private static Integer sumaProbabilidades = 0;
     private static final Random random = new Random();
 
