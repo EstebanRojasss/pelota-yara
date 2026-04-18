@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.out.dto;
 
 import java.util.List;
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FixtureWrapper {
     private Fixture fixture;
     private Teams teams;
