@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record FixtureStatus(
-        @JsonProperty("long")
-        String longStatus,
+        @JsonProperty("short")
+        String shortStatus,
         @JsonProperty("elapsed")
         Integer elapsed) {
 }
