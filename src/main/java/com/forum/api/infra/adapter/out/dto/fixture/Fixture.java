@@ -1,4 +1,4 @@
-package com.forum.api.infra.adapter.out.dto;
+package com.forum.api.infra.adapter.out.dto.fixture;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
