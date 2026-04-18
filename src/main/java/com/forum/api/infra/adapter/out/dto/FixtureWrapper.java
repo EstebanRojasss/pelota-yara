@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FixtureWrapper {
-    @JsonProperty("fixture")
-    private Fixture fixture;
-    @JsonProperty("teams")
-    private Teams teams;
-    @JsonProperty("goals")
-    private Goals goals;
+public record FixtureWrapper(
+        @JsonProperty("fixture")
+        Fixture fixture,
+        @JsonProperty("teams")
+        Teams teams,
+        @JsonProperty("goals")
+        Goals goals
+) {
+
 
 }
