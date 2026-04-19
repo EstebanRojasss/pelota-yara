@@ -49,7 +49,7 @@ public class Partido {
 
     public static Partido createFromApi(Equipo equipoLocal, Equipo equipoVisitante, StatusPartido status, Long fixtureId) {
         return new Partido(null,
-                StatusPartido.EN_JUEGO,
+                status,
                 equipoLocal,
                 equipoVisitante,
                 0,
