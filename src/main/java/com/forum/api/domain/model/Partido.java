@@ -11,6 +11,7 @@ public class Partido {
     private final Long id;
     private StatusPartido status;
     private EstadoPartido estadoPartido;
+    private Long fixtureId;
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
     private Integer golVisitante;
@@ -19,7 +20,7 @@ public class Partido {
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
 
-    private Partido(Long id, StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
+    private Partido(Long id, StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T, Long fixtureId) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
@@ -29,10 +30,11 @@ public class Partido {
         this.minutoActual = minutoActual;
         this.minutoAdicional1T = minutoAdicional1T;
         this.minutoAdicional2T = minutoAdicional2T;
+        this.fixtureId = fixtureId;
         this.estadoPartido = new PrimerTiempo();
     }
 
-    public static Partido restore(Long id, StatusPartido statusPartido, Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
+    public static Partido restore(Long id, StatusPartido statusPartido, Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T, Long fixtureId) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
@@ -41,7 +43,8 @@ public class Partido {
                 golLocal,
                 minutoActual,
                 minutoAdicional1T,
-                minutoAdicional2T);
+                minutoAdicional2T,
+                fixtureId);
     }
 
     public static Partido create(Equipo equipoLocal, Equipo equipoVisitante) {
@@ -53,7 +56,8 @@ public class Partido {
                 0,
                 0,
                 0,
-                0);
+                0,
+                fixtureId);
     }
 
     public void aumentarMinuto() {
