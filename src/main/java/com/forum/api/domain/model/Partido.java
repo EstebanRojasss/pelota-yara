@@ -32,9 +32,9 @@ public class Partido {
         this.estadoPartido = new PrimerTiempo();
     }
 
-    public static Partido restore(Long id, StatusPartido estadoPersitencia, Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
+    public static Partido restore(Long id, StatusPartido statusPartido, Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
         return new Partido(id,
-                estadoPersitencia,
+                statusPartido,
                 equipoLocal,
                 equipoVisitante,
                 golVisitante,
