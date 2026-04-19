@@ -32,6 +32,7 @@ public class PartidoJpaEntity {
     private Integer minutoActual;
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
+    private Long fixtureId;
 
     public static PartidoJpaEntity fromDomain(Partido partido) {
         return new PartidoJpaEntity(
@@ -43,7 +44,8 @@ public class PartidoJpaEntity {
                 partido.getGolLocal(),
                 partido.getMinutoActual(),
                 partido.getMinutoAdicional1T(),
-                partido.getMinutoAdicional2T());
+                partido.getMinutoAdicional2T(),
+                partido.getFixtureId());
     }
 
     public Partido toDomainExistent() {
@@ -55,7 +57,8 @@ public class PartidoJpaEntity {
                 golLocal,
                 minutoActual,
                 minutoAdicional1T,
-                minutoAdicional2T);
+                minutoAdicional2T,
+                fixtureId);
     }
 
 }
