@@ -8,16 +8,16 @@ import java.util.Optional;
 
 public interface EquipoService {
 
-     Equipo agregarNuevoEquipo(Equipo var1);
+     Equipo agregarNuevoEquipo(Equipo eq);
 
-     void eliminarEquipo(Long var1);
+     void eliminarEquipo(Long id);
 
-     Optional<Equipo> cambiarDatosEquipo(Equipo var1);
+     Optional<Equipo> cambiarDatosEquipo(Equipo equipo);
 
      List<Equipo> listarTodosLosEquipos();
 
-     Equipo encontrarEquipoPorId(Long var1);
+     Equipo encontrarEquipoPorId(Long id);
 
-     List<Jugador> listarJugadoresEquipo(Long var1);
+     List<Jugador> listarJugadoresEquipo(Long id);
 }
 
