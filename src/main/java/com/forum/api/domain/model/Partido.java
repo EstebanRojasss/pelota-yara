@@ -163,6 +163,10 @@ public class Partido {
         return this.minutoAdicional2T;
     }
 
+    public Long getFixtureId() {
+        return fixtureId;
+    }
+
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
