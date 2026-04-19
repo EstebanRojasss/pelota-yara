@@ -60,6 +60,19 @@ public class Partido {
                 fixtureId);
     }
 
+    public static Partido createFromLocal(Equipo equipoLocal, Equipo equipoVisitante){
+        return new Partido(null,
+                StatusPartido.NO_INICIADO,
+                equipoLocal,
+                equipoVisitante,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0L);
+    }
+
     public void aumentarMinuto() {
         this.minutoActual++;
     }
