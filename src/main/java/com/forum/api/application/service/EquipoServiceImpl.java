@@ -45,7 +45,7 @@ implements EquipoService {
     }
 
     public Equipo encontrarEquipoPorId(Long id) {
-        return (Equipo)this.equipoRepository.findEquipoById(id).orElseThrow(() -> new EquipoNotFoundException("El equipo no encontrado."));
+        return equipoRepository.findEquipoById(id).orElseThrow(() -> new EquipoNotFoundException("El equipo no encontrado."));
     }
 
     public List<Jugador> listarJugadoresEquipo(Long id) {
