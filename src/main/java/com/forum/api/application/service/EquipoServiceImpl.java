@@ -51,5 +51,15 @@ implements EquipoService {
     public List<Jugador> listarJugadoresEquipo(Long id) {
         return this.jugadorRepository.listarJugadoresPorEquipo(id);
     }
+
+    @Override
+    public Optional<Equipo> buscarEquipoPorId(Long id) {
+        return equipoRepository.findEquipoById(id);
+    }
+
+    @Override
+    public Optional<Equipo> buscarEquipoPorEquipoFixtureId(Long equipoFixtureId) {
+        return equipoRepository.findEquipoByEquipoFixtureId(equipoFixtureId);
+    }
 }
 

@@ -19,5 +19,9 @@ public interface EquipoService {
      Equipo encontrarEquipoPorId(Long id);
 
      List<Jugador> listarJugadoresEquipo(Long id);
+
+     Optional<Equipo>buscarEquipoPorId(Long id);
+
+     Optional<Equipo>buscarEquipoPorEquipoFixtureId(Long equipoFixtureId);
 }
 
