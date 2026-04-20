@@ -13,5 +13,7 @@ public interface EquipoRepository {
      Optional<Equipo> findEquipoById(Long id);
 
      List<Equipo> findAllEquipos();
+
+     Optional<Equipo> findEquipoByEquipoFixtureId(Long equipoFixtureId);
 }
 
