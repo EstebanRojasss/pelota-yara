@@ -57,8 +57,8 @@ public class PartidoServiceImpl implements PartidoService {
     }
 
     @Override
-    public Partido encontrarPartidoPorFixtureId(Long id) {
-        return null;
+    public Optional<Partido> encontrarPartidoPorFixtureId(Long id) {
+        return partidoRepository.findByFixtureId(id);
     }
 }
 
