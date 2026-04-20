@@ -14,12 +14,15 @@ public class PartidoMapper {
     }
 
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante) {
-            return Partido.createFromApi(
-                    local,
-                    visitante,
-                    mapStatus(fixtureData.statusFixture()),
-                    fixtureData.id()
-            );
+        return Partido.createFromApi(
+                local,
+                visitante,
+                fixtureData.golLocal(),
+                fixtureData.golVisitante(),
+                fixtureData.minuto(),
+                mapStatus(fixtureData.statusFixture()),
+                fixtureData.id()
+        );
     }
 
 
