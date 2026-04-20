@@ -55,5 +55,10 @@ public class PartidoServiceImpl implements PartidoService {
     public List<Partido> listarTodosLosPartidos() {
         return partidoRepository.findAllPartidos();
     }
+
+    @Override
+    public Partido encontrarPartidoPorFixtureId(Long id) {
+        return null;
+    }
 }
 
