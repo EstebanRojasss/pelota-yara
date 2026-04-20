@@ -45,14 +45,14 @@ public class EquipoEntityJpa {
                 nombre,
                 apodo,
                 fundacion,
-                competencias);
+                equipoFixtureId);
     }
 
     public Equipo toNewDomain() {
         return Equipo.create(nombre,
                 apodo,
                 fundacion,
-                competencias);
+                equipoFixtureId);
     }
 
     public static EquipoEntityJpa fromDomain(Equipo equipo) {
