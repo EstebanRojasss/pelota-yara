@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class EquipoJpaRepositoryAdapter implements EquipoRepository {
@@ -35,11 +34,11 @@ public class EquipoJpaRepositoryAdapter implements EquipoRepository {
     }
 
     public List<Equipo> findAllEquipos() {
-        return jpaRepository
-                .findEquiposWithCompetencias()
-                .stream()
-                .map(EquipoEntityJpa::toDomainExistent)
-                .collect(Collectors.toList());
+//        return jpaRepository
+//                .findEquiposWithCompetencias()
+//                .stream()
+//                .map(EquipoEntityJpa::toDomainExistent)
+//                .collect(Collectors.toList());
         return List.of();
     }
 
