@@ -21,6 +21,8 @@ public class EquipoEntityJpa {
     private String nombre;
     private String apodo;
     private LocalDate fundacion;
+    @Column(unique = true)
+    private Long equipoFixtureId;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
