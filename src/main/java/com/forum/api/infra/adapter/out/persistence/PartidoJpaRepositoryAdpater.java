@@ -50,5 +50,10 @@ public class PartidoJpaRepositoryAdpater implements PartidoRepository {
                 .map(PartidoJpaEntity::toDomainExistent)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Optional<Partido> findByFixtureId(Long id) {
+        return repository.findByFixtureId(id).map(PartidoJpaEntity::toDomainExistent);
+    }
 }
 
