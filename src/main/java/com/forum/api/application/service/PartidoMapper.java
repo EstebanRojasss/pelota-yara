@@ -22,21 +22,6 @@ public class PartidoMapper {
             );
     }
 
-    public Partido toDomainExistent(FixtureData fixtureData, Partido partido){
-        return Partido.restore(
-                partido.getId(),
-                partido.getStatus(),
-                partido.getEquipoLocal(),
-                partido.getEquipoVisitante(),
-                partido.getGolLocal(),
-                partido.getGolVisitante(),
-                partido.getMinutoActual(),
-                partido.getMinutoAdicional1T(),
-                partido.getMinutoAdicional2T(),
-                fixtureData.id()
-        );
-    }
-
 
     private StatusPartido mapStatus(StatusPartidoFixture statusFixture) {
         return switch (statusFixture) {
