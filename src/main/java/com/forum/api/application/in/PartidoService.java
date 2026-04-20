@@ -6,16 +6,18 @@ import com.forum.api.domain.model.Partido;
 import java.util.List;
 
 public interface PartidoService {
-    public Partido encontrarPartido(Long var1);
+     Partido encontrarPartido(Long var1);
 
-    public void borrarPartido(Long var1);
+     void borrarPartido(Long var1);
 
-    public Partido guardarNuevoPartido(CrearPartidoCommand var1);
+     Partido guardarPartido(CrearPartidoCommand var1);
 
-    public Partido actualizarDatosDePartido(Partido var1);
+     Partido actualizarDatosDePartido(Partido var1);
 
-    public List<Partido> encontrarTodosLosPartidosEnVivo();
+     List<Partido> encontrarTodosLosPartidosEnVivo();
 
-    public List<Partido> listarTodosLosPartidos();
+     List<Partido> listarTodosLosPartidos();
+
+    Partido encontrarPartidoPorFixtureId(Long id);
 }
 
