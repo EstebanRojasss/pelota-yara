@@ -10,7 +10,6 @@ import java.util.Optional;
 public interface EquipoJpaRepository extends JpaRepository<EquipoEntityJpa, Long> {
     Optional<EquipoEntityJpa> findByNombre(String var1);
 
-    @Query(value = "SELECT DISTINCT e FROM EquipoEntityJpa e LEFT JOIN FETCH e.competencias")
-    List<EquipoEntityJpa> findEquiposWithCompetencias();
+
 }
 
