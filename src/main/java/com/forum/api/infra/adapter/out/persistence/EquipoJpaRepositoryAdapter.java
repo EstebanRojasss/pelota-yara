@@ -40,6 +40,13 @@ public class EquipoJpaRepositoryAdapter implements EquipoRepository {
                 .stream()
                 .map(EquipoEntityJpa::toDomainExistent)
                 .collect(Collectors.toList());
+        return List.of();
+    }
+
+    @Override
+    public Optional<Equipo> findEquipoByEquipoFixtureId(Long equipoFixtureId) {
+        return jpaRepository.findByEquipoFixtureId(equipoFixtureId)
+                .map(EquipoEntityJpa::toDomainExistent);
     }
 }
 
