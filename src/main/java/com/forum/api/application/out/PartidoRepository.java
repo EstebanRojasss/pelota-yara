@@ -16,5 +16,7 @@ public interface PartidoRepository {
      List<Partido> findPartidosByStatus(StatusPartido var1);
 
      List<Partido> findAllPartidos();
+
+     Optional<Partido> findByFixtureId(Long id);
 }
 
