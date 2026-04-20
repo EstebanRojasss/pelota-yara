@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface EquipoJpaRepository extends JpaRepository<EquipoEntityJpa, Long> {
     Optional<EquipoEntityJpa> findByNombre(String nombre);
 
+    Optional<EquipoEntityJpa> findByEquipoFixtureId(Long id);
+
 
 }
 
