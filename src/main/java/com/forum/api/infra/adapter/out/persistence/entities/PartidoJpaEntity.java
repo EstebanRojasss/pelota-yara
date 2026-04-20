@@ -32,6 +32,7 @@ public class PartidoJpaEntity {
     private Integer minutoActual;
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
+    @Column(unique = true)
     private Long fixtureId;
 
     public static PartidoJpaEntity fromDomain(Partido partido) {
