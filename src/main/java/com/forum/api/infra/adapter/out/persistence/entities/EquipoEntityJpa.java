@@ -33,11 +33,11 @@ public class EquipoEntityJpa {
     @Enumerated(value = EnumType.STRING)
     private Set<Competencias> competencias;
 
-    private EquipoEntityJpa(Long id, String nombre, String apodo, Set<Competencias> competencias){
+    private EquipoEntityJpa(Long id, String nombre, String apodo, Long equipoFixtureId){
         this.id = id;
         this.nombre = nombre;
         this.apodo = apodo;
-        this.competencias = competencias;
+        this.equipoFixtureId = equipoFixtureId;
     }
 
     public Equipo toDomainExistent() {
@@ -61,17 +61,17 @@ public class EquipoEntityJpa {
         entityFromDomain.setNombre(equipo.getNombre());
         entityFromDomain.setApodo(equipo.getApodo());
         entityFromDomain.setFundacion(equipo.getFundacion());
-        entityFromDomain.setCompetencias(equipo.getCompetencias());
+        entityFromDomain.setEquipoFixtureId(equipo.getEquipoFixtureId());
         return entityFromDomain;
     }
 
-    public static EquipoEntityJpa createNewEntity(String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias){
+    public static EquipoEntityJpa createNewEntity(String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId){
         EquipoEntityJpa newEntity = new EquipoEntityJpa();
         newEntity.setId(null);
         newEntity.setNombre(nombre);
         newEntity.setApodo(apodo);
         newEntity.setFundacion(fundacion);
-        newEntity.setCompetencias(competencias);
+        newEntity.setEquipoFixtureId(equipoFixtureId);
         return newEntity;
     }
 
