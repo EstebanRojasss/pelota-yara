@@ -1,0 +1,48 @@
+package com.forum.api.application.service;
+
+import com.forum.api.application.in.dto.FixtureData;
+import com.forum.api.application.in.dto.StatusPartidoFixture;
+import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.StatusPartido;
+import org.springframework.stereotype.Component;
+
+@Component
+public class PartidoMapper {
+
+    public PartidoMapper() {
+    }
+
+    public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante) {
+            return Partido.createFromApi(
+                    local,
+                    visitante,
+                    mapStatus(fixtureData.statusFixture()),
+                    fixtureData.id()
+            );
+    }
+
+    public Partido toDomainExistent(FixtureData fixtureData, Partido partido){
+        return Partido.restore(
+                partido.getId(),
+                partido.getStatus(),
+                partido.getEquipoLocal(),
+                partido.getEquipoVisitante(),
+                partido.getGolLocal(),
+                partido.getGolVisitante(),
+                partido.getMinutoActual(),
+                partido.getMinutoAdicional1T(),
+                partido.getMinutoAdicional2T(),
+                fixtureData.id()
+        );
+    }
+
+
+    private StatusPartido mapStatus(StatusPartidoFixture statusFixture) {
+        return switch (statusFixture) {
+            case FIRST_HALF, PENALTY_IN_PROGRES, SECOND_HALF, BREAK_TIME, EXTRA_TIME -> StatusPartido.EN_JUEGO;
+            case HALF_TIME -> StatusPartido.MEDIO_TIEMPO;
+            case MATCH_SUSPENDED -> StatusPartido.FINALIZADO;
+        };
+    }
+}
