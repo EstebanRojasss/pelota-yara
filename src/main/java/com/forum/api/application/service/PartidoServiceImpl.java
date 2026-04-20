@@ -52,6 +52,19 @@ public class PartidoServiceImpl implements PartidoService {
         return partidoRepository.findPartidosByStatus(enVivo);
     }
 
+
+    private Equipo resolverEquipo(TeamDataDto team) {
+
+        Optional<Equipo> equipo = equipoService.buscarEquipoPorEquipoFixtureId(team.equipoFixtureId());
+
+        if (equipo.isPresent()) {
+            return equipo.get();
+        } else {
+            Equipo equipoPersistir = Equipo.create(team.nombre(), null, null, team.equipoFixtureId());
+            return equipoService.agregarNuevoEquipo(equipoPersistir);
+        }
+    }
+
     public List<Partido> listarTodosLosPartidos() {
         return partidoRepository.findAllPartidos();
     }
