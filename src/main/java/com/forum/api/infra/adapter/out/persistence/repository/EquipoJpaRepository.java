@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EquipoJpaRepository extends JpaRepository<EquipoEntityJpa, Long> {
-    Optional<EquipoEntityJpa> findByNombre(String var1);
+    Optional<EquipoEntityJpa> findByNombre(String nombre);
 
 
 }
