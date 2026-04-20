@@ -24,14 +24,14 @@ public class EquipoEntityJpa {
     @Column(unique = true)
     private Long equipoFixtureId;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(
-            name = "equipo_competencias",
-            joinColumns = @JoinColumn(name = "equipo_id")
-    )
-    @Column(name = "competencias")
-    @Enumerated(value = EnumType.STRING)
-    private Set<Competencias> competencias;
+//    @ElementCollection(fetch = FetchType.LAZY)
+//    @CollectionTable(
+//            name = "equipo_competencias",
+//            joinColumns = @JoinColumn(name = "equipo_id")
+//    )
+//    @Column(name = "competencias")
+//    @Enumerated(value = EnumType.STRING)
+//    private Set<Competencias> competencias;
 
     private EquipoEntityJpa(Long id, String nombre, String apodo, Long equipoFixtureId){
         this.id = id;
