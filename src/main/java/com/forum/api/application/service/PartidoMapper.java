@@ -26,7 +26,8 @@ public class PartidoMapper {
     }
 
 
-    private StatusPartido mapStatus(StatusPartidoFixture statusFixture) {
+
+    public StatusPartido mapStatus(StatusPartidoFixture statusFixture) {
         return switch (statusFixture) {
             case FIRST_HALF, PENALTY_IN_PROGRES, SECOND_HALF, BREAK_TIME, EXTRA_TIME -> StatusPartido.EN_JUEGO;
             case HALF_TIME -> StatusPartido.MEDIO_TIEMPO;
