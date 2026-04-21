@@ -51,6 +51,25 @@ public class PartidoServiceImpl implements PartidoService {
         StatusPartido enVivo = StatusPartido.EN_JUEGO;
         return partidoRepository.findPartidosByStatus(enVivo);
     }
+    
+
+    private boolean actualizarSiHayCambios(FixtureData fixture, Partido partido) {
+        boolean huboCambios = false;
+        huboCambios |= existenCambios(partido::getMinutoActual, partido::setMinutoActual, fixture.minuto());
+        huboCambios |= existenCambios(partido::getStatus, partido::setStatus, partidoMapper.mapStatus(fixture.statusFixture()));
+        huboCambios |= existenCambios(partido::getGolLocal, partido::setGolLocal, fixture.golLocal());
+        huboCambios |= existenCambios(partido::getGolVisitante, partido::setGolVisitante, fixture.golVisitante());
+
+        return huboCambios;
+    }
+
+    private <T> boolean existenCambios(Supplier<T> getterValor, Consumer<T> setter, T nuevovalor) {
+        if (!Objects.equals(getterValor, nuevovalor)) {
+            setter.accept(nuevovalor);
+            return true;
+        }
+        return false;
+    }
 
 
     private Equipo resolverEquipo(TeamDataDto team) {
