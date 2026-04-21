@@ -80,6 +80,8 @@ public class PartidoServiceImpl implements PartidoService {
             );
             equipoPorFixtureIdCache.put(team.id(), equipo);
         }
+
+        return equipoPorFixtureIdCache.get(team.id());
     }
 
     public List<Partido> listarTodosLosPartidos() {
