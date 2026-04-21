@@ -99,6 +99,26 @@ public class Partido {
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
 
+    public void setEquipoLocal(Equipo equipoLocal) {
+        this.equipoLocal = equipoLocal;
+    }
+
+    public void setEquipoVisitante(Equipo equipoVisitante) {
+        this.equipoVisitante = equipoVisitante;
+    }
+
+    public void setGolVisitante(Integer golVisitante) {
+        this.golVisitante = golVisitante;
+    }
+
+    public void setGolLocal(Integer golLocal) {
+        this.golLocal = golLocal;
+    }
+
+    public void setMinutoActual(Integer minutoActual) {
+        this.minutoActual = minutoActual;
+    }
+
     private void setMinutoActual(int minutoActual) {
         this.minutoActual = minutoActual;
     }
