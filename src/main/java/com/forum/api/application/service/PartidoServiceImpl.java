@@ -51,7 +51,28 @@ public class PartidoServiceImpl implements PartidoService {
         StatusPartido enVivo = StatusPartido.EN_JUEGO;
         return partidoRepository.findPartidosByStatus(enVivo);
     }
-    
+
+
+    private Partido procesarDatosFixture(FixtureData fixture) {
+        Equipo local = resolverEquipo(fixture.local());
+        Equipo visitante = resolverEquipo(fixture.visitante());
+
+        Partido partido = partidoPorFixtureIdCache.get(fixture.id());
+
+        if (partido == null) {
+
+            partido = partidoRepository.savePartido(
+                    partidoMapper.toNewDomain(fixture, local, visitante)
+            );
+            partidoPorFixtureIdCache.put(fixture.id(), partido);
+
+        } else if (actualizarSiHayCambios(fixture, partido)) {
+            partidoMapper.actualizarDesdeFixture(fixture, partido);
+            partido = partidoRepository.savePartido(partido);
+        }
+
+        return partido;
+    }
 
     private boolean actualizarSiHayCambios(FixtureData fixture, Partido partido) {
         boolean huboCambios = false;
