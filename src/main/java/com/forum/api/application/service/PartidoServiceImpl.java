@@ -73,14 +73,12 @@ public class PartidoServiceImpl implements PartidoService {
 
 
     private Equipo resolverEquipo(TeamDataDto team) {
-
-        Optional<Equipo> equipo = equipoService.buscarEquipoPorEquipoFixtureId(team.equipoFixtureId());
-
-        if (equipo.isPresent()) {
-            return equipo.get();
-        } else {
-            Equipo equipoPersistir = Equipo.create(team.nombre(), null, null, team.equipoFixtureId());
-            return equipoService.agregarNuevoEquipo(equipoPersistir);
+        Equipo equipo = equipoPorFixtureIdCache.get(team.id());
+        if (equipo == null) {
+            equipo = equipoService.agregarNuevoEquipo(
+                    Equipo.create(team.nombre(), null, null, team.id())
+            );
+            equipoPorFixtureIdCache.put(team.id(), equipo);
         }
     }
 
