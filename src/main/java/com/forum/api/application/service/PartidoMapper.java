@@ -40,9 +40,10 @@ public class PartidoMapper {
 
     public StatusPartido mapStatus(StatusPartidoFixture statusFixture) {
         return switch (statusFixture) {
+            case NOT_STARTED -> StatusPartido.NO_INICIADO;
             case FIRST_HALF, PENALTY_IN_PROGRES, SECOND_HALF, BREAK_TIME, EXTRA_TIME -> StatusPartido.EN_JUEGO;
             case HALF_TIME -> StatusPartido.MEDIO_TIEMPO;
-            case MATCH_SUSPENDED -> StatusPartido.FINALIZADO;
+            case MATCH_SUSPENDED,MATCH_FINISHED -> StatusPartido.FINALIZADO;
         };
     }
 }
