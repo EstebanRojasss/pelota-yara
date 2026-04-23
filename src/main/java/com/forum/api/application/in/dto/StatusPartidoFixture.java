@@ -24,7 +24,7 @@ public enum StatusPartidoFixture {
 
     MATCH_FINISHED_AFTER_EXTRA_TIME("AET"),
 
-    BREAK_TIME("BK");
+    BREAK_TIME("BT");
 
     private final String shortValue;
 
