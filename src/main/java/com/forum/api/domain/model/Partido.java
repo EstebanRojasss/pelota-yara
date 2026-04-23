@@ -47,14 +47,14 @@ public class Partido {
                 fixtureId);
     }
 
-    public static Partido createFromApi(Equipo equipoLocal, Equipo equipoVisitante, StatusPartido status, Long fixtureId) {
+    public static Partido createFromApi(Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, StatusPartido status, Long fixtureId) {
         return new Partido(null,
                 status,
                 equipoLocal,
                 equipoVisitante,
-                0,
-                0,
-                0,
+                golVisitante,
+                golLocal,
+                minutoActual,
                 0,
                 0,
                 fixtureId);
