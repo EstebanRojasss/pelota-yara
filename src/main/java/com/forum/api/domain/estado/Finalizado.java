@@ -9,8 +9,7 @@ public class Finalizado implements EstadoPartido {
     private static final Logger log = LoggerFactory.getLogger(Finalizado.class);
 
     public void ejecutar(Partido partido) {
-        partido.setStatus(StatusPartido.FINALIZADO);
-        log.info("Fin del partido {}" ,partido.getStatus().name());
+        log.info("Fin del partido:\n Datos del partido: {}" ,partido.toString());
     }
 }
 
