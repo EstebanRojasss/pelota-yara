@@ -16,6 +16,10 @@ public enum StatusPartidoFixture {
 
     PENALTY_IN_PROGRES("P"),
 
+    NOT_STARTED("NS"),
+
+    MATCH_FINISHED("FT"),
+
     MATCH_SUSPENDED("SUSP");
 
     private final String shortValue;
