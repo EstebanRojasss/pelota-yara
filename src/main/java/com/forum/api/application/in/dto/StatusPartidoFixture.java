@@ -22,7 +22,9 @@ public enum StatusPartidoFixture {
 
     MATCH_FINISHED_AFTER_PENALTY("PEN"),
 
-    MATCH_FINISHED_AFTER_EXTRA_TIME("AET");
+    MATCH_FINISHED_AFTER_EXTRA_TIME("AET"),
+
+    BREAK_TIME("BK");
 
     private final String shortValue;
 
