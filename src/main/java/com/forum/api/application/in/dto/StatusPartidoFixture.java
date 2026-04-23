@@ -12,8 +12,6 @@ public enum StatusPartidoFixture {
 
     EXTRA_TIME("ET"),
 
-    BREAK_TIME("BK"),
-
     PENALTY_IN_PROGRES("P"),
 
     NOT_STARTED("NS"),
