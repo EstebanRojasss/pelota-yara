@@ -207,7 +207,7 @@ public class Partido {
     }
 
     public String toString() {
-        return "Partido{id=" + this.id + ", status=" + String.valueOf(this.status) + ", estadoPartido=" + String.valueOf(this.estadoPartido) + ", equipoLocal=" + String.valueOf(this.equipoLocal) + ", equipoVisitante=" + String.valueOf(this.equipoVisitante) + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoActual=" + this.minutoActual + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
+        return "Partido{id=" + this.id + ", status=" +this.status + ", estadoPartido=" +this.estadoPartido + ", equipoLocal=" + this.equipoLocal + ", equipoVisitante=" + this.equipoVisitante + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoActual=" + this.minutoActual + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
     }
 }
 
