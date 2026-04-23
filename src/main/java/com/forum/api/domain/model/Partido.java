@@ -34,6 +34,17 @@ public class Partido {
         this.estadoPartido = new PrimerTiempo();
     }
 
+    public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
+        this.status = status;
+        this.equipoLocal = equipoLocal;
+        this.equipoVisitante = equipoVisitante;
+        this.golVisitante = golVisitante;
+        this.golLocal = golLocal;
+        this.minutoActual = minutoActual;
+        this.minutoAdicional1T = minutoAdicional1T;
+        this.minutoAdicional2T = minutoAdicional2T;
+    }
+
     public static Partido restore(Long id, StatusPartido statusPartido, Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T, Long fixtureId) {
         return new Partido(id,
                 statusPartido,
