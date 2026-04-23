@@ -31,7 +31,8 @@ public record FixtureWrapper(
                         wrapper.goals.home(),
                         wrapper.goals.away(),
                         wrapper.fixture.status().elapsed(),
-                        StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus())
+                        StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus()),
+                        wrapper.fixture.status().elapsed()
                 );
         }
 

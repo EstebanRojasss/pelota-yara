@@ -8,7 +8,8 @@ public record FixtureData(
         Integer golLocal,
         Integer golVisitante,
         Integer minuto,
-        StatusPartidoFixture statusFixture
+        StatusPartidoFixture statusFixture,
+        Integer minutoExtra
 ) {
 
 }
