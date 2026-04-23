@@ -8,5 +8,7 @@ public record FixtureStatus(
         @JsonProperty("short")
         String shortStatus,
         @JsonProperty("elapsed")
-        Integer elapsed) {
+        Integer elapsed,
+        @JsonProperty("extra")
+        Integer extraMinute) {
 }
