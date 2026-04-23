@@ -18,7 +18,11 @@ public enum StatusPartidoFixture {
 
     MATCH_FINISHED("FT"),
 
-    MATCH_SUSPENDED("SUSP");
+    MATCH_SUSPENDED("SUSP"),
+
+    MATCH_FINISHED_AFTER_PENALTY("PEN"),
+
+    MATCH_FINISHED_AFTER_EXTRA_TIME("AET");
 
     private final String shortValue;
 
