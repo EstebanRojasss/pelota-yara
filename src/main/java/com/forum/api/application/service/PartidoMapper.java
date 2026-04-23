@@ -25,6 +25,17 @@ public class PartidoMapper {
         );
     }
 
+    public void actualizarDesdeFixture(FixtureData fixture, Partido partido){
+        partido.actualizar(
+                mapStatus(fixture.statusFixture()),
+                partido.getEquipoLocal(),
+                partido.getEquipoVisitante(),
+                fixture.golVisitante(),
+                fixture.golLocal(),
+                fixture.minuto(),
+                0,
+                0);
+    }
 
 
     public StatusPartido mapStatus(StatusPartidoFixture statusFixture) {
