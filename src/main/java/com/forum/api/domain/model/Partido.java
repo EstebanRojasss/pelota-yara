@@ -77,11 +77,7 @@ public class Partido {
         this.minutoActual++;
     }
 
-//    public void aplicarEvento(MatchEvent matchEvent) {
-//        switch (matchEvent.getEventoPartido()) {
-//            case GOL -> aumentarMarcador(matchEvent);
-//        }
-//    }
+
 
     public void ejecutar() {
         this.estadoPartido.ejecutar(this);
