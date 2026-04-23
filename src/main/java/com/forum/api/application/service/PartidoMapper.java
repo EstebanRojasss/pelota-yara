@@ -46,6 +46,7 @@ public class PartidoMapper {
             case EXTRA_TIME -> StatusPartido.TIEMPO_EXTRA;
             case PENALTY_IN_PROGRES -> StatusPartido.TANDA_PENALES;
             case HALF_TIME -> StatusPartido.MEDIO_TIEMPO;
+            case BREAK_TIME -> StatusPartido.DESCANSO_TIEMPO_EXTRA;
 
             case MATCH_SUSPENDED,
                  MATCH_FINISHED,
