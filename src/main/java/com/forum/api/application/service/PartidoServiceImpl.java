@@ -68,7 +68,6 @@ public class PartidoServiceImpl implements PartidoService {
 
         } else if (actualizarSiHayCambios(fixture, partido)) {
             partidoMapper.actualizarDesdeFixture(fixture, partido);
-            partido = partidoRepository.savePartido(partido);
         }
 
         return partido;
