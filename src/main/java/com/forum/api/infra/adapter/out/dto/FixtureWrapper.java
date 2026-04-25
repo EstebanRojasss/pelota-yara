@@ -32,7 +32,9 @@ public record FixtureWrapper(
                         wrapper.goals.away(),
                         wrapper.fixture.status().elapsed(),
                         StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus()),
-                        wrapper.fixture.status().elapsed()
+                        wrapper.fixture.status().elapsed(),
+                        wrapper.teams.home().urlLogo(),
+                        wrapper.teams.away().urlLogo()
                 );
         }
 

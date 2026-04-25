@@ -8,5 +8,7 @@ public record AwayTeam(
         @JsonProperty("id")
         Long id,
         @JsonProperty("name")
-        String name) {
+        String name,
+        @JsonProperty("logo")
+        String urlLogo) {
 }
