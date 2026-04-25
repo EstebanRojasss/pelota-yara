@@ -75,11 +75,19 @@ public class PartidoServiceImpl implements PartidoService {
 
     private boolean actualizarSiHayCambios(FixtureData fixture, Partido partido) {
         boolean huboCambios = false;
-        huboCambios |= existenCambios(partido::getMinutoActual, partido::setMinutoActual, fixture.minuto());
         huboCambios |= existenCambios(partido::getStatus, partido::setStatus, partidoMapper.mapStatus(fixture.statusFixture()));
         huboCambios |= existenCambios(partido::getGolLocal, partido::setGolLocal, fixture.golLocal());
         huboCambios |= existenCambios(partido::getGolVisitante, partido::setGolVisitante, fixture.golVisitante());
-
+        huboCambios |= existenCambios(
+                partido.getEquipoLocal()::getLogo,
+                partido.getEquipoLocal()::setLogo,
+                fixture.local().logo()
+        );
+        huboCambios |= existenCambios(
+                partido.getEquipoVisitante()::getLogo,
+                partido.getEquipoVisitante()::setLogo,
+                fixture.visitante().logo()
+        );
         return huboCambios;
     }
 
