@@ -23,6 +23,7 @@ public class EquipoEntityJpa {
     private LocalDate fundacion;
     @Column(unique = true)
     private Long equipoFixtureId;
+    private String logoUrlEquipo;
 
 //    @ElementCollection(fetch = FetchType.LAZY)
 //    @CollectionTable(
@@ -45,14 +46,17 @@ public class EquipoEntityJpa {
                 nombre,
                 apodo,
                 fundacion,
-                equipoFixtureId);
+                equipoFixtureId,
+                logoUrlEquipo
+                );
     }
 
     public Equipo toNewDomain() {
         return Equipo.create(nombre,
                 apodo,
                 fundacion,
-                equipoFixtureId);
+                equipoFixtureId,
+                logoUrlEquipo);
     }
 
     public static EquipoEntityJpa fromDomain(Equipo equipo) {
@@ -62,6 +66,7 @@ public class EquipoEntityJpa {
         entityFromDomain.setApodo(equipo.getApodo());
         entityFromDomain.setFundacion(equipo.getFundacion());
         entityFromDomain.setEquipoFixtureId(equipo.getEquipoFixtureId());
+        entityFromDomain.setLogoUrlEquipo(equipo.getLogo());
         return entityFromDomain;
     }
 
