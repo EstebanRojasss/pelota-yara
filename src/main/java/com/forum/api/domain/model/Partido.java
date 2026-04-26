@@ -31,7 +31,8 @@ public class Partido {
         this.minutoAdicional1T = minutoAdicional1T;
         this.minutoAdicional2T = minutoAdicional2T;
         this.fixtureId = fixtureId;
-        this.estadoPartido = new PrimerTiempo();
+        this.estadoPartido = new Definiendo();
+        this.timeStampBase = Instant.now();
     }
 
     public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
