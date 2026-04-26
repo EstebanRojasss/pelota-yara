@@ -195,6 +195,14 @@ public class Partido {
         return fixtureId;
     }
 
+    public Instant getTimeStampBase() {
+        return timeStampBase;
+    }
+
+    public void setTimeStampBase(Instant timeStampBase) {
+        this.timeStampBase = timeStampBase;
+    }
+
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
