@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EquipoServiceImpl
-implements EquipoService {
+public class EquipoServiceImpl implements EquipoService {
     private final EquipoRepository equipoRepository;
     private final JugadorRepository jugadorRepository;
 
@@ -23,25 +22,24 @@ implements EquipoService {
         this.jugadorRepository = jugadorRepository;
     }
 
-    public Equipo agregarNuevoEquipo(Equipo equipo) {
-        return this.equipoRepository.save(equipo);
+    public Equipo agregarNuevoEquipo(Equipo eq) {
+        return this.equipoRepository.save(eq);
     }
 
     public void eliminarEquipo(Long id) {
         try {
             this.equipoRepository.delete(id);
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             throw new JugadorNotFoundException(e.getMessage());
         }
     }
 
-    public Optional<Equipo> cambiarDatosEquipo(Equipo equipo) {
+    public Optional<Equipo> cambiarDatosEquipo(Equipo eq) {
         return null;
     }
 
     public List<Equipo> listarTodosLosEquipos() {
-        return this.equipoRepository.findAllEquipos();
+        return equipoRepository.findAllEquipos();
     }
 
     public Equipo encontrarEquipoPorId(Long id) {
