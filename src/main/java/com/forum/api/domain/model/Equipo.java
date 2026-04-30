@@ -2,33 +2,36 @@ package com.forum.api.domain.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Set;
+
 
 public class Equipo {
     private Long id;
     private String nombre;
     private String apodo;
     private LocalDate fundacion;
-    private Set<Competencias> competencias;
+    private Long equipoFixtureId;
+    private String logo;
 
-    private Equipo(Long id, String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias) {
+    private Equipo(Long id, String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId, String logo) {
         this.id = id;
         this.nombre = nombre;
         this.apodo = apodo;
         this.fundacion = fundacion;
-        this.competencias = competencias;
+        this.equipoFixtureId = equipoFixtureId;
+        this.logo = logo;
     }
 
-    public static Equipo restore(Long id, String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias) {
-        return new Equipo(id, nombre, apodo, fundacion, competencias);
+    public static Equipo restore(Long id, String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId, String logo) {
+        return new Equipo(id, nombre, apodo, fundacion,equipoFixtureId, logo);
     }
 
-    public static Equipo create(String nombre, String apodo, LocalDate fundacion, Set<Competencias> competencias) {
-        return new Equipo(null, nombre, apodo, fundacion, competencias);
+    public static Equipo create(String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId, String logo) {
+        return new Equipo(null, nombre, apodo, fundacion, equipoFixtureId, logo);
     }
 
-    public Set<Competencias> getCompetencias() {
-        return this.competencias;
+
+    public String getLogo() {
+        return logo;
     }
 
     public Long getId() {
@@ -47,6 +50,14 @@ public class Equipo {
         return this.fundacion;
     }
 
+    public Long getEquipoFixtureId() {
+        return equipoFixtureId;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
@@ -60,7 +71,7 @@ public class Equipo {
     }
 
     public String toString() {
-        return "Equipo{id=" + this.id + ", nombre='" + this.nombre + "', apodo='" + this.apodo + "', fundacion=" + String.valueOf(this.fundacion) + ", competencias=" + String.valueOf(this.competencias) + "}";
+        return "Equipo{id=" + this.id + ", nombre='" + this.nombre + "', apodo='" + this.apodo + "', fundacion=" + this.fundacion+ "}";
     }
 }
 
