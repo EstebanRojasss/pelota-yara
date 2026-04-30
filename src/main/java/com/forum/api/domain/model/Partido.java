@@ -1,9 +1,11 @@
 package com.forum.api.domain.model;
 
+import com.forum.api.domain.estado.Definiendo;
 import com.forum.api.domain.estado.EstadoPartido;
-import com.forum.api.domain.estado.PrimerTiempo;
 import com.forum.api.domain.exception.EquipoNotFoundException;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,59 +18,65 @@ public class Partido {
     private Equipo equipoVisitante;
     private Integer golVisitante;
     private Integer golLocal;
+    private Integer minutoBase;
+    private Instant timeStampBase;
     private Integer minutoActual;
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
 
-    private Partido(Long id, StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T, Long fixtureId) {
+    private Partido(Long id, StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoBase, Long fixtureId) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.golVisitante = golVisitante;
         this.golLocal = golLocal;
-        this.minutoActual = minutoActual;
-        this.minutoAdicional1T = minutoAdicional1T;
-        this.minutoAdicional2T = minutoAdicional2T;
+        this.minutoBase = minutoBase;
+        this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
         this.estadoPartido = new Definiendo();
-        this.timeStampBase = Instant.now();
     }
 
-    public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T) {
+    public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal) {
         this.status = status;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.golVisitante = golVisitante;
         this.golLocal = golLocal;
-        this.minutoActual = minutoActual;
-        this.minutoAdicional1T = minutoAdicional1T;
-        this.minutoAdicional2T = minutoAdicional2T;
     }
 
-    public static Partido restore(Long id, StatusPartido statusPartido, Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T, Long fixtureId) {
+    public static Partido restore(Long id,
+                                  StatusPartido statusPartido,
+                                  Equipo equipoLocal,
+                                  Equipo equipoVisitante,
+                                  Integer golLocal,
+                                  Integer golVisitante,
+                                  Integer minutoBase,
+                                  Long fixtureId) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
                 equipoVisitante,
                 golVisitante,
                 golLocal,
-                minutoActual,
-                minutoAdicional1T,
-                minutoAdicional2T,
+                minutoBase,
                 fixtureId);
     }
 
-    public static Partido createFromApi(Equipo equipoLocal, Equipo equipoVisitante, Integer golLocal, Integer golVisitante, Integer minutoActual, StatusPartido status, Long fixtureId) {
+    public static Partido createFromApi(Equipo equipoLocal,
+                                        Equipo equipoVisitante,
+                                        Integer golLocal,
+                                        Integer golVisitante,
+                                        Integer minutoBase,
+                                        StatusPartido status,
+                                        Long fixtureId) {
         return new Partido(null,
                 status,
                 equipoLocal,
                 equipoVisitante,
                 golVisitante,
                 golLocal,
-                minutoActual,
-                0,
-                0,
+                minutoBase,
                 fixtureId);
     }
 
@@ -77,8 +85,6 @@ public class Partido {
                 StatusPartido.NO_INICIADO,
                 equipoLocal,
                 equipoVisitante,
-                0,
-                0,
                 0,
                 0,
                 0,
@@ -102,7 +108,7 @@ public class Partido {
     }
 
     public void aumentarMinuto() {
-        this.minutoActual++;
+        this.minutoBase++;
     }
 
 
@@ -139,16 +145,24 @@ public class Partido {
         this.golLocal = golLocal;
     }
 
+    public void setMinutoBase(Integer minutoBase) {
+        this.minutoBase = minutoBase;
+    }
+
     public void setMinutoActual(Integer minutoActual) {
         this.minutoActual = minutoActual;
     }
 
-    private void setMinutoActual(int minutoActual) {
-        this.minutoActual = minutoActual;
+    public Integer getMinutoActual() {
+        return minutoActual;
     }
 
     public void cambiarEstado(EstadoPartido estado) {
         this.estadoPartido = estado;
+    }
+
+    public Instant getTimeStampBase() {
+        return timeStampBase;
     }
 
     public Long getId() {
@@ -179,8 +193,8 @@ public class Partido {
         return this.golLocal;
     }
 
-    public Integer getMinutoActual() {
-        return this.minutoActual;
+    public Integer getMinutoBase() {
+        return this.minutoBase;
     }
 
     public List<Equipo> equiposDelPartido() {
@@ -207,16 +221,12 @@ public class Partido {
         return this.minutoAdicional2T;
     }
 
-    public Long getFixtureId() {
-        return fixtureId;
-    }
-
-    public Instant getTimeStampBase() {
-        return timeStampBase;
-    }
-
     public void setTimeStampBase(Instant timeStampBase) {
         this.timeStampBase = timeStampBase;
+    }
+
+    public Long getFixtureId() {
+        return fixtureId;
     }
 
     public boolean equals(Object o) {
@@ -224,15 +234,15 @@ public class Partido {
             return false;
         }
         Partido partido = (Partido) o;
-        return Objects.equals(this.id, partido.id) && this.estadoPartido == partido.estadoPartido && Objects.equals(this.equipoLocal, partido.equipoLocal) && Objects.equals(this.equipoVisitante, partido.equipoVisitante) && Objects.equals(this.golVisitante, partido.golVisitante) && Objects.equals(this.golLocal, partido.golLocal) && Objects.equals(this.minutoActual, partido.minutoActual);
+        return Objects.equals(this.id, partido.id) && this.estadoPartido == partido.estadoPartido && Objects.equals(this.equipoLocal, partido.equipoLocal) && Objects.equals(this.equipoVisitante, partido.equipoVisitante) && Objects.equals(this.golVisitante, partido.golVisitante) && Objects.equals(this.golLocal, partido.golLocal) && Objects.equals(this.minutoBase, partido.minutoBase);
     }
 
     public int hashCode() {
-        return Objects.hash(this.id, this.estadoPartido, this.equipoLocal, this.equipoVisitante, this.golVisitante, this.golLocal, this.minutoActual);
+        return Objects.hash(this.id, this.estadoPartido, this.equipoLocal, this.equipoVisitante, this.golVisitante, this.golLocal, this.minutoBase);
     }
 
     public String toString() {
-        return "Partido{id=" + this.id + ", status=" +this.status + ", estadoPartido=" +this.estadoPartido + ", equipoLocal=" + this.equipoLocal + ", equipoVisitante=" + this.equipoVisitante + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoActual=" + this.minutoActual + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
+        return "Partido{id=" + this.id + ", status=" +this.status + ", estadoPartido=" +this.estadoPartido + ", equipoLocal=" + this.equipoLocal + ", equipoVisitante=" + this.equipoVisitante + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoBase=" + this.minutoBase + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
     }
 }
 
