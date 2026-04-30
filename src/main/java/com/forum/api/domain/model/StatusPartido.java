@@ -6,5 +6,8 @@ public enum StatusPartido {
     MEDIO_TIEMPO,
     NO_INICIADO,
     EN_JUEGO,
-    PRIMER_TIEMPO;
+    PRIMER_TIEMPO,
+    TANDA_PENALES,
+    TIEMPO_EXTRA,
+    DESCANSO_TIEMPO_EXTRA;
 }
