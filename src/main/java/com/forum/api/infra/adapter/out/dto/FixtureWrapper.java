@@ -24,17 +24,17 @@ public record FixtureWrapper(
                         wrapper.fixture.id(),
                         TeamDataDto.map(
                                 wrapper.teams.home().id(),
-                                wrapper.teams.home().name()),
+                                wrapper.teams.home().name(),
+                                wrapper.teams.home().urlLogo()),
                         TeamDataDto.map(
                                 wrapper.teams.away().id(),
-                                wrapper.teams.away().name()),
+                                wrapper.teams.away().name(),
+                                wrapper.teams.away().urlLogo()),
                         wrapper.goals.home(),
                         wrapper.goals.away(),
                         wrapper.fixture.status().elapsed(),
                         StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus()),
-                        wrapper.fixture.status().elapsed(),
-                        wrapper.teams.home().urlLogo(),
-                        wrapper.teams.away().urlLogo()
+                        wrapper.fixture.status().elapsed()
                 );
         }
 
