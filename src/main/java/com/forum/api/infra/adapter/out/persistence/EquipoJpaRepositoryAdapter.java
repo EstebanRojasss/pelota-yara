@@ -34,12 +34,11 @@ public class EquipoJpaRepositoryAdapter implements EquipoRepository {
     }
 
     public List<Equipo> findAllEquipos() {
-//        return jpaRepository
-//                .findEquiposWithCompetencias()
-//                .stream()
-//                .map(EquipoEntityJpa::toDomainExistent)
-//                .collect(Collectors.toList());
-        return List.of();
+        return jpaRepository
+                .findAll()
+                .stream()
+                .map(EquipoEntityJpa::toDomainExistent)
+                .toList();
     }
 
     @Override
