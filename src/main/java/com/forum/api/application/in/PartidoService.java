@@ -4,6 +4,7 @@ import com.forum.api.application.in.command.CrearPartidoCommand;
 import com.forum.api.domain.model.Partido;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PartidoService {
      Partido encontrarPartido(Long var1);
@@ -18,6 +19,8 @@ public interface PartidoService {
 
      List<Partido> listarTodosLosPartidos();
 
-    Partido encontrarPartidoPorFixtureId(Long id);
+    Optional<Partido> encontrarPartidoPorFixtureId(Long id);
+
+    List<Partido> partidosEnVivo();
 }
 
