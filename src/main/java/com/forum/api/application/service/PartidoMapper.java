@@ -7,6 +7,8 @@ import com.forum.api.domain.model.Partido;
 import com.forum.api.domain.model.StatusPartido;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 @Component
 public class PartidoMapper {
 
@@ -14,7 +16,7 @@ public class PartidoMapper {
     }
 
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante) {
-        return Partido.createFromApi(
+         return Partido.createFromApi(
                 local,
                 visitante,
                 fixtureData.golLocal(),
@@ -25,16 +27,24 @@ public class PartidoMapper {
         );
     }
 
-    public void actualizarDesdeFixture(FixtureData fixture, Partido partido){
+    public void actualizarDesdeFixture(FixtureData fixture, Partido partido) {
+        if (!Objects.equals(fixture.minuto(), partido.getMinutoBase())) {
+            partido.fijarBaseMinuto(fixture.minuto());
+        }
         partido.actualizar(
                 mapStatus(fixture.statusFixture()),
                 partido.getEquipoLocal(),
                 partido.getEquipoVisitante(),
                 fixture.golVisitante(),
-                fixture.golLocal(),
-                fixture.minuto(),
-                0,
-                0);
+                fixture.golLocal());
+    }
+
+    private Integer establecerTiempoAdicional(FixtureData fixture, Partido partido) {
+        return switch (fixture.statusFixture()) {
+            case FIRST_HALF -> fixture.minutoExtra() != null ? fixture.minutoExtra() : partido.getMinutoAdicional1T();
+            case SECOND_HALF -> fixture.minutoExtra() != null ? fixture.minutoExtra() : partido.getMinutoAdicional2T();
+            default -> 0;
+        };
     }
 
 
