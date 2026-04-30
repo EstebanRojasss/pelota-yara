@@ -13,7 +13,7 @@ public record PartidoResponseDto(Long id, StatusPartido status,EquipoPartidoDto 
                 EquipoPartidoDto.fromDomain(partido.getEquipoVisitante()),
                 partido.getGolVisitante(),
                 partido.getGolLocal(),
-                partido.getMinutoActual(),
+                partido.getMinutoBase(),
                 partido.getMinutoAdicional1T(),
                 partido.getMinutoAdicional2T());
     }
