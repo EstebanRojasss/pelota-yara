@@ -9,9 +9,7 @@ public record FixtureData(
         Integer golVisitante,
         Integer minuto,
         StatusPartidoFixture statusFixture,
-        Integer minutoExtra,
-        String logoEquipoLocal,
-        String logoEquipoVisit
+        Integer minutoExtra
 ) {
 
 }
