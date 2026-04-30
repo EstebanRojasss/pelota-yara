@@ -84,6 +84,22 @@ public class Partido {
                 0,
                 0L);
     }
+    public void fijarBaseMinuto(Integer minutoBase) {
+        this.minutoBase = minutoBase;
+        this.timeStampBase = Instant.now();
+        this.minutoActual = minutoBase;
+    }
+
+    public Integer calcularMinutoActual() {
+        long segundos = Duration.between(timeStampBase, Instant.now()).getSeconds();
+        return minutoBase + (int)(segundos / 60);
+    }
+
+    public void actualizarMinutoActual() {
+        if (timeStampBase != null) {
+            this.minutoActual = calcularMinutoActual();
+        }
+    }
 
     public void aumentarMinuto() {
         this.minutoActual++;
