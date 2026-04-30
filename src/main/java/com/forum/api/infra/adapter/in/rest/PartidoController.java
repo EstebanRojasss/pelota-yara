@@ -34,10 +34,14 @@ public class PartidoController {
 
     @GetMapping("/partidos/envivo")
     public ResponseEntity<List<PartidoResponseDto>> listarTodosLosPartidosEnVivo() {
-        return ResponseEntity.ok().body(partidoService.encontrarTodosLosPartidosEnVivo()
-                .stream()
-                .map(PartidoResponseDto::fromDomainExistent)
-                .collect(Collectors.toList()));
+        List<Partido> partidos = partidoService.partidosEnVivo();
+
+        partidos.forEach(Partido::actualizarMinutoActual);
+        return ResponseEntity.ok().body(
+                partidos.stream().
+                map(PartidoResponseDto::fromDomainExistent).
+                toList()
+        );
     }
     @PostMapping("/partidos")
     public ResponseEntity<PartidoResponseDto> agregarNuevoPartido(@RequestBody PartidoRequestDto partidoRequest) {
@@ -47,7 +51,7 @@ public class PartidoController {
                 partidoRequest.idEquipoVisitante()
         );
 
-        Partido response = partidoService.guardarNuevoPartido(command);
+        Partido response = partidoService.guardarPartido(command);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
