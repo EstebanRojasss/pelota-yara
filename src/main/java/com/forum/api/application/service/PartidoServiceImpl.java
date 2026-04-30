@@ -1,26 +1,39 @@
 package com.forum.api.application.service;
 
+import com.forum.api.application.in.DataFixtureProvider;
 import com.forum.api.application.in.EquipoService;
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.in.command.CrearPartidoCommand;
+import com.forum.api.application.in.dto.FixtureData;
+import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.application.out.PartidoRepository;
 import com.forum.api.domain.exception.PartidoNotFoundException;
 import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Partido;
-import com.forum.api.domain.model.StatusPartido;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @Service
 public class PartidoServiceImpl implements PartidoService {
     private final PartidoRepository partidoRepository;
     private final EquipoService equipoService;
+    private final DataFixtureProvider fixtureProvider;
+    private final PartidoMapper partidoMapper;
+    private final Map<Long, Equipo> equipoPorFixtureIdCache = new HashMap<>();
+    private final Map<Long, Partido> partidoPorFixtureIdCache = new HashMap<>();
 
-    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService) {
+    int countNuevoPartido = 0;
+    int countGuardarPartidoExistente = 0;
+
+    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataFixtureProvider fixtureProvider, PartidoMapper partidoMapper) {
         this.partidoRepository = partidoRepository;
         this.equipoService = equipoService;
+        this.fixtureProvider = fixtureProvider;
+        this.partidoMapper = partidoMapper;
     }
 
     public Partido encontrarPartido(Long id) {
@@ -35,28 +48,35 @@ public class PartidoServiceImpl implements PartidoService {
         }
     }
 
-    public Partido guardarNuevoPartido(CrearPartidoCommand partidoCommand) {
+    public Partido guardarPartido(CrearPartidoCommand partidoCommand) {
         Equipo equipoLocal = equipoService.encontrarEquipoPorId(partidoCommand.equipoLocalId());
         Equipo equipoVisitante = equipoService.encontrarEquipoPorId(partidoCommand.equipoVisitanteId());
-        Partido partido = Partido.create(equipoLocal, equipoVisitante);
+        Partido partido = Partido.createFromLocal(equipoLocal, equipoVisitante);
         return partidoRepository.savePartido(partido);
     }
 
-    @Transactional
+
     public Partido actualizarDatosDePartido(Partido datosPartidoActualizar) {
         return partidoRepository.savePartido(datosPartidoActualizar);
     }
 
-    public List<Partido> encontrarTodosLosPartidosEnVivo() {
-        StatusPartido enVivo = StatusPartido.EN_JUEGO;
-        return partidoRepository.findPartidosByStatus(enVivo);
+
+    public List<Partido> partidosEnVivo(){
+        return partidoPorFixtureIdCache.values().stream().toList();
     }
 
+    @Transactional
+    public List<Partido> encontrarTodosLosPartidosEnVivo() {
+        return fixtureProvider.
+                proveerDatosFixture().
+                stream().
+                map(this::procesarDatosFixture).
+                toList();
+    }
 
     private Partido procesarDatosFixture(FixtureData fixture) {
         Equipo local = resolverEquipo(fixture.local());
         Equipo visitante = resolverEquipo(fixture.visitante());
-
         Partido partido = partidoPorFixtureIdCache.get(fixture.id());
 
         if (partido == null) {
@@ -92,7 +112,7 @@ public class PartidoServiceImpl implements PartidoService {
     }
 
     private <T> boolean existenCambios(Supplier<T> getterValor, Consumer<T> setter, T nuevovalor) {
-        if (!Objects.equals(getterValor, nuevovalor)) {
+        if (!Objects.equals(getterValor.get(), nuevovalor)) {
             setter.accept(nuevovalor);
             return true;
         }
@@ -104,12 +124,12 @@ public class PartidoServiceImpl implements PartidoService {
         Equipo equipo = equipoPorFixtureIdCache.get(team.id());
         if (equipo == null) {
             equipo = equipoService.agregarNuevoEquipo(
-                    Equipo.create(team.nombre(), null, null, team.id())
+                    Equipo.create(team.nombre(), null, null, team.id(), team.logo())
             );
             equipoPorFixtureIdCache.put(team.id(), equipo);
         }
 
-        return equipoPorFixtureIdCache.get(team.id());
+        return equipo;
     }
 
     public List<Partido> listarTodosLosPartidos() {
