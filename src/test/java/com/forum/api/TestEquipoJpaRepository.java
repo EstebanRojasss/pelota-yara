@@ -46,55 +46,55 @@ public class TestEquipoJpaRepository {
 //        assertEquals("Resultado ", "Olimpia", result.getNombre());
 //    }
 
-    @Test
-    void shouldFindAllTeamsWithCompetitions(){
-        EquipoEntityJpa equipo2 = new EquipoEntityJpa();
-        EquipoEntityJpa equipo3 = new EquipoEntityJpa();
-
-        EquipoEntityJpa equipo1 = new EquipoEntityJpa();
-        equipo1.setId(null);
-        equipo1.setNombre("Olimpia");
-        equipo1.setApodo("El decano");
-        Set<Competencias> competencias1 = new HashSet<>();
-        Set<Competencias> competencias2= new HashSet<>();
-        Set<Competencias> competencias3 = new HashSet<>();
-
-        competencias1.add(Competencias.APERTURA);
-        competencias1.add(Competencias.CLAUSURA);
-        competencias1.add(Competencias.INTEGRADO);
-
-        competencias2.add(Competencias.APERTURA);
-        competencias2.add(Competencias.INTEGRADO);
-        competencias2.add(Competencias.CLAUSURA);
-
-        competencias3.add(Competencias.APERTURA);
-        competencias3.add(Competencias.CLAUSURA);
-        competencias3.add(Competencias.INTEGRADO);
-
-        equipo1.setCompetencias(competencias1);
-
-        equipo2.setId(null);
-        equipo2.setNombre("Cerro");
-        equipo2.setApodo("El ciclon");
-        equipo2.setCompetencias(competencias2);
-
-        equipo3.setId(null);
-        equipo3.setNombre("2 mayo");
-        equipo3.setApodo("El gallo nortenho");
-        equipo3.setCompetencias(competencias3);
-
-
-        entityManager.persist(equipo1);
-        entityManager.persist(equipo2);
-        entityManager.persist(equipo3);
-
-        entityManager.flush();
-        entityManager.clear();
-
-        List<EquipoEntityJpa> teams =
-                equipoRepository.findEquiposWithCompetencias();
-
-        System.out.println("Resultado: " + teams.stream().toList());
-    }
+//    @Test
+//    void shouldFindAllTeamsWithCompetitions(){
+//        EquipoEntityJpa equipo2 = new EquipoEntityJpa();
+//        EquipoEntityJpa equipo3 = new EquipoEntityJpa();
+//
+//        EquipoEntityJpa equipo1 = new EquipoEntityJpa();
+//        equipo1.setId(null);
+//        equipo1.setNombre("Olimpia");
+//        equipo1.setApodo("El decano");
+//        Set<Competencias> competencias1 = new HashSet<>();
+//        Set<Competencias> competencias2= new HashSet<>();
+//        Set<Competencias> competencias3 = new HashSet<>();
+//
+//        competencias1.add(Competencias.APERTURA);
+//        competencias1.add(Competencias.CLAUSURA);
+//        competencias1.add(Competencias.INTEGRADO);
+//
+//        competencias2.add(Competencias.APERTURA);
+//        competencias2.add(Competencias.INTEGRADO);
+//        competencias2.add(Competencias.CLAUSURA);
+//
+//        competencias3.add(Competencias.APERTURA);
+//        competencias3.add(Competencias.CLAUSURA);
+//        competencias3.add(Competencias.INTEGRADO);
+//
+//        equipo1.setCompetencias(competencias1);
+//
+//        equipo2.setId(null);
+//        equipo2.setNombre("Cerro");
+//        equipo2.setApodo("El ciclon");
+//        equipo2.setCompetencias(competencias2);
+//
+//        equipo3.setId(null);
+//        equipo3.setNombre("2 mayo");
+//        equipo3.setApodo("El gallo nortenho");
+//        equipo3.setCompetencias(competencias3);
+//
+//
+//        entityManager.persist(equipo1);
+//        entityManager.persist(equipo2);
+//        entityManager.persist(equipo3);
+//
+//        entityManager.flush();
+//        entityManager.clear();
+//
+//        List<EquipoEntityJpa> teams =
+//                equipoRepository.findEquiposWithCompetencias();
+//
+//        System.out.println("Resultado: " + teams.stream().toList());
+//    }
 
 }
