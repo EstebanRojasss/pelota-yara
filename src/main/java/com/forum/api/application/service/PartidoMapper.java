@@ -23,7 +23,8 @@ public class PartidoMapper {
                 fixtureData.golVisitante(),
                 fixtureData.minuto(),
                 mapStatus(fixtureData.statusFixture()),
-                fixtureData.id()
+                fixtureData.id(),
+                fixtureData.ligaId()
         );
     }
 
