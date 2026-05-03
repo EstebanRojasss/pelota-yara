@@ -9,16 +9,16 @@ public class Estadio {
     private LocalDate fundacion;
     private String direccion;
     private String ciudad;
-    private Equipo equipo;
+    private Long equipoId;
 
-    public Estadio(Long id, String nombre, Integer capacidad, LocalDate fundacion, String direccion, String ciudad, Equipo equipo) {
+    public Estadio(Long id, String nombre, Integer capacidad, LocalDate fundacion, String direccion, String ciudad, Long equipoId) {
         this.id = id;
         this.nombre = nombre;
         this.capacidad = capacidad;
         this.fundacion = fundacion;
         this.direccion = direccion;
         this.ciudad = ciudad;
-        this.equipo = equipo;
+        this.equipoId = equipoId;
     }
 }
 

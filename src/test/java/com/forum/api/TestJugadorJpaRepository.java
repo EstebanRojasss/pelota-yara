@@ -20,7 +20,7 @@ public class TestJugadorJpaRepository {
 //    void shouldReturnAllPlayersFromTeam(){
 //        EquipoEntityJpa equipo1 = new EquipoEntityJpa();
 //        equipo1.setNombre("Olimpia");
-//        equipo1.setApodo("El decano");
+//        equipo1.setPais("El decano");
 //
 //        em.persist(equipo1);
 //

@@ -1,57 +1,67 @@
 package com.forum.api.domain.model;
 
-import java.time.LocalDate;
+
 import java.util.Objects;
 
 
 public class Equipo {
     private Long id;
     private String nombre;
-    private String apodo;
-    private LocalDate fundacion;
+    private String pais;
+    private Integer fundacion;
     private Long equipoFixtureId;
     private String logo;
 
-    private Equipo(Long id, String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId, String logo) {
+    private Equipo(Long id, String nombre, String pais, Integer fundacion, Long equipoFixtureId, String logo) {
         this.id = id;
         this.nombre = nombre;
-        this.apodo = apodo;
+        this.pais = pais;
         this.fundacion = fundacion;
         this.equipoFixtureId = equipoFixtureId;
         this.logo = logo;
     }
 
-    public static Equipo restore(Long id, String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId, String logo) {
-        return new Equipo(id, nombre, apodo, fundacion,equipoFixtureId, logo);
+    public static Equipo restore(Long id, String nombre, String pais, Integer fundacion, Long equipoFixtureId, String logo) {
+        return new Equipo(id, nombre, pais, fundacion,equipoFixtureId, logo);
     }
 
-    public static Equipo create(String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId, String logo) {
-        return new Equipo(null, nombre, apodo, fundacion, equipoFixtureId, logo);
+    public static Equipo create(String nombre, String pais, Integer fundacion, Long equipoFixtureId, String logo) {
+        return new Equipo(null, nombre, pais, fundacion, equipoFixtureId, logo);
     }
 
-
-    public String getLogo() {
-        return logo;
+    public void actualizar(String nombre,
+                           String pais,
+                           Integer fundacion,
+                           String logo){
+        this.nombre = nombre;
+        this.pais = pais;
+        this.fundacion = fundacion;
+        this.logo = logo;
     }
+
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
-    public String getApodo() {
-        return this.apodo;
+    public String getPais() {
+        return pais;
     }
 
-    public LocalDate getFundacion() {
-        return this.fundacion;
+    public Integer getFundacion() {
+        return fundacion;
     }
 
     public Long getEquipoFixtureId() {
         return equipoFixtureId;
+    }
+
+    public String getLogo() {
+        return logo;
     }
 
     public void setLogo(String logo) {
@@ -63,15 +73,15 @@ public class Equipo {
             return false;
         }
         Equipo equipo = (Equipo)o;
-        return Objects.equals(this.id, equipo.id) && Objects.equals(this.nombre, equipo.nombre) && Objects.equals(this.apodo, equipo.apodo) && Objects.equals(this.fundacion, equipo.fundacion) ;
+        return Objects.equals(this.id, equipo.id) && Objects.equals(this.nombre, equipo.nombre) && Objects.equals(this.pais, equipo.pais) && Objects.equals(this.fundacion, equipo.fundacion) ;
     }
 
     public int hashCode() {
-        return Objects.hash(this.id, this.nombre, this.apodo, this.fundacion);
+        return Objects.hash(this.id, this.nombre, this.pais, this.fundacion);
     }
 
     public String toString() {
-        return "Equipo{id=" + this.id + ", nombre='" + this.nombre + "', apodo='" + this.apodo + "', fundacion=" + this.fundacion+ "}";
+        return "Equipo{id=" + this.id + ", nombre='" + this.nombre + "', pais='" + this.pais + "', fundacion=" + this.fundacion+ "}";
     }
 }
 

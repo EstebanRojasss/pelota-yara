@@ -1,12 +1,10 @@
 package com.forum.api.infra.adapter.out.persistence.entities;
 
-import com.forum.api.domain.model.Competencias;
 import com.forum.api.domain.model.Equipo;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "equipos")
@@ -19,32 +17,24 @@ public class EquipoEntityJpa {
     private Long id;
 
     private String nombre;
-    private String apodo;
-    private LocalDate fundacion;
+    private String pais;
+    private Integer fundacion;
     @Column(unique = true)
     private Long equipoFixtureId;
     private String logoUrlEquipo;
 
-//    @ElementCollection(fetch = FetchType.LAZY)
-//    @CollectionTable(
-//            name = "equipo_competencias",
-//            joinColumns = @JoinColumn(name = "equipo_id")
-//    )
-//    @Column(name = "competencias")
-//    @Enumerated(value = EnumType.STRING)
-//    private Set<Competencias> competencias;
 
-    private EquipoEntityJpa(Long id, String nombre, String apodo, Long equipoFixtureId){
+    private EquipoEntityJpa(Long id, String nombre, String pais, Long equipoFixtureId){
         this.id = id;
         this.nombre = nombre;
-        this.apodo = apodo;
+        this.pais = pais;
         this.equipoFixtureId = equipoFixtureId;
     }
 
     public Equipo toDomainExistent() {
         return Equipo.restore(id,
                 nombre,
-                apodo,
+                pais,
                 fundacion,
                 equipoFixtureId,
                 logoUrlEquipo
@@ -53,7 +43,7 @@ public class EquipoEntityJpa {
 
     public Equipo toNewDomain() {
         return Equipo.create(nombre,
-                apodo,
+                pais,
                 fundacion,
                 equipoFixtureId,
                 logoUrlEquipo);
@@ -63,18 +53,18 @@ public class EquipoEntityJpa {
         EquipoEntityJpa entityFromDomain = new EquipoEntityJpa();
         entityFromDomain.setId(equipo.getId());
         entityFromDomain.setNombre(equipo.getNombre());
-        entityFromDomain.setApodo(equipo.getApodo());
+        entityFromDomain.setPais(equipo.getPais());
         entityFromDomain.setFundacion(equipo.getFundacion());
         entityFromDomain.setEquipoFixtureId(equipo.getEquipoFixtureId());
         entityFromDomain.setLogoUrlEquipo(equipo.getLogo());
         return entityFromDomain;
     }
 
-    public static EquipoEntityJpa createNewEntity(String nombre, String apodo, LocalDate fundacion, Long equipoFixtureId){
+    public static EquipoEntityJpa createNewEntity(String nombre, String apodo, Integer fundacion, Long equipoFixtureId){
         EquipoEntityJpa newEntity = new EquipoEntityJpa();
         newEntity.setId(null);
         newEntity.setNombre(nombre);
-        newEntity.setApodo(apodo);
+        newEntity.setPais(apodo);
         newEntity.setFundacion(fundacion);
         newEntity.setEquipoFixtureId(equipoFixtureId);
         return newEntity;

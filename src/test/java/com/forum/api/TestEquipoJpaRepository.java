@@ -28,7 +28,7 @@ public class TestEquipoJpaRepository {
 //        EquipoEntityJpa equipoEntity = new EquipoEntityJpa();
 //        equipoEntity.setId(null);
 //                equipoEntity.setNombre("Olimpia");
-//                equipoEntity.setApodo("El decano");
+//                equipoEntity.setPais("El decano");
 //                equipoEntity.setFundacion(
 //                        LocalDate.of(
 //                        1902,
@@ -54,7 +54,7 @@ public class TestEquipoJpaRepository {
 //        EquipoEntityJpa equipo1 = new EquipoEntityJpa();
 //        equipo1.setId(null);
 //        equipo1.setNombre("Olimpia");
-//        equipo1.setApodo("El decano");
+//        equipo1.setPais("El decano");
 //        Set<Competencias> competencias1 = new HashSet<>();
 //        Set<Competencias> competencias2= new HashSet<>();
 //        Set<Competencias> competencias3 = new HashSet<>();
@@ -75,12 +75,12 @@ public class TestEquipoJpaRepository {
 //
 //        equipo2.setId(null);
 //        equipo2.setNombre("Cerro");
-//        equipo2.setApodo("El ciclon");
+//        equipo2.setPais("El ciclon");
 //        equipo2.setCompetencias(competencias2);
 //
 //        equipo3.setId(null);
 //        equipo3.setNombre("2 mayo");
-//        equipo3.setApodo("El gallo nortenho");
+//        equipo3.setPais("El gallo nortenho");
 //        equipo3.setCompetencias(competencias3);
 //
 //

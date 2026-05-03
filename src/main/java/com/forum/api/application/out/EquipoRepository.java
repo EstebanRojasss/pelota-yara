@@ -15,5 +15,7 @@ public interface EquipoRepository {
      List<Equipo> findAllEquipos();
 
      Optional<Equipo> findEquipoByEquipoFixtureId(Long equipoFixtureId);
+
+     List<Equipo> saveAllEquipos(List<Equipo> equipos);
 }
 

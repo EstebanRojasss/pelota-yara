@@ -1,12 +1,15 @@
 package com.forum.api.infra.adapter.in.rest;
 
 import com.forum.api.application.in.PartidoService;
+import com.forum.api.application.in.SSeRegistrarUseCase;
 import com.forum.api.application.in.command.CrearPartidoCommand;
 import com.forum.api.domain.model.Partido;
 import com.forum.api.infra.adapter.in.rest.dto.PartidoRequestDto;
 import com.forum.api.infra.adapter.in.rest.dto.PartidoResponseDto;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -18,9 +21,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class PartidoController {
     private final PartidoService partidoService;
+    private final SSeRegistrarUseCase sSeUseCases;
 
-    public PartidoController(PartidoService partidoService) {
+    public PartidoController(PartidoService partidoService, SSeRegistrarUseCase sSeUseCases) {
         this.partidoService = partidoService;
+        this.sSeUseCases = sSeUseCases;
     }
 
 
@@ -60,6 +65,11 @@ public class PartidoController {
                 .toUri();
 
         return ResponseEntity.created(location).body(PartidoResponseDto.fromDomainExistent(response));
+    }
+
+    @GetMapping(value = "/partidos/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter stream(){
+        return sSeUseCases.registrar();
     }
 }
 

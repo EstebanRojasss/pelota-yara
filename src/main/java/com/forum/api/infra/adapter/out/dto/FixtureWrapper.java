@@ -7,6 +7,7 @@ import com.forum.api.application.in.dto.StatusPartidoFixture;
 import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.infra.adapter.out.dto.fixture.Fixture;
 import com.forum.api.infra.adapter.out.dto.goals.Goals;
+import com.forum.api.infra.adapter.out.dto.team.League;
 import com.forum.api.infra.adapter.out.dto.team.Teams;
 
 
@@ -17,7 +18,9 @@ public record FixtureWrapper(
         @JsonProperty("teams")
         Teams teams,
         @JsonProperty("goals")
-        Goals goals
+        Goals goals,
+        @JsonProperty("league")
+        League league
 ) {
         public static FixtureData map(FixtureWrapper wrapper){
                 return new FixtureData(
@@ -25,17 +28,22 @@ public record FixtureWrapper(
                         TeamDataDto.map(
                                 wrapper.teams.home().id(),
                                 wrapper.teams.home().name(),
-                                wrapper.teams.home().urlLogo()),
+                                wrapper.teams.home().urlLogo(),
+                                wrapper.teams.home().pais(),
+                                wrapper.teams.home().fundacion()),
                         TeamDataDto.map(
                                 wrapper.teams.away().id(),
                                 wrapper.teams.away().name(),
-                                wrapper.teams.away().urlLogo()),
+                                wrapper.teams.away().urlLogo(),
+                                wrapper.teams.away().pais(),
+                                wrapper.teams.away().fundacion()),
                         wrapper.goals.home(),
                         wrapper.goals.away(),
                         wrapper.fixture.status().elapsed(),
                         StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus()),
-                        wrapper.fixture.status().elapsed()
-                );
+                        wrapper.fixture.status().elapsed(),
+                        wrapper.league().id()
+                        );
         }
 
 }

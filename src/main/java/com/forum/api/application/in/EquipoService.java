@@ -4,6 +4,7 @@ import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Jugador;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface EquipoService {
@@ -23,5 +24,9 @@ public interface EquipoService {
      Optional<Equipo>buscarEquipoPorId(Long id);
 
      Optional<Equipo>buscarEquipoPorEquipoFixtureId(Long equipoFixtureId);
+
+     List<Equipo> agregarEquiposPorLigaDesdeApiExterna();
+
+     Map<Long, Equipo> cacheEquipos();
 }
 
