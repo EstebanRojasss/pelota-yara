@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
-public class SSeServiceImpl implements SSeRegistrarUseCase, SSeBroadcastUseCase {
+public class SSeService implements SSeRegistrarUseCase, SSeBroadcastUseCase {
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
