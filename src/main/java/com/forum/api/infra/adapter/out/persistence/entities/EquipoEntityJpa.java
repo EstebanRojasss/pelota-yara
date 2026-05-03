@@ -22,6 +22,9 @@ public class EquipoEntityJpa {
     @Column(unique = true)
     private Long equipoFixtureId;
     private String logoUrlEquipo;
+    @ManyToOne
+    @JoinColumn(name = "liga_id")
+    private LigaJpaEntity ligaJpaEntity;
 
 
     private EquipoEntityJpa(Long id, String nombre, String pais, Long equipoFixtureId){
