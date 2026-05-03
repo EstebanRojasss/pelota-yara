@@ -24,18 +24,26 @@ public class EquipoController {
     public ResponseEntity<List<EquipoResponseDto>> listarTodosLosEquipos() {
         return ResponseEntity.ok().body(
                 service.listarTodosLosEquipos()
-                .stream()
-                .map(EquipoResponseDto::fromDomain)
-                .collect(Collectors.toList())
+                        .stream()
+                        .map(EquipoResponseDto::fromDomain)
+                        .collect(Collectors.toList())
         );
     }
 
-    @PostMapping("/equipos")
+
     public ResponseEntity<EquipoResponseDto> agregarNuevoEquipo(@RequestBody EquipoRequestDto requestDto) {
         Equipo equipo = service.agregarNuevoEquipo(requestDto.toDomain());
         return ResponseEntity.ok().body(
                 EquipoResponseDto.fromDomain(equipo)
         );
+    }
+    @PostMapping("/equipos")
+    public ResponseEntity<List<EquipoResponseDto>> agregarEquipos() {
+        List<Equipo> equipos = service.agregarEquiposPorLigaDesdeApiExterna();
+        return ResponseEntity.ok().body(
+                equipos.stream()
+                        .map(EquipoResponseDto::fromDomain)
+                        .toList());
     }
 }
 
