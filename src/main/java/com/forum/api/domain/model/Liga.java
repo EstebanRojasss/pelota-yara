@@ -3,10 +3,10 @@ package com.forum.api.domain.model;
 import java.util.Set;
 
 public class Liga {
-    private final Long id;
+    private Long id;
     private String nombre;
     private String pais;
-    private final Long fixtureLigaId;
+    private Long fixtureLigaId;
     private Integer temporada;
 
     public Liga(Long id, String nombre, String pais, Long fixtureLigaId, Integer temporada) {
