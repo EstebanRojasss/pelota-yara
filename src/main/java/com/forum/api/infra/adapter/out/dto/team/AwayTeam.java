@@ -10,5 +10,9 @@ public record AwayTeam(
         @JsonProperty("name")
         String name,
         @JsonProperty("logo")
-        String urlLogo) {
+        String urlLogo,
+        @JsonProperty("country")
+        String pais,
+        @JsonProperty("founded")
+        Integer fundacion) {
 }
