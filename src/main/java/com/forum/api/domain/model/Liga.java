@@ -17,6 +17,14 @@ public class Liga {
         this.temporada = temporada;
     }
 
+    public static Liga create(String nombre, String pais, Long fixtureLigaId, Integer temporada){
+        return new Liga(null, nombre, pais, fixtureLigaId, temporada);
+    }
+
+    public static Liga restore(Long id, String nombre, String pais, Long fixtureLigaId, Integer temporada){
+        return new Liga(id, nombre, pais, fixtureLigaId, temporada);
+    }
+
 
     public Long getFixtureLigaId() {
         return fixtureLigaId;
