@@ -21,11 +21,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class PartidoController {
     private final PartidoService partidoService;
-    private final SSeRegistrarUseCase sSeUseCases;
+    private final SSeRegistrarUseCase registrarUseCase;
 
-    public PartidoController(PartidoService partidoService, SSeRegistrarUseCase sSeUseCases) {
+    public PartidoController(PartidoService partidoService, SSeRegistrarUseCase registrarUseCase) {
         this.partidoService = partidoService;
-        this.sSeUseCases = sSeUseCases;
+        this.registrarUseCase = registrarUseCase;
     }
 
 
@@ -69,7 +69,7 @@ public class PartidoController {
 
     @GetMapping(value = "/partidos/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public SseEmitter stream(){
-        return sSeUseCases.registrar();
+        return registrarUseCase.registrar();
     }
 }
 
