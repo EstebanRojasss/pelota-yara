@@ -1,6 +1,5 @@
 package com.forum.api.domain.model;
 
-import java.util.Set;
 
 public class Liga {
     private Long id;
@@ -9,7 +8,7 @@ public class Liga {
     private Long fixtureLigaId;
     private Integer temporada;
 
-    public Liga(Long id, String nombre, String pais, Long fixtureLigaId, Integer temporada) {
+    private Liga(Long id, String nombre, String pais, Long fixtureLigaId, Integer temporada) {
         this.id = id;
         this.nombre = nombre;
         this.pais = pais;
