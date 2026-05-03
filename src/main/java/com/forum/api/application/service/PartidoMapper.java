@@ -1,8 +1,10 @@
 package com.forum.api.application.service;
 
 import com.forum.api.application.in.dto.FixtureData;
+import com.forum.api.application.in.dto.LigaDataDto;
 import com.forum.api.application.in.dto.StatusPartidoFixture;
 import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Liga;
 import com.forum.api.domain.model.Partido;
 import com.forum.api.domain.model.StatusPartido;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,7 @@ public class PartidoMapper {
     }
 
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante) {
-         return Partido.createFromApi(
+        return Partido.createFromApi(
                 local,
                 visitante,
                 fixtureData.golLocal(),
@@ -24,7 +26,7 @@ public class PartidoMapper {
                 fixtureData.minuto(),
                 mapStatus(fixtureData.statusFixture()),
                 fixtureData.id(),
-                fixtureData.ligaId()
+                mapLigaDtoToDomain(fixtureData.liga())
         );
     }
 
@@ -64,5 +66,13 @@ public class PartidoMapper {
                  MATCH_FINISHED_AFTER_PENALTY,
                  MATCH_FINISHED_AFTER_EXTRA_TIME -> StatusPartido.FINALIZADO;
         };
+    }
+
+    public Liga mapLigaDtoToDomain(LigaDataDto dto){
+        return Liga.create(
+                dto.nombre(),
+                dto.pais(),
+                dto.id(),
+                dto.temporada());
     }
 }
