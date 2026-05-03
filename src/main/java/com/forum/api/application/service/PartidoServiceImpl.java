@@ -1,6 +1,6 @@
 package com.forum.api.application.service;
 
-import com.forum.api.application.in.DataFixtureProvider;
+import com.forum.api.application.in.DataApiProvider;
 import com.forum.api.application.in.EquipoService;
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.in.command.CrearPartidoCommand;
@@ -10,6 +10,8 @@ import com.forum.api.application.out.PartidoRepository;
 import com.forum.api.domain.exception.PartidoNotFoundException;
 import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Partido;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,17 +21,17 @@ import java.util.function.Supplier;
 
 @Service
 public class PartidoServiceImpl implements PartidoService {
+    private static final Logger log = LoggerFactory.getLogger(PartidoServiceImpl.class);
     private final PartidoRepository partidoRepository;
     private final EquipoService equipoService;
-    private final DataFixtureProvider fixtureProvider;
+    private final DataApiProvider fixtureProvider;
     private final PartidoMapper partidoMapper;
-    private final Map<Long, Equipo> equipoPorFixtureIdCache = new HashMap<>();
     private final Map<Long, Partido> partidoPorFixtureIdCache = new HashMap<>();
 
     int countNuevoPartido = 0;
     int countGuardarPartidoExistente = 0;
 
-    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataFixtureProvider fixtureProvider, PartidoMapper partidoMapper) {
+    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper) {
         this.partidoRepository = partidoRepository;
         this.equipoService = equipoService;
         this.fixtureProvider = fixtureProvider;
@@ -121,12 +123,12 @@ public class PartidoServiceImpl implements PartidoService {
 
 
     private Equipo resolverEquipo(TeamDataDto team) {
-        Equipo equipo = equipoPorFixtureIdCache.get(team.id());
+        Equipo equipo = equipoService.cacheEquipos().get(team.id());
         if (equipo == null) {
             equipo = equipoService.agregarNuevoEquipo(
                     Equipo.create(team.nombre(), null, null, team.id(), team.logo())
             );
-            equipoPorFixtureIdCache.put(team.id(), equipo);
+            equipoService.cacheEquipos().put(team.id(), equipo);
         }
 
         return equipo;
