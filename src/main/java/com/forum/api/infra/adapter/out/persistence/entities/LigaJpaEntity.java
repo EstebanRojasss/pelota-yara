@@ -21,7 +21,7 @@ public class LigaJpaEntity {
 
 
     public Liga toDomainExistent(){
-        return new Liga(
+        return Liga.restore(
                 id,
                 nombre,
                 pais,
