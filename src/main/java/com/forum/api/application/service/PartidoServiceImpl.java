@@ -28,8 +28,7 @@ public class PartidoServiceImpl implements PartidoService {
     private final PartidoMapper partidoMapper;
     private final Map<Long, Partido> partidoPorFixtureIdCache = new HashMap<>();
 
-    int countNuevoPartido = 0;
-    int countGuardarPartidoExistente = 0;
+
 
     public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper) {
         this.partidoRepository = partidoRepository;
