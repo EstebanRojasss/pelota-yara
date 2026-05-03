@@ -2,6 +2,8 @@ package com.forum.api.domain.model;
 
 import com.forum.api.domain.estado.Definiendo;
 import com.forum.api.domain.estado.EstadoPartido;
+import com.forum.api.domain.estado.Finalizado;
+import com.forum.api.domain.estado.SegundoTiempo;
 import com.forum.api.domain.exception.EquipoNotFoundException;
 
 import java.time.Duration;
@@ -23,8 +25,17 @@ public class Partido {
     private Integer minutoActual;
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
+    private Liga liga;
 
-    private Partido(Long id, StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoBase, Long fixtureId) {
+    private Partido(Long id,
+                    StatusPartido status,
+                    Equipo equipoLocal,
+                    Equipo equipoVisitante,
+                    Integer golVisitante,
+                    Integer golLocal,
+                    Integer minutoBase,
+                    Long fixtureId,
+                    Liga liga) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
@@ -32,6 +43,7 @@ public class Partido {
         this.golVisitante = golVisitante;
         this.golLocal = golLocal;
         this.minutoBase = minutoBase;
+        this.liga = liga;
         this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
         this.estadoPartido = new Definiendo();
@@ -52,7 +64,8 @@ public class Partido {
                                   Integer golLocal,
                                   Integer golVisitante,
                                   Integer minutoBase,
-                                  Long fixtureId) {
+                                  Long fixtureId,
+                                  Liga liga) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
@@ -60,7 +73,8 @@ public class Partido {
                 golVisitante,
                 golLocal,
                 minutoBase,
-                fixtureId);
+                fixtureId,
+                liga);
     }
 
     public static Partido createFromApi(Equipo equipoLocal,
@@ -69,7 +83,8 @@ public class Partido {
                                         Integer golVisitante,
                                         Integer minutoBase,
                                         StatusPartido status,
-                                        Long fixtureId) {
+                                        Long fixtureId,
+                                        Liga liga) {
         return new Partido(null,
                 status,
                 equipoLocal,
@@ -77,7 +92,8 @@ public class Partido {
                 golVisitante,
                 golLocal,
                 minutoBase,
-                fixtureId);
+                fixtureId,
+                liga);
     }
 
     public static Partido createFromLocal(Equipo equipoLocal, Equipo equipoVisitante){
@@ -88,7 +104,8 @@ public class Partido {
                 0,
                 0,
                 0,
-                0L);
+                0L,
+                null);
     }
     public void fijarBaseMinuto(Integer minutoBase) {
         this.minutoBase = minutoBase;
@@ -114,7 +131,13 @@ public class Partido {
 
 
     public void ejecutar() {
-        this.estadoPartido.ejecutar(this);
+        if(!partidoTerminado(this.estadoPartido)){
+            this.estadoPartido.ejecutar(this);
+        }
+    }
+
+    private boolean partidoTerminado(EstadoPartido estado){
+        return estado instanceof Finalizado;
     }
 
     public void aumentarMarcador(Equipo equipo) {
@@ -219,6 +242,14 @@ public class Partido {
 
     public Integer getMinutoAdicional2T() {
         return this.minutoAdicional2T;
+    }
+
+    public void setLiga(Liga liga) {
+        this.liga = liga;
+    }
+
+    public Liga getLiga() {
+        return liga;
     }
 
     public void setTimeStampBase(Instant timeStampBase) {
