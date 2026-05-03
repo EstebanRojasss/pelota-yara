@@ -10,7 +10,7 @@ public record FixtureData(
         Integer minuto,
         StatusPartidoFixture statusFixture,
         Integer minutoExtra,
-        Long ligaId
+        LigaDataDto liga
 ) {
 
 }
