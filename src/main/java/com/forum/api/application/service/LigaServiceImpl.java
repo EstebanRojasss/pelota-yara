@@ -3,10 +3,11 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.LigaService;
 import com.forum.api.application.out.LigaRepository;
 import com.forum.api.domain.model.Liga;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
-
+@Service
 public class LigaServiceImpl implements LigaService {
 
     private final LigaRepository ligaRepository;
