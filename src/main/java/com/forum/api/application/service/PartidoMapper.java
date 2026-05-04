@@ -17,7 +17,7 @@ public class PartidoMapper {
     public PartidoMapper() {
     }
 
-    public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante) {
+    public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante, Liga liga) {
         return Partido.createFromApi(
                 local,
                 visitante,
@@ -26,7 +26,7 @@ public class PartidoMapper {
                 fixtureData.minuto(),
                 mapStatus(fixtureData.statusFixture()),
                 fixtureData.id(),
-                mapLigaDtoToDomain(fixtureData.liga())
+                liga
         );
     }
 
