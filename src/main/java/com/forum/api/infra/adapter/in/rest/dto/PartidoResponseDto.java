@@ -5,7 +5,7 @@ import com.forum.api.domain.model.Partido;
 import com.forum.api.domain.model.StatusPartido;
 
 public record PartidoResponseDto(Long id, StatusPartido status,EquipoPartidoDto equipoLocal, EquipoPartidoDto equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T,
-                                 LigaResponseDto ligaDto) {
+                                 LigaResponseDto liga) {
 
     public static PartidoResponseDto fromDomainExistent(Partido partido) {
         return new PartidoResponseDto(partido.getId(),
