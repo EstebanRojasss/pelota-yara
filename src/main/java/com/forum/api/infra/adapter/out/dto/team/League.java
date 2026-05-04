@@ -6,6 +6,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record League(
         @JsonProperty("id")
-        Long id
+        Long id,
+        @JsonProperty("name")
+        String name,
+        @JsonProperty("country")
+        String country,
+        @JsonProperty("season")
+        Integer season
 ) {
 }
