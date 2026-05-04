@@ -3,6 +3,7 @@ package com.forum.api.infra.adapter.out.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.forum.api.application.in.dto.FixtureData;
+import com.forum.api.application.in.dto.LigaDataDto;
 import com.forum.api.application.in.dto.StatusPartidoFixture;
 import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.infra.adapter.out.dto.fixture.Fixture;
@@ -22,28 +23,33 @@ public record FixtureWrapper(
         @JsonProperty("league")
         League league
 ) {
-        public static FixtureData map(FixtureWrapper wrapper){
-                return new FixtureData(
-                        wrapper.fixture.id(),
-                        TeamDataDto.map(
-                                wrapper.teams.home().id(),
-                                wrapper.teams.home().name(),
-                                wrapper.teams.home().urlLogo(),
-                                wrapper.teams.home().pais(),
-                                wrapper.teams.home().fundacion()),
-                        TeamDataDto.map(
-                                wrapper.teams.away().id(),
-                                wrapper.teams.away().name(),
-                                wrapper.teams.away().urlLogo(),
-                                wrapper.teams.away().pais(),
-                                wrapper.teams.away().fundacion()),
-                        wrapper.goals.home(),
-                        wrapper.goals.away(),
-                        wrapper.fixture.status().elapsed(),
-                        StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus()),
-                        wrapper.fixture.status().elapsed(),
-                        wrapper.league().id()
-                        );
-        }
+    public static FixtureData map(FixtureWrapper wrapper) {
+        return new FixtureData(
+                wrapper.fixture.id(),
+                TeamDataDto.map(
+                        wrapper.teams.home().id(),
+                        wrapper.teams.home().name(),
+                        wrapper.teams.home().urlLogo(),
+                        wrapper.teams.home().pais(),
+                        wrapper.teams.home().fundacion()),
+                TeamDataDto.map(
+                        wrapper.teams.away().id(),
+                        wrapper.teams.away().name(),
+                        wrapper.teams.away().urlLogo(),
+                        wrapper.teams.away().pais(),
+                        wrapper.teams.away().fundacion()),
+                wrapper.goals.home(),
+                wrapper.goals.away(),
+                wrapper.fixture.status().elapsed(),
+                StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus()),
+                wrapper.fixture.status().elapsed(),
+                LigaDataDto.map(
+                        wrapper.league().id(),
+                        wrapper.league.name(),
+                        wrapper.league.country(),
+                        wrapper.league.season()
+                )
+        );
+    }
 
 }
