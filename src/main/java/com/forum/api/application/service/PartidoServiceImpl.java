@@ -2,13 +2,16 @@ package com.forum.api.application.service;
 
 import com.forum.api.application.in.DataApiProvider;
 import com.forum.api.application.in.EquipoService;
+import com.forum.api.application.in.LigaService;
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.in.command.CrearPartidoCommand;
 import com.forum.api.application.in.dto.FixtureData;
+import com.forum.api.application.in.dto.LigaDataDto;
 import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.application.out.PartidoRepository;
 import com.forum.api.domain.exception.PartidoNotFoundException;
 import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Liga;
 import com.forum.api.domain.model.Partido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +24,20 @@ import java.util.function.Supplier;
 
 @Service
 public class PartidoServiceImpl implements PartidoService {
-    private static final Logger log = LoggerFactory.getLogger(PartidoServiceImpl.class);
     private final PartidoRepository partidoRepository;
     private final EquipoService equipoService;
     private final DataApiProvider fixtureProvider;
     private final PartidoMapper partidoMapper;
     private final Map<Long, Partido> partidoPorFixtureIdCache = new HashMap<>();
+    private final LigaService ligaService;
 
 
-
-    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper) {
+    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper, LigaService ligaService) {
         this.partidoRepository = partidoRepository;
         this.equipoService = equipoService;
         this.fixtureProvider = fixtureProvider;
         this.partidoMapper = partidoMapper;
+        this.ligaService = ligaService;
     }
 
     public Partido encontrarPartido(Long id) {
@@ -78,12 +81,14 @@ public class PartidoServiceImpl implements PartidoService {
     private Partido procesarDatosFixture(FixtureData fixture) {
         Equipo local = resolverEquipo(fixture.local());
         Equipo visitante = resolverEquipo(fixture.visitante());
+        Liga liga = resolverLiga(fixture.liga());
+
         Partido partido = partidoPorFixtureIdCache.get(fixture.id());
 
         if (partido == null) {
 
             partido = partidoRepository.savePartido(
-                    partidoMapper.toNewDomain(fixture, local, visitante)
+                    partidoMapper.toNewDomain(fixture, local, visitante, liga)
             );
             partidoPorFixtureIdCache.put(fixture.id(), partido);
 
@@ -133,8 +138,8 @@ public class PartidoServiceImpl implements PartidoService {
         return equipo;
     }
 
-    private Liga resolverLiga(LigaDataDto ligaDto, Partido partido){
-        Liga liga = partidoPorFixtureIdCache.get(partido.getId()).getLiga();
+    private Liga resolverLiga(LigaDataDto ligaDto){
+        Liga liga = ligaService.ligaCache().get(ligaDto.id());
         if(liga == null){
             liga = ligaService.agregarNuevaLiga(
                     Liga.create(ligaDto.nombre(),
