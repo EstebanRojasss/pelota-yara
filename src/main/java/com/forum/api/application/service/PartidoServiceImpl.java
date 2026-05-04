@@ -133,6 +133,20 @@ public class PartidoServiceImpl implements PartidoService {
         return equipo;
     }
 
+    private Liga resolverLiga(LigaDataDto ligaDto, Partido partido){
+        Liga liga = partidoPorFixtureIdCache.get(partido.getId()).getLiga();
+        if(liga == null){
+            liga = ligaService.agregarNuevaLiga(
+                    Liga.create(ligaDto.nombre(),
+                            ligaDto.pais(),
+                            ligaDto.id(),
+                            ligaDto.temporada())
+            );
+            ligaService.ligaCache().put(ligaDto.id(), liga);
+        }
+        return liga;
+    }
+
     public List<Partido> listarTodosLosPartidos() {
         return partidoRepository.findAllPartidos();
     }
