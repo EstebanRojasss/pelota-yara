@@ -4,7 +4,9 @@ import com.forum.api.application.out.LigaRepository;
 import com.forum.api.domain.model.Liga;
 import com.forum.api.infra.adapter.out.persistence.entities.LigaJpaEntity;
 import com.forum.api.infra.adapter.out.persistence.repository.LigaJpaRepository;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LigaJpaRepositoryAdapter implements LigaRepository {
 
     private final LigaJpaRepository ligaJpaRepository;
