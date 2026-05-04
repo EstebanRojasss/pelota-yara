@@ -57,7 +57,7 @@ public class ApiFootballConsumer implements DataApiProvider {
                 stream().
                 map(FixtureWrapper::map).
                 filter(
-                        filtrarLiga(List.of(250L, 130L, 128L, 1032L, 2L, 3L, 73L, 13L, 11L, 836L, 194L))
+                        filtrarLiga(List.of(250L, 130L, 128L, 1032L, 2L, 3L, 73L, 13L, 11L, 262L))
                 ).toList();
     }
 
@@ -91,6 +91,6 @@ public class ApiFootballConsumer implements DataApiProvider {
 
     private Predicate<FixtureData> filtrarLiga(Collection<Long> idsPermitidos) {
         Set<Long> permitidos = new HashSet<>(idsPermitidos);
-        return f -> f != null && permitidos.contains(f.ligaId());
+        return f -> f != null && permitidos.contains(f.liga().id());
     }
 }
