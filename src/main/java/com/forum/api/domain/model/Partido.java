@@ -46,7 +46,7 @@ public class Partido {
         this.liga = liga;
         this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
-        this.estadoPartido = new Definiendo();
+        this.estadoPartido = new NoIniciado();
     }
 
     public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal) {
