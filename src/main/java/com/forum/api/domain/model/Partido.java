@@ -1,9 +1,6 @@
 package com.forum.api.domain.model;
 
-import com.forum.api.domain.estado.Definiendo;
-import com.forum.api.domain.estado.EstadoPartido;
-import com.forum.api.domain.estado.Finalizado;
-import com.forum.api.domain.estado.SegundoTiempo;
+import com.forum.api.domain.estado.*;
 import com.forum.api.domain.exception.EquipoNotFoundException;
 
 import java.time.Duration;
@@ -132,7 +129,7 @@ public class Partido {
 
     public void ejecutar() {
         if(!partidoTerminado(this.estadoPartido)){
-            this.estadoPartido.ejecutar(this);
+            estadoFabrica.ejecutarEstado(this);
         }
     }
 
