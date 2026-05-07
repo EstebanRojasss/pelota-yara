@@ -24,6 +24,8 @@ public class Partido {
     private Integer minutoAdicional2T;
     private Liga liga;
 
+    private final EstadoFabrica estadoFabrica = new EstadoFabrica();
+
     private Partido(Long id,
                     StatusPartido status,
                     Equipo equipoLocal,
