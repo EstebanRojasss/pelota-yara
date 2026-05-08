@@ -2,7 +2,7 @@ package com.forum.api.domain.model;
 
 import java.util.Objects;
 
-public class MatchEvent {
+public class EventoDelPartido {
     private Long id;
     private Partido partido;
     private Equipo equipo;
@@ -10,7 +10,7 @@ public class MatchEvent {
     private Integer minuto;
     private TipoEventoPartido tipoEventoPartido;
 
-    private MatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
+    private EventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
         this.id = id;
         this.partido = partido;
         this.equipo = equipo;
@@ -19,14 +19,14 @@ public class MatchEvent {
         this.tipoEventoPartido = tipoEventoPartido;
     }
 
-    public static MatchEvent restoreMatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
-        return new MatchEvent(id, partido, equipo, jugador, minuto, tipoEventoPartido);
+    public static EventoDelPartido restoreMatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
+        return new EventoDelPartido(id, partido, equipo, jugador, minuto, tipoEventoPartido);
     }
 
-    public static MatchEvent generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
+    public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
         return switch (tipoEventoPartido) {
-            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new MatchEvent(null, partido, equipo, jugador, minuto, tipoEventoPartido);
-            default -> new MatchEvent(null, partido, null, null, null, tipoEventoPartido);
+            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new EventoDelPartido(null, partido, equipo, jugador, minuto, tipoEventoPartido);
+            default -> new EventoDelPartido(null, partido, null, null, null, tipoEventoPartido);
         };
     }
 
@@ -82,7 +82,7 @@ public class MatchEvent {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
         }
-        MatchEvent that = (MatchEvent)o;
+        EventoDelPartido that = (EventoDelPartido)o;
         return Objects.equals(this.id, that.id) && Objects.equals(this.partido, that.partido) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto) && this.tipoEventoPartido == that.tipoEventoPartido;
     }
 

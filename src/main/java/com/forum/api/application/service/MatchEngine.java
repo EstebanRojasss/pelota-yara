@@ -26,11 +26,11 @@ public class MatchEngine implements EngineUseCase {
         this.jugadorService = jugadorService;
     }
 
-    public MatchEvent generarSiguienteEvento(Partido partido) {
+    public EventoDelPartido generarSiguienteEvento(Partido partido) {
         TipoEventoPartido evento = generadorEventos.generarEvento(partido);
         Equipo equipo = equipoRandom(partido);
         Jugador jugador = jugadorRandom(equipo);
-        return MatchEvent.generateMatchEvent(partido, equipo, jugador, partido.getMinutoBase(), evento);
+        return EventoDelPartido.generateMatchEvent(partido, equipo, jugador, partido.getMinutoBase(), evento);
     }
 
     private Equipo equipoRandom(Partido partido) {

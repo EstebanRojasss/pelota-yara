@@ -3,7 +3,7 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.MatchEventService;
 import com.forum.api.application.out.MatchEventRepository;
 import com.forum.api.domain.exception.MatchEventNotFoundException;
-import com.forum.api.domain.model.MatchEvent;
+import com.forum.api.domain.model.EventoDelPartido;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -16,9 +16,9 @@ public class MatchEventServiceImpl implements MatchEventService {
         this.repository = repository;
     }
 
-    public MatchEvent agregarNuevoMatchEvent(MatchEvent matchEvent) {
+    public EventoDelPartido agregarNuevoMatchEvent(EventoDelPartido eventoDelPartido) {
         try {
-            return this.repository.saveMatchEvent(matchEvent);
+            return this.repository.saveMatchEvent(eventoDelPartido);
         }
         catch (RuntimeException e) {
             throw new IllegalArgumentException();
@@ -29,11 +29,11 @@ public class MatchEventServiceImpl implements MatchEventService {
         this.repository.deleteMatchEvent(id);
     }
 
-    public Set<MatchEvent> listarMatchEvents() {
+    public Set<EventoDelPartido> listarMatchEvents() {
         return Set.of();
     }
 
-    public MatchEvent encotrarMatchEvent(Long id) {
+    public EventoDelPartido encotrarMatchEvent(Long id) {
         return repository
                 .findMatchEventById(id)
                 .orElseThrow(

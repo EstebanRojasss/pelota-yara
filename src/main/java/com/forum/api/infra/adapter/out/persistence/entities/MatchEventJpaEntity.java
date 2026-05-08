@@ -32,8 +32,8 @@ public class MatchEventJpaEntity {
     @Enumerated(value = EnumType.STRING)
     private TipoEventoPartido tipoEventoPartido;
 
-    public MatchEvent toDomain() {
-        return MatchEvent.restoreMatchEvent(id,
+    public EventoDelPartido toDomain() {
+        return EventoDelPartido.restoreMatchEvent(id,
                 partido.toDomainExistent(),
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
@@ -41,14 +41,14 @@ public class MatchEventJpaEntity {
                 tipoEventoPartido);
     }
 
-    public static MatchEventJpaEntity fromDomain(MatchEvent matchEvent) {
+    public static MatchEventJpaEntity fromDomain(EventoDelPartido eventoDelPartido) {
         return new MatchEventJpaEntity(
-                matchEvent.getId(),
-                PartidoJpaEntity.fromDomain(matchEvent.getPartido()),
-                EquipoEntityJpa.fromDomain(matchEvent.getEquipo()),
-                JugadorEntityJpa.fromDomain(matchEvent.getJugador()),
-                matchEvent.getMinuto(),
-                matchEvent.getEventoPartido());
+                eventoDelPartido.getId(),
+                PartidoJpaEntity.fromDomain(eventoDelPartido.getPartido()),
+                EquipoEntityJpa.fromDomain(eventoDelPartido.getEquipo()),
+                JugadorEntityJpa.fromDomain(eventoDelPartido.getJugador()),
+                eventoDelPartido.getMinuto(),
+                eventoDelPartido.getEventoPartido());
     }
 
 }

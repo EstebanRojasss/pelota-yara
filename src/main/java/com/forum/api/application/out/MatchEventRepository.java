@@ -1,14 +1,14 @@
 package com.forum.api.application.out;
 
-import com.forum.api.domain.model.MatchEvent;
+import com.forum.api.domain.model.EventoDelPartido;
 
 import java.util.Optional;
 
 public interface MatchEventRepository {
-     MatchEvent saveMatchEvent(MatchEvent var1);
+     EventoDelPartido saveMatchEvent(EventoDelPartido var1);
 
      void deleteMatchEvent(Long var1);
 
-     Optional<MatchEvent> findMatchEventById(Long var1);
+     Optional<EventoDelPartido> findMatchEventById(Long var1);
 }
 

@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.out.persistence;
 
 import com.forum.api.application.out.MatchEventRepository;
-import com.forum.api.domain.model.MatchEvent;
+import com.forum.api.domain.model.EventoDelPartido;
 import com.forum.api.infra.adapter.out.persistence.entities.MatchEventJpaEntity;
 import com.forum.api.infra.adapter.out.persistence.repository.MatchEventJpaRepository;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,9 @@ public class MatchEventRepositoryAdapter implements MatchEventRepository {
         this.repository = repository;
     }
 
-    public MatchEvent saveMatchEvent(MatchEvent matchEvent) {
+    public EventoDelPartido saveMatchEvent(EventoDelPartido eventoDelPartido) {
         return repository
-                .save(MatchEventJpaEntity.fromDomain(matchEvent))
+                .save(MatchEventJpaEntity.fromDomain(eventoDelPartido))
                 .toDomain();
     }
 
@@ -26,7 +26,7 @@ public class MatchEventRepositoryAdapter implements MatchEventRepository {
         repository.deleteById(id);
     }
 
-    public Optional<MatchEvent> findMatchEventById(Long id) {
+    public Optional<EventoDelPartido> findMatchEventById(Long id) {
         return repository.findById(id).map(MatchEventJpaEntity::toDomain);
     }
 }
