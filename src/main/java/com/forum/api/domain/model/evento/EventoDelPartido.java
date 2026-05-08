@@ -12,8 +12,7 @@ public class EventoDelPartido {
     private Equipo equipo;
     private Jugador jugador;
     private Integer minuto;
-    private TipoEventoPartido tipoEventoPartido;
-    private DetalleDeEvento detalleDeEvento;
+    private TipoEvento tipo;
 
     private EventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
         this.id = id;
