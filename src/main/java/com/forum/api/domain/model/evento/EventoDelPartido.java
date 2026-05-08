@@ -23,8 +23,8 @@ public class EventoDelPartido {
         this.tipo = tipo;
     }
 
-    public static EventoDelPartido restoreMatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
-        return new EventoDelPartido(id, partido, equipo, jugador, minuto, tipoEventoPartido);
+    public static EventoDelPartido restaurarEventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
+        return new EventoDelPartido(id, partido, equipo, jugador, minuto, tipo);
     }
 
     public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, BORRARDESPUES BORRARDESPUES) {
