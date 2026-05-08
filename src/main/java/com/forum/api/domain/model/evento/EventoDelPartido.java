@@ -85,11 +85,11 @@ public class EventoDelPartido {
             return false;
         }
         EventoDelPartido that = (EventoDelPartido)o;
-        return Objects.equals(this.id, that.id) && Objects.equals(this.partido, that.partido) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto) && this.tipoEventoPartido == that.tipoEventoPartido;
+        return Objects.equals(this.id, that.id) && Objects.equals(this.partido, that.partido) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto);
     }
 
     public int hashCode() {
-        return Objects.hash(this.id, this.partido, this.equipo, this.jugador, this.minuto, this.tipoEventoPartido);
+        return Objects.hash(this.id, this.partido, this.equipo, this.jugador, this.minuto);
     }
 }
 
