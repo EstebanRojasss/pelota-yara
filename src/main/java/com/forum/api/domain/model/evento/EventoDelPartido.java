@@ -7,7 +7,7 @@ import com.forum.api.domain.model.partido.Partido;
 import java.util.Objects;
 
 public class EventoDelPartido {
-    private Long id;
+    private final Long id;
     private Partido partido;
     private Equipo equipo;
     private Jugador jugador;
@@ -38,10 +38,7 @@ public class EventoDelPartido {
     public Long getId() {
         return this.id;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    
 
     public Partido getPartido() {
         return this.partido;
