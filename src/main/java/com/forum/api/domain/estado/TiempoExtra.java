@@ -1,12 +1,9 @@
 package com.forum.api.domain.estado;
 
-import com.forum.api.domain.model.Partido;
-import com.forum.api.domain.model.StatusPartido;
+import com.forum.api.domain.model.partido.Partido;
+import com.forum.api.domain.model.partido.StatusPartido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.time.Duration;
-import java.time.Instant;
 
 public class TiempoExtra extends AbstractEstadoPartido {
 

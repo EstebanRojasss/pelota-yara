@@ -1,7 +1,7 @@
 package com.forum.api.application.in;
 
 import com.forum.api.application.in.command.CrearPartidoCommand;
-import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.partido.Partido;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package com.forum.api.application.out;
 
-import com.forum.api.domain.model.Partido;
-import com.forum.api.domain.model.StatusPartido;
+import com.forum.api.domain.model.partido.Partido;
+import com.forum.api.domain.model.partido.StatusPartido;
 
 import java.util.List;
 import java.util.Optional;

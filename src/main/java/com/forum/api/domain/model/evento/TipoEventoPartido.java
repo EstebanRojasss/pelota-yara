@@ -1,4 +1,4 @@
-package com.forum.api.domain.model;
+package com.forum.api.domain.model.evento;
 
 public enum TipoEventoPartido {
     GOL(20),

@@ -1,8 +1,8 @@
 package com.forum.api.infra.adapter.in.rest.dto;
 
 
-import com.forum.api.domain.model.Partido;
-import com.forum.api.domain.model.StatusPartido;
+import com.forum.api.domain.model.partido.Partido;
+import com.forum.api.domain.model.partido.StatusPartido;
 
 public record PartidoResponseDto(Long id, StatusPartido status,EquipoPartidoDto equipoLocal, EquipoPartidoDto equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T,
                                  LigaResponseDto liga) {

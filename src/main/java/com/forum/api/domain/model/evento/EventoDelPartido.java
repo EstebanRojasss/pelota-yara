@@ -1,4 +1,8 @@
-package com.forum.api.domain.model;
+package com.forum.api.domain.model.evento;
+
+import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
+import com.forum.api.domain.model.partido.Partido;
 
 import java.util.Objects;
 
@@ -9,6 +13,7 @@ public class EventoDelPartido {
     private Jugador jugador;
     private Integer minuto;
     private TipoEventoPartido tipoEventoPartido;
+    private DetalleDeEvento detalleDeEvento;
 
     private EventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
         this.id = id;

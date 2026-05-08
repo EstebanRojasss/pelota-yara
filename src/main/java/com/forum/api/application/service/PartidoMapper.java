@@ -5,12 +5,14 @@ import com.forum.api.application.in.dto.LigaDataDto;
 import com.forum.api.application.in.dto.StatusPartidoFixture;
 import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Liga;
-import com.forum.api.domain.model.Partido;
-import com.forum.api.domain.model.StatusPartido;
+import com.forum.api.domain.model.partido.Partido;
+import com.forum.api.domain.model.partido.StatusPartido;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
 
+@Slf4j
 @Component
 public class PartidoMapper {
 
@@ -31,7 +33,12 @@ public class PartidoMapper {
     }
 
     public void actualizarDesdeFixture(FixtureData fixture, Partido partido) {
+
         if (!Objects.equals(fixture.minuto(), partido.getMinutoBase())) {
+            int count = 0;
+            log.info("Minuto base: \nContador de veces que se actualiza {} {}",
+                    partido.getMinutoBase(),
+                    ++count);
             partido.fijarBaseMinuto(fixture.minuto());
         }
         partido.actualizar(

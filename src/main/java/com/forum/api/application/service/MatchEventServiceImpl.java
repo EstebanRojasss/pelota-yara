@@ -3,7 +3,7 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.MatchEventService;
 import com.forum.api.application.out.MatchEventRepository;
 import com.forum.api.domain.exception.MatchEventNotFoundException;
-import com.forum.api.domain.model.EventoDelPartido;
+import com.forum.api.domain.model.evento.EventoDelPartido;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

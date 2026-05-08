@@ -1,7 +1,9 @@
-package com.forum.api.domain.model;
+package com.forum.api.domain.model.partido;
 
 import com.forum.api.domain.estado.*;
 import com.forum.api.domain.exception.EquipoNotFoundException;
+import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Liga;
 
 import java.time.Duration;
 import java.time.Instant;

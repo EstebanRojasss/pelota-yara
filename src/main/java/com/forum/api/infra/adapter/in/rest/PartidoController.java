@@ -3,7 +3,7 @@ package com.forum.api.infra.adapter.in.rest;
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.in.SSeRegistrarUseCase;
 import com.forum.api.application.in.command.CrearPartidoCommand;
-import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.infra.adapter.in.rest.dto.PartidoRequestDto;
 import com.forum.api.infra.adapter.in.rest.dto.PartidoResponseDto;
 import org.springframework.http.MediaType;

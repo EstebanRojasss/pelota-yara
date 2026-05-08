@@ -2,7 +2,7 @@ package com.forum.api.infra.adapter.in.scheduler;
 
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.in.SSeBroadcastUseCase;
-import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.infra.adapter.in.rest.dto.PartidoResponseDto;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

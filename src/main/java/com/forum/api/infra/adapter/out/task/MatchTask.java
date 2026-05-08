@@ -1,6 +1,6 @@
 package com.forum.api.infra.adapter.out.task;
 
-import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.partido.Partido;
 
 public class MatchTask implements Runnable {
 

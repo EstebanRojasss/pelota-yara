@@ -1,6 +1,6 @@
 package com.forum.api.domain.estado;
 
-import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.partido.Partido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

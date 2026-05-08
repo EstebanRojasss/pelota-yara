@@ -1,7 +1,7 @@
 package com.forum.api.infra.adapter.out.persistence;
 
 import com.forum.api.application.out.MatchEventRepository;
-import com.forum.api.domain.model.EventoDelPartido;
+import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.infra.adapter.out.persistence.entities.MatchEventJpaEntity;
 import com.forum.api.infra.adapter.out.persistence.repository.MatchEventJpaRepository;
 import org.springframework.stereotype.Component;

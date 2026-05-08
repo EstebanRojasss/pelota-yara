@@ -1,6 +1,6 @@
 package com.forum.api.domain.estado;
 
-import com.forum.api.domain.model.Partido;
+import com.forum.api.domain.model.partido.Partido;
 
 public interface EstadoPartido {
      void ejecutar(Partido partido);

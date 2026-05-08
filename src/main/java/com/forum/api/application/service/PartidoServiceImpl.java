@@ -12,9 +12,7 @@ import com.forum.api.application.out.PartidoRepository;
 import com.forum.api.domain.exception.PartidoNotFoundException;
 import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Liga;
-import com.forum.api.domain.model.Partido;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.forum.api.domain.model.partido.Partido;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

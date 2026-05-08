@@ -4,7 +4,7 @@
 //import com.forum.api.application.in.PartidoService;
 //import com.forum.api.application.in.usecases.EngineUseCase;
 //import com.forum.api.domain.model.MatchEvent;
-//import com.forum.api.domain.model.Partido;
+//import com.forum.api.domain.model.partido.Partido;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.scheduling.annotation.Scheduled;

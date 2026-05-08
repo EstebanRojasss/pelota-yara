@@ -1,6 +1,6 @@
 package com.forum.api.application.out;
 
-import com.forum.api.domain.model.EventoDelPartido;
+import com.forum.api.domain.model.evento.EventoDelPartido;
 
 import java.util.Optional;
 
