@@ -27,11 +27,12 @@ public class EventoDelPartido {
         return new EventoDelPartido(id, partido, equipo, jugador, minuto, tipoEventoPartido);
     }
 
-    public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
-        return switch (tipoEventoPartido) {
-            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new EventoDelPartido(null, partido, equipo, jugador, minuto, tipoEventoPartido);
-            default -> new EventoDelPartido(null, partido, null, null, null, tipoEventoPartido);
-        };
+    public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, BORRARDESPUES BORRARDESPUES) {
+//        return switch (BORRARDESPUES) {
+//            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new EventoDelPartido(null, partido, equipo, jugador, minuto);
+//            default -> new EventoDelPartido(null, partido, null, null, null);
+//        };
+        return null;
     }
 
     public Long getId() {
