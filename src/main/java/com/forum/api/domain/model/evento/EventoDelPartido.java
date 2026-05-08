@@ -72,12 +72,12 @@ public class EventoDelPartido {
         this.minuto = minuto;
     }
 
-    public TipoEventoPartido getEventoPartido() {
-        return this.tipoEventoPartido;
+    public TipoEvento getTipo() {
+        return tipo;
     }
 
-    public void setEventoPartido(TipoEventoPartido tipoEventoPartido) {
-        this.tipoEventoPartido = tipoEventoPartido;
+    public void setTipo(TipoEvento tipo) {
+        this.tipo = tipo;
     }
 
     public boolean equals(Object o) {
