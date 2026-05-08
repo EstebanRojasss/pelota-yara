@@ -5,19 +5,15 @@ import com.forum.api.domain.model.StatusPartido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DescansoProrroga implements EstadoPartido {
+public class DescansoProrroga extends AbstractEstadoPartido {
 
     private static final Logger log = LoggerFactory.getLogger(DescansoProrroga.class);
 
     @Override
     public void ejecutar(Partido partido) {
-
-        if(partido.getStatus() == StatusPartido.TIEMPO_EXTRA){
-            partido.cambiarEstado( new TiempoExtra() );
-        }
-        if(partido.getStatus() == StatusPartido.FINALIZADO){
-            partido.cambiarEstado( new Finalizado() );
-        }
+        log.info("Descanso tiempo extra: {} vs {}: ",
+                partido.getEquipoLocal().getNombre(),
+                partido.getEquipoVisitante().getNombre());
     }
 
     @Override
@@ -25,4 +21,21 @@ public class DescansoProrroga implements EstadoPartido {
         return 0;
     }
 
+    @Override
+    public EstadoPartido siguienteEstado(Partido partido) {
+        if(partido.getStatus() == StatusPartido.TIEMPO_EXTRA){
+            return new TiempoExtra();
+        }
+
+        if(partidoEnJuego(partido.getStatus())){
+            return new Finalizado();
+        }
+
+        return null;
+    }
+
+    @Override
+    public boolean partidoEnJuego(StatusPartido status) {
+        return super.partidoEnJuego(status);
+    }
 }

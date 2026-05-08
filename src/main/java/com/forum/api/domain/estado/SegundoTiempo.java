@@ -8,23 +8,15 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.time.Instant;
 
-public class SegundoTiempo implements EstadoPartido {
+public class SegundoTiempo extends AbstractEstadoPartido {
     private static final Logger log = LoggerFactory.getLogger(SegundoTiempo.class);
 
     public void ejecutar(Partido partido) {
-
-        int minutoActual = calcularMinutoActual(partido);
-        partido.setMinutoActual(minutoActual);
-        log.info("{} vs {} : 2T: {}",
+        log.info("Segundo Tiempo {} vs {} - Minuto: {}",
                 partido.getEquipoLocal().getNombre(),
-                partido.getEquipoVisitante().getNombre(), partido.getMinutoActual());
-        if (minutoActual >= 90 && partido.getStatus() == StatusPartido.TIEMPO_EXTRA) {
-            log.info("ENTRANDO AL TIEMPO EXTRA");
-            partido.cambiarEstado( new TiempoExtra() );
-        }
-        if(!laPelotaSeEstaMoviendo(partido.getStatus())){
-            partido.cambiarEstado( new Finalizado() );
-        }
+                partido.getEquipoVisitante().getNombre(),
+                partido.getMinutoActual());
+
     }
 
     @Override
@@ -32,11 +24,31 @@ public class SegundoTiempo implements EstadoPartido {
         return partido.calcularMinutoActual();
     }
 
-    public boolean laPelotaSeEstaMoviendo(StatusPartido status) {
-        return
-                status == StatusPartido.SEGUNDO_TIEMPO ||
-                status == StatusPartido.TIEMPO_EXTRA ||
-                status == StatusPartido.TANDA_PENALES;
+    @Override
+    public EstadoPartido siguienteEstado(Partido partido) {
+
+        int minutoActual = calcularMinutoActual(partido);
+
+        if(!partidoEnJuego(partido.getStatus())){
+            return new Finalizado();
+        }
+
+        if (minutoActual >= 90 && partido.getStatus() == StatusPartido.TIEMPO_EXTRA) {
+            partido.cambiarEstado(new TiempoExtra());
+        }
+
+        return null;
+    }
+
+    @Override
+    public void onEnter(Partido partido) {
+        partido.setMinutoBase(45);
+    }
+
+
+    @Override
+    public String nombreEstado() {
+        return "Segundo Tiempo";
     }
 }
 

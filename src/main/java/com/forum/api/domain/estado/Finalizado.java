@@ -9,13 +9,28 @@ public class Finalizado implements EstadoPartido {
     private static final Logger log = LoggerFactory.getLogger(Finalizado.class);
 
     public void ejecutar(Partido partido) {
-        partido.setStatus(StatusPartido.FINALIZADO);
-        log.info("Fin del partido:\n Datos del partido: {}" ,partido.toString());
+
     }
 
     @Override
     public Integer calcularMinutoActual(Partido partido) {
         return 0;
+    }
+
+    @Override
+    public EstadoPartido siguienteEstado(Partido partido) {
+        partido.setStatus(StatusPartido.FINALIZADO);
+        return null;
+    }
+
+    @Override
+    public void onEnter(Partido partido) {
+        log.info("Fin del partido:\n Datos del partido: {}", partido.toString());
+    }
+
+    @Override
+    public String nombreEstado() {
+        return "Finalizado";
     }
 }
 
