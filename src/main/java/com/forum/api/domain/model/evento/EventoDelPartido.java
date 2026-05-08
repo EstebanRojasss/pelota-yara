@@ -14,13 +14,13 @@ public class EventoDelPartido {
     private Integer minuto;
     private TipoEvento tipo;
 
-    private EventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
+    private EventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
         this.id = id;
         this.partido = partido;
         this.equipo = equipo;
         this.jugador = jugador;
         this.minuto = minuto;
-        this.tipoEventoPartido = tipoEventoPartido;
+        this.tipo = tipo;
     }
 
     public static EventoDelPartido restoreMatchEvent(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEventoPartido tipoEventoPartido) {
