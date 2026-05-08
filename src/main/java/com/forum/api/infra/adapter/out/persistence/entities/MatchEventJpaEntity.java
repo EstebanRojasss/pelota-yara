@@ -1,7 +1,6 @@
 package com.forum.api.infra.adapter.out.persistence.entities;
 
 import com.forum.api.domain.model.evento.EventoDelPartido;
-import com.forum.api.domain.model.evento.TipoEventoPartido;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,16 +29,15 @@ public class MatchEventJpaEntity {
 
     private Integer minuto;
 
-    @Enumerated(value = EnumType.STRING)
-    private TipoEventoPartido tipoEventoPartido;
+
 
     public EventoDelPartido toDomain() {
         return EventoDelPartido.restoreMatchEvent(id,
                 partido.toDomainExistent(),
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
-                minuto,
-                tipoEventoPartido);
+                minuto
+                );
     }
 
     public static MatchEventJpaEntity fromDomain(EventoDelPartido eventoDelPartido) {
@@ -48,8 +46,7 @@ public class MatchEventJpaEntity {
                 PartidoJpaEntity.fromDomain(eventoDelPartido.getPartido()),
                 EquipoEntityJpa.fromDomain(eventoDelPartido.getEquipo()),
                 JugadorEntityJpa.fromDomain(eventoDelPartido.getJugador()),
-                eventoDelPartido.getMinuto(),
-                eventoDelPartido.getEventoPartido());
+                eventoDelPartido.getMinuto());
     }
 
 }

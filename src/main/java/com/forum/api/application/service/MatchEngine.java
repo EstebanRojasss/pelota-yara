@@ -4,7 +4,7 @@ import com.forum.api.application.in.JugadorService;
 import com.forum.api.application.in.usecases.EngineUseCase;
 import com.forum.api.domain.model.*;
 import com.forum.api.domain.model.evento.EventoDelPartido;
-import com.forum.api.domain.model.evento.TipoEventoPartido;
+import com.forum.api.domain.model.evento.BORRARDESPUES;
 import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.domain.service.GeneradorEventos;
 import com.forum.api.domain.service.GeneradorEventosRandom;
@@ -30,7 +30,7 @@ public class MatchEngine implements EngineUseCase {
     }
 
     public EventoDelPartido generarSiguienteEvento(Partido partido) {
-        TipoEventoPartido evento = generadorEventos.generarEvento(partido);
+        BORRARDESPUES evento = generadorEventos.generarEvento(partido);
         Equipo equipo = equipoRandom(partido);
         Jugador jugador = jugadorRandom(equipo);
         return EventoDelPartido.generateMatchEvent(partido, equipo, jugador, partido.getMinutoBase(), evento);
