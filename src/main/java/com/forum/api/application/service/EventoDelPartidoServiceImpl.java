@@ -1,6 +1,7 @@
 package com.forum.api.application.service;
 
 import com.forum.api.application.in.EventoDelPartidoService;
+import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.out.EventoDelPartidoRepository;
 import com.forum.api.domain.exception.MatchEventNotFoundException;
 import com.forum.api.domain.model.evento.EventoDelPartido;
@@ -10,10 +11,13 @@ import java.util.Set;
 
 @Service
 public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
-    private final EventoDelPartidoRepository repository;
 
-    public EventoDelPartidoServiceImpl(EventoDelPartidoRepository repository) {
+    private final EventoDelPartidoRepository repository;
+    private final PartidoService partidoService;
+
+    public EventoDelPartidoServiceImpl(EventoDelPartidoRepository repository, PartidoService partidoService) {
         this.repository = repository;
+        this.partidoService = partidoService;
     }
 
     public EventoDelPartido agregarNuevoEventoDelPartido(EventoDelPartido eventoDelPartido) {
