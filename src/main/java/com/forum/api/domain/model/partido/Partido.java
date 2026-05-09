@@ -275,6 +275,18 @@ public class Partido {
         return fixtureId;
     }
 
+    public List<EventoDelPartido> getEventosDelPartido() {
+        return eventosDelPartido;
+    }
+
+    public void setEventosDelPartido(List<EventoDelPartido> eventosDelPartido) {
+        this.eventosDelPartido = eventosDelPartido;
+    }
+
+    public EstadoFabrica getEstadoFabrica() {
+        return estadoFabrica;
+    }
+
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
