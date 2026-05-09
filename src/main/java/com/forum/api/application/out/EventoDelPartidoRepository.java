@@ -5,9 +5,9 @@ import com.forum.api.domain.model.evento.EventoDelPartido;
 import java.util.Optional;
 
 public interface EventoDelPartidoRepository {
-     EventoDelPartido saveMatchEvent(EventoDelPartido var1);
+     EventoDelPartido saveEventoDelPartido(EventoDelPartido eventoDelPartido);
 
-     void deleteMatchEvent(Long var1);
+     void deleteEventoDelPartido(Long var1);
 
      Optional<EventoDelPartido> findMatchEventById(Long var1);
 }

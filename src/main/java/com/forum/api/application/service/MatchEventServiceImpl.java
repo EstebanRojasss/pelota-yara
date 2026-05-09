@@ -18,7 +18,7 @@ public class MatchEventServiceImpl implements MatchEventService {
 
     public EventoDelPartido agregarNuevoMatchEvent(EventoDelPartido eventoDelPartido) {
         try {
-            return this.repository.saveMatchEvent(eventoDelPartido);
+            return this.repository.saveEventoDelPartido(eventoDelPartido);
         }
         catch (RuntimeException e) {
             throw new IllegalArgumentException();
@@ -26,7 +26,7 @@ public class MatchEventServiceImpl implements MatchEventService {
     }
 
     public void borrarMatchEvent(Long id) {
-        this.repository.deleteMatchEvent(id);
+        this.repository.deleteEventoDelPartido(id);
     }
 
     public Set<EventoDelPartido> listarMatchEvents() {

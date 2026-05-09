@@ -1,6 +1,7 @@
 package com.forum.api.infra.adapter.out.persistence.entities;
 
 import com.forum.api.domain.model.evento.EventoDelPartido;
+import com.forum.api.domain.model.evento.TipoEvento;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -45,8 +46,8 @@ public class EventoDelPartidoJpaEntity {
                 );
     }
 
-    public static MatchEventJpaEntity fromDomain(EventoDelPartido eventoDelPartido) {
-        return new MatchEventJpaEntity(
+    public static EventoDelPartidoJpaEntity fromDomain(EventoDelPartido eventoDelPartido) {
+        return new EventoDelPartidoJpaEntity(
                 eventoDelPartido.getId(),
                 PartidoJpaEntity.fromDomain(eventoDelPartido.getPartido()),
                 EquipoEntityJpa.fromDomain(eventoDelPartido.getEquipo()),
