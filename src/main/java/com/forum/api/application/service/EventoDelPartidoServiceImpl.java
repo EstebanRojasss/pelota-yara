@@ -1,6 +1,6 @@
 package com.forum.api.application.service;
 
-import com.forum.api.application.in.MatchEventService;
+import com.forum.api.application.in.EventoDelPartidoService;
 import com.forum.api.application.out.EventoDelPartidoRepository;
 import com.forum.api.domain.exception.MatchEventNotFoundException;
 import com.forum.api.domain.model.evento.EventoDelPartido;
@@ -9,14 +9,14 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 
 @Service
-public class MatchEventServiceImpl implements MatchEventService {
+public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
     private final EventoDelPartidoRepository repository;
 
-    public MatchEventServiceImpl(EventoDelPartidoRepository repository) {
+    public EventoDelPartidoServiceImpl(EventoDelPartidoRepository repository) {
         this.repository = repository;
     }
 
-    public EventoDelPartido agregarNuevoMatchEvent(EventoDelPartido eventoDelPartido) {
+    public EventoDelPartido agregarNuevoEventoDelPartido(EventoDelPartido eventoDelPartido) {
         try {
             return this.repository.saveEventoDelPartido(eventoDelPartido);
         }
@@ -25,15 +25,15 @@ public class MatchEventServiceImpl implements MatchEventService {
         }
     }
 
-    public void borrarMatchEvent(Long id) {
+    public void borrarEventoDelPartido(Long id) {
         this.repository.deleteEventoDelPartido(id);
     }
 
-    public Set<EventoDelPartido> listarMatchEvents() {
+    public Set<EventoDelPartido> listarEventosDelPartido() {
         return Set.of();
     }
 
-    public EventoDelPartido encotrarMatchEvent(Long id) {
+    public EventoDelPartido encontrarEventosDelPartido(Long id) {
         return repository
                 .findMatchEventById(id)
                 .orElseThrow(
