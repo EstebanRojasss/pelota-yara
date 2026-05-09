@@ -24,7 +24,7 @@ public class PartidoServiceImpl implements PartidoService {
     private final EquipoService equipoService;
     private final DataApiProvider fixtureProvider;
     private final PartidoMapper partidoMapper;
-    private final Map<Long, Partido> partidoPorFixtureIdCache = new HashMap<>();
+    private final Map<Long, Partido> cachePartidos = new HashMap<>();
     private final LigaService ligaService;
 
 
@@ -62,7 +62,7 @@ public class PartidoServiceImpl implements PartidoService {
 
 
     public List<Partido> partidosEnVivo(){
-        return partidoPorFixtureIdCache.values().stream().toList();
+        return cachePartidos.values().stream().toList();
     }
 
     @Transactional
@@ -79,14 +79,14 @@ public class PartidoServiceImpl implements PartidoService {
         Equipo visitante = equipoService.resolverExistenciaEquipo(fixture.visitante());
         Liga liga = ligaService.resolverExistenciaLiga(fixture.liga());
 
-        Partido partido = partidoPorFixtureIdCache.get(fixture.id());
+        Partido partido = cachePartidos.get(fixture.id());
 
         if (partido == null) {
 
             partido = partidoRepository.savePartido(
                     partidoMapper.toNewDomain(fixture, local, visitante, liga)
             );
-            partidoPorFixtureIdCache.put(fixture.id(), partido);
+            cachePartidos.put(fixture.id(), partido);
 
         } else if (actualizarSiHayCambios(fixture, partido)) {
             partidoMapper.actualizarDesdeFixture(fixture, partido);
