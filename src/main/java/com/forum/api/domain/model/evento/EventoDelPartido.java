@@ -8,25 +8,22 @@ import java.util.Objects;
 
 public class EventoDelPartido {
     private final Long id;
-    private Partido partido;
     private Equipo equipo;
     private Jugador jugador;
     private Integer minuto;
     private TipoEvento tipo;
 
-    private EventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
+    private EventoDelPartido(Long id,Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
         this.id = id;
-        this.partido = partido;
         this.equipo = equipo;
         this.jugador = jugador;
         this.minuto = minuto;
         this.tipo = tipo;
     }
 
-    public static EventoDelPartido crearEventoDelPartido(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo){
+    public static EventoDelPartido crearEventoDelPartido(Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo){
         return new EventoDelPartido(
                 null,
-                partido,
                 equipo,
                 jugador,
                 minuto,
@@ -35,7 +32,7 @@ public class EventoDelPartido {
     }
 
     public static EventoDelPartido restaurarEventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
-        return new EventoDelPartido(id, partido, equipo, jugador, minuto, tipo);
+        return new EventoDelPartido(id, equipo, jugador, minuto, tipo);
     }
 
     public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, BORRARDESPUES BORRARDESPUES) {
@@ -51,13 +48,6 @@ public class EventoDelPartido {
     }
     
 
-    public Partido getPartido() {
-        return this.partido;
-    }
-
-    public void setPartido(Partido partido) {
-        this.partido = partido;
-    }
 
     public Equipo getEquipo() {
         return this.equipo;
@@ -96,11 +86,11 @@ public class EventoDelPartido {
             return false;
         }
         EventoDelPartido that = (EventoDelPartido)o;
-        return Objects.equals(this.id, that.id) && Objects.equals(this.partido, that.partido) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto);
+        return Objects.equals(this.id, that.id) && Objects.equals(this.equipo, that.equipo) && Objects.equals(this.jugador, that.jugador) && Objects.equals(this.minuto, that.minuto);
     }
 
     public int hashCode() {
-        return Objects.hash(this.id, this.partido, this.equipo, this.jugador, this.minuto);
+        return Objects.hash(this.id, this.equipo, this.jugador, this.minuto);
     }
 }
 
