@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "partidos")
 @Getter
@@ -36,6 +38,8 @@ public class PartidoJpaEntity {
     @JoinColumn(name = "liga_id")
     private LigaJpaEntity liga;
 
+    private List<EventoDelPartidoJpaEntity> eventosDelPartido;
+
     public static PartidoJpaEntity fromDomain(Partido partido) {
         return new PartidoJpaEntity(
                 partido.getId(),
@@ -46,7 +50,8 @@ public class PartidoJpaEntity {
                 partido.getGolLocal(),
                 partido.getMinutoBase(),
                 partido.getFixtureId(),
-                LigaJpaEntity.fromDomain(partido.getLiga()));
+                LigaJpaEntity.fromDomain(partido.getLiga()),
+                );
     }
 
     public Partido toDomainExistent() {
