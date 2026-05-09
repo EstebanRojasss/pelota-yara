@@ -1,0 +1,26 @@
+package com.forum.api.application.service;
+import com.forum.api.application.in.dto.evento.EventType;
+import com.forum.api.application.in.dto.evento.EventoDataDto;
+import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
+import com.forum.api.domain.model.evento.EventoDelPartido;
+import com.forum.api.domain.model.evento.TipoEvento;
+import org.springframework.stereotype.Component;
+
+@Component
+public class EventoMapper {
+
+    public EventoDelPartido toNewDomain(Equipo equipo, Jugador jugador, EventoDataDto eventData){
+        return EventoDelPartido.crearEventoDelPartido(
+                equipo,
+                jugador,
+                eventData.time(),
+                mapEventTypeToDomain(eventData.eventType())
+        );
+    }
+
+    public TipoEvento mapEventTypeToDomain(EventType event){
+        return new TipoEvento(event.type(), event.detail());
+    }
+
+}
