@@ -1,6 +1,7 @@
 package com.forum.api.application.service;
 
 import com.forum.api.application.in.LigaService;
+import com.forum.api.application.in.dto.LigaDataDto;
 import com.forum.api.application.out.LigaRepository;
 import com.forum.api.domain.model.Liga;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,20 @@ public class LigaServiceImpl implements LigaService {
 
     public Map<Long, Liga> ligaCache(){
         return ligaCache;
+    }
+
+    @Override
+    public Liga resolverExistenciaLiga(LigaDataDto ligaDto) {
+        Liga liga = ligaCache().get(ligaDto.id());
+        if(liga == null){
+            liga = agregarNuevaLiga(
+                    Liga.create(ligaDto.nombre(),
+                            ligaDto.pais(),
+                            ligaDto.id(),
+                            ligaDto.temporada())
+            );
+            ligaCache().put(ligaDto.id(), liga);
+        }
+        return liga;
     }
 }

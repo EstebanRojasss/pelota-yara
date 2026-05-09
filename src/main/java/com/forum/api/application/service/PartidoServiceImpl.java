@@ -79,7 +79,7 @@ public class PartidoServiceImpl implements PartidoService {
     private Partido procesarDatosFixture(FixtureData fixture) {
         Equipo local = equipoService.resolverExistenciaEquipo(fixture.local());
         Equipo visitante = equipoService.resolverExistenciaEquipo(fixture.visitante());
-        Liga liga = resolverLiga(fixture.liga());
+        Liga liga = ligaService.resolverExistenciaLiga(fixture.liga());
 
         Partido partido = partidoPorFixtureIdCache.get(fixture.id());
 
@@ -125,19 +125,7 @@ public class PartidoServiceImpl implements PartidoService {
 
 
 
-    private Liga resolverLiga(LigaDataDto ligaDto){
-        Liga liga = ligaService.ligaCache().get(ligaDto.id());
-        if(liga == null){
-            liga = ligaService.agregarNuevaLiga(
-                    Liga.create(ligaDto.nombre(),
-                            ligaDto.pais(),
-                            ligaDto.id(),
-                            ligaDto.temporada())
-            );
-            ligaService.ligaCache().put(ligaDto.id(), liga);
-        }
-        return liga;
-    }
+
 
     public List<Partido> listarTodosLosPartidos() {
         return partidoRepository.findAllPartidos();
