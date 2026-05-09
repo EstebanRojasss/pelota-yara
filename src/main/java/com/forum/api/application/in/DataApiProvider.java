@@ -1,7 +1,7 @@
 package com.forum.api.application.in;
 
 
-import com.forum.api.application.in.dto.EventoDataDto;
+import com.forum.api.application.in.dto.evento.EventoDataDto;
 import com.forum.api.application.in.dto.FixtureData;
 import com.forum.api.application.in.dto.TeamDataDto;
 
