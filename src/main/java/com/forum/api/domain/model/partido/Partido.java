@@ -4,9 +4,11 @@ import com.forum.api.domain.estado.*;
 import com.forum.api.domain.exception.EquipoNotFoundException;
 import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Liga;
+import com.forum.api.domain.model.evento.EventoDelPartido;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +28,8 @@ public class Partido {
     private Integer minutoAdicional2T;
     private Liga liga;
 
+    private List<EventoDelPartido> eventosDelPartido;
+
     private final EstadoFabrica estadoFabrica = new EstadoFabrica();
 
     private Partido(Long id,
@@ -36,7 +40,7 @@ public class Partido {
                     Integer golLocal,
                     Integer minutoBase,
                     Long fixtureId,
-                    Liga liga) {
+                    Liga liga, List<EventoDelPartido> eventosDelPartido) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
@@ -45,6 +49,7 @@ public class Partido {
         this.golLocal = golLocal;
         this.minutoBase = minutoBase;
         this.liga = liga;
+        this.eventosDelPartido = eventosDelPartido;
         this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
         this.estadoPartido = new NoIniciado();
@@ -66,7 +71,8 @@ public class Partido {
                                   Integer golVisitante,
                                   Integer minutoBase,
                                   Long fixtureId,
-                                  Liga liga) {
+                                  Liga liga,
+                                  List<EventoDelPartido> eventosDelPartido) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
@@ -75,7 +81,8 @@ public class Partido {
                 golLocal,
                 minutoBase,
                 fixtureId,
-                liga);
+                liga,
+                eventosDelPartido);
     }
 
     public static Partido createFromApi(Equipo equipoLocal,
@@ -94,7 +101,9 @@ public class Partido {
                 golLocal,
                 minutoBase,
                 fixtureId,
-                liga);
+                liga,
+                new ArrayList<>()
+                );
     }
 
     public static Partido createFromLocal(Equipo equipoLocal, Equipo equipoVisitante){
@@ -106,6 +115,7 @@ public class Partido {
                 0,
                 0,
                 0L,
+                null,
                 null);
     }
     public void fijarBaseMinuto(Integer minutoBase) {
