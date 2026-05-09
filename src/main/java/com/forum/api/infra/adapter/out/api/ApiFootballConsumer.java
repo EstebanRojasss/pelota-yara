@@ -1,12 +1,12 @@
 package com.forum.api.infra.adapter.out.api;
 
 import com.forum.api.application.in.DataApiProvider;
+import com.forum.api.application.in.dto.evento.EventoDataDto;
 import com.forum.api.application.in.dto.FixtureData;
 import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.infra.adapter.out.dto.FixtureWrapper;
 import com.forum.api.infra.adapter.out.dto.TeamWrapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.forum.api.infra.adapter.out.dto.event.EventData;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -86,6 +86,35 @@ public class ApiFootballConsumer implements DataApiProvider {
                 getResponse().
                 stream().
                 map(TeamWrapper::map)
+                .toList();
+    }
+
+    @Override
+    public List<EventoDataDto> proveerEventosPartido(Long idPartido) {
+        HttpHeaders headers = new HttpHeaders();
+
+        StringBuilder url = new StringBuilder("https://v3.football.api-sports.io/fixtures/events?fixture=");
+
+        headers.set("x-apisports-key", apiKey);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<ApiResponse<EventData>> response = restTemplate.exchange(
+                url.append(idPartido).toString(),
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<ApiResponse<EventData>>() {
+                }
+        );
+        if (response.getBody() == null) {
+            throw new IllegalStateException("Respuesta vacía de API FOOTBALL");
+        }
+
+        return response.
+                getBody().
+                getResponse().
+                stream().
+                map(EventData::map)
                 .toList();
     }
 
