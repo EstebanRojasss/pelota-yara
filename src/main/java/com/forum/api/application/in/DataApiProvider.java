@@ -10,5 +10,5 @@ import java.util.List;
 public interface DataApiProvider {
     List<FixtureData> proveerDatosFixture();
     List<TeamDataDto> proveerDatosEquipos();
-    List<EventoDataDto> proveerEventosPartido();
+    List<EventoDataDto> proveerEventosPartido(Long idPartido);
 }
