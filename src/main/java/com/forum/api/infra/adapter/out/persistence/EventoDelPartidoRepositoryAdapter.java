@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class MatchEventRepositoryAdapter implements MatchEventRepository {
+public class EventoDelPartidoRepositoryAdapter implements MatchEventRepository {
     private final MatchEventJpaRepository repository;
 
     public MatchEventRepositoryAdapter(MatchEventJpaRepository repository) {
