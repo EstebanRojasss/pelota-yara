@@ -4,4 +4,5 @@ public record EventoDataDto(Integer time,
                             TeamEventDataDto teamEvent,
                             PlayerEventDataDto playerEvent,
                             EventType eventType) {
+
 }
