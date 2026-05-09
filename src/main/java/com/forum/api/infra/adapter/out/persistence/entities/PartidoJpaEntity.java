@@ -58,7 +58,11 @@ public class PartidoJpaEntity {
                 golVisitante,
                 minutoActual,
                 fixtureId,
-                liga.toDomainExistent()
+                liga.toDomainExistent(),
+                eventosDelPartido
+                        .stream()
+                        .map(EventoDelPartidoJpaEntity::toDomain)
+                        .toList()
                 );
     }
 
