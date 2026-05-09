@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "partidos")
@@ -51,6 +52,11 @@ public class PartidoJpaEntity {
                 partido.getMinutoBase(),
                 partido.getFixtureId(),
                 LigaJpaEntity.fromDomain(partido.getLiga()),
+                partido.
+                        getEventosDelPartido().
+                        stream().
+                        map(EventoDelPartidoJpaEntity::fromDomain).
+                        toList()
                 );
     }
 
