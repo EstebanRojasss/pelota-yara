@@ -12,7 +12,6 @@ public interface JugadorService {
      Jugador encontrarJugadorPorId(Long var1);
 
      void eliminarJugadorPorId(Long var1);
-
-     Jugador actualizarDatosJugador(Jugador var1);
+     
 }
 
