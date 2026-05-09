@@ -6,8 +6,6 @@ import com.forum.api.application.in.LigaService;
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.in.command.CrearPartidoCommand;
 import com.forum.api.application.in.dto.FixtureData;
-import com.forum.api.application.in.dto.LigaDataDto;
-import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.application.out.PartidoRepository;
 import com.forum.api.domain.exception.PartidoNotFoundException;
 import com.forum.api.domain.model.Equipo;
@@ -72,11 +70,11 @@ public class PartidoServiceImpl implements PartidoService {
         return fixtureProvider.
                 proveerDatosFixture().
                 stream().
-                map(this::procesarDatosFixture).
+                map(this::resolverExistenciaPartido).
                 toList();
     }
 
-    private Partido procesarDatosFixture(FixtureData fixture) {
+    private Partido resolverExistenciaPartido(FixtureData fixture) {
         Equipo local = equipoService.resolverExistenciaEquipo(fixture.local());
         Equipo visitante = equipoService.resolverExistenciaEquipo(fixture.visitante());
         Liga liga = ligaService.resolverExistenciaLiga(fixture.liga());
