@@ -17,10 +17,6 @@ public class EventoDelPartidoJpaEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_partido")
-    private PartidoJpaEntity partido;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_equipo")
     private EquipoEntityJpa equipo;
 
@@ -38,7 +34,6 @@ public class EventoDelPartidoJpaEntity {
 
     public EventoDelPartido toDomain() {
         return EventoDelPartido.restaurarEventoDelPartido(id,
-                partido.toDomainExistent(),
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
                 minuto,
@@ -49,7 +44,6 @@ public class EventoDelPartidoJpaEntity {
     public static EventoDelPartidoJpaEntity fromDomain(EventoDelPartido eventoDelPartido) {
         return new EventoDelPartidoJpaEntity(
                 eventoDelPartido.getId(),
-                PartidoJpaEntity.fromDomain(eventoDelPartido.getPartido()),
                 EquipoEntityJpa.fromDomain(eventoDelPartido.getEquipo()),
                 JugadorEntityJpa.fromDomain(eventoDelPartido.getJugador()),
                 eventoDelPartido.getMinuto(),
