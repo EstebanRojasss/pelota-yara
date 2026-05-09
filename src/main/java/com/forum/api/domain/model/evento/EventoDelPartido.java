@@ -23,7 +23,7 @@ public class EventoDelPartido {
         this.tipo = tipo;
     }
 
-    private static EventoDelPartido crearEventoDelPartido(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo){
+    public static EventoDelPartido crearEventoDelPartido(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo){
         return new EventoDelPartido(
                 null,
                 partido,
