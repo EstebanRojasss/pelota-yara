@@ -28,6 +28,10 @@ public class EventoDelPartidoJpaEntity {
     private JugadorEntityJpa jugador;
 
     private Integer minuto;
+    @Column(name = "tipo_evento")
+    private String tipoEvento;
+    @Column(name = "detalle_evento")
+    private String detalleEvento;
 
 
 
@@ -36,7 +40,8 @@ public class EventoDelPartidoJpaEntity {
                 partido.toDomainExistent(),
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
-                minuto
+                minuto,
+                new TipoEvento(tipoEvento, detalleEvento)
                 );
     }
 
@@ -46,7 +51,9 @@ public class EventoDelPartidoJpaEntity {
                 PartidoJpaEntity.fromDomain(eventoDelPartido.getPartido()),
                 EquipoEntityJpa.fromDomain(eventoDelPartido.getEquipo()),
                 JugadorEntityJpa.fromDomain(eventoDelPartido.getJugador()),
-                eventoDelPartido.getMinuto());
+                eventoDelPartido.getMinuto(),
+                eventoDelPartido.getTipo().tipo(),
+                eventoDelPartido.getTipo().detalleEvento());
     }
 
 }
