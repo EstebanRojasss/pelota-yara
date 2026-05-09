@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "match_events")
+@Table(name = "eventos_del_partido")
 @Getter
 @Setter
 @NoArgsConstructor
