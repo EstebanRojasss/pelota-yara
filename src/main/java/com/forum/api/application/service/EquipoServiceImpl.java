@@ -84,6 +84,19 @@ public class EquipoServiceImpl implements EquipoService {
         return cacheEquipos;
     }
 
+    @Override
+    public Equipo resolverExistenciaEquipo(TeamDataDto team) {
+        Equipo equipo = cacheEquipos().get(team.id());
+        if (equipo == null) {
+            equipo = agregarNuevoEquipo(
+                    Equipo.create(team.nombre(), null, null, team.id(), team.logo())
+            );
+            cacheEquipos().put(team.id(), equipo);
+        }
+
+        return equipo;
+    }
+
     private Equipo procesarDatosApiExterna(TeamDataDto team) {
         Equipo equipo = cacheEquipos.get(team.id());
 

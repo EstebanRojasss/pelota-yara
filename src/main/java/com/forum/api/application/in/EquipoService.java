@@ -28,5 +28,7 @@ public interface EquipoService {
      List<Equipo> agregarEquiposPorLigaDesdeApiExterna();
 
      Map<Long, Equipo> cacheEquipos();
+
+     Equipo resolverExistenciaEquipo(TeamDataDto teamDataDto);
 }
 

@@ -77,8 +77,8 @@ public class PartidoServiceImpl implements PartidoService {
     }
 
     private Partido procesarDatosFixture(FixtureData fixture) {
-        Equipo local = resolverEquipo(fixture.local());
-        Equipo visitante = resolverEquipo(fixture.visitante());
+        Equipo local = equipoService.resolverExistenciaEquipo(fixture.local());
+        Equipo visitante = equipoService.resolverExistenciaEquipo(fixture.visitante());
         Liga liga = resolverLiga(fixture.liga());
 
         Partido partido = partidoPorFixtureIdCache.get(fixture.id());
@@ -124,17 +124,6 @@ public class PartidoServiceImpl implements PartidoService {
     }
 
 
-    private Equipo resolverEquipo(TeamDataDto team) {
-        Equipo equipo = equipoService.cacheEquipos().get(team.id());
-        if (equipo == null) {
-            equipo = equipoService.agregarNuevoEquipo(
-                    Equipo.create(team.nombre(), null, null, team.id(), team.logo())
-            );
-            equipoService.cacheEquipos().put(team.id(), equipo);
-        }
-
-        return equipo;
-    }
 
     private Liga resolverLiga(LigaDataDto ligaDto){
         Liga liga = ligaService.ligaCache().get(ligaDto.id());
