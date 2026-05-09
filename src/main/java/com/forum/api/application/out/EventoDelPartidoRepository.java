@@ -9,6 +9,6 @@ public interface EventoDelPartidoRepository {
 
      void deleteEventoDelPartido(Long var1);
 
-     Optional<EventoDelPartido> findMatchEventById(Long var1);
+     Optional<EventoDelPartido> findEventoDelPartidoById(Long var1);
 }
 
