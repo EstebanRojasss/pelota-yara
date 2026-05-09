@@ -70,11 +70,11 @@ public class PartidoServiceImpl implements PartidoService {
         return fixtureProvider.
                 proveerDatosFixture().
                 stream().
-                map(this::resolverExistenciaPartido).
+                map(this::guardarOActualizarPartido).
                 toList();
     }
 
-    private Partido resolverExistenciaPartido(FixtureData fixture) {
+    private Partido guardarOActualizarPartido(FixtureData fixture) {
         Equipo local = equipoService.resolverExistenciaEquipo(fixture.local());
         Equipo visitante = equipoService.resolverExistenciaEquipo(fixture.visitante());
         Liga liga = ligaService.resolverExistenciaLiga(fixture.liga());
