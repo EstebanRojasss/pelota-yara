@@ -10,7 +10,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MatchEventJpaEntity {
+public class EventoDelPartidoJpaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,7 +32,7 @@ public class MatchEventJpaEntity {
 
 
     public EventoDelPartido toDomain() {
-        return EventoDelPartido.restoreMatchEvent(id,
+        return EventoDelPartido.restaurarEventoDelPartido(id,
                 partido.toDomainExistent(),
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
