@@ -137,6 +137,10 @@ public class Partido {
         }
     }
 
+    public void agregarEvento(EventoDelPartido eventoDelPartido){
+        eventosDelPartido.add(eventoDelPartido);
+    }
+
     private boolean partidoTerminado(EstadoPartido estado){
         return estado instanceof Finalizado;
     }
