@@ -8,10 +8,10 @@ import java.util.Optional;
 public interface JugadorRepository {
      Optional<Jugador> encontrarJugador(Long var1);
 
-     Jugador guardarJugador(Jugador var1);
+     Jugador guardarJugador(Jugador jugador);
 
      void borrarJugador(Long var1);
 
-     List<Jugador> listarJugadoresPorEquipo(Long var1);
+     List<Jugador> listarJugadoresPorEquipo(Long id);
 }
 

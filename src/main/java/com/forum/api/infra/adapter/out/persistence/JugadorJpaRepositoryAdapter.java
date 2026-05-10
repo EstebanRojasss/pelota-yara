@@ -11,8 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
-public class JugadorJpaRepositoryAdapter
-implements JugadorRepository {
+public class JugadorJpaRepositoryAdapter implements JugadorRepository {
     private final JugadorJpaRepository repository;
 
     public JugadorJpaRepositoryAdapter(JugadorJpaRepository repository) {

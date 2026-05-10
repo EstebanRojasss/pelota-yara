@@ -3,7 +3,9 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.dto.FixtureData;
 import com.forum.api.application.in.dto.LigaDataDto;
 import com.forum.api.application.in.dto.StatusPartidoFixture;
+import com.forum.api.application.in.dto.evento.EventoDataDto;
 import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.Liga;
 import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.domain.model.partido.StatusPartido;
@@ -16,7 +18,10 @@ import java.util.Objects;
 @Component
 public class PartidoMapper {
 
-    public PartidoMapper() {
+    private final EventoMapper eventoMapper;
+
+    public PartidoMapper(EventoMapper eventoMapper) {
+        this.eventoMapper = eventoMapper;
     }
 
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante, Liga liga) {
@@ -29,6 +34,12 @@ public class PartidoMapper {
                 mapStatus(fixtureData.statusFixture()),
                 fixtureData.id(),
                 liga
+        );
+    }
+
+    public void agregarEvento(EventoDataDto evento, Partido partido, Equipo equipo, Jugador jugador){
+        partido.agregarEvento(
+                eventoMapper.toNewDomain(equipo, jugador, evento)
         );
     }
 

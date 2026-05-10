@@ -31,7 +31,7 @@ public class EventoDelPartido {
         );
     }
 
-    public static EventoDelPartido restaurarEventoDelPartido(Long id, Partido partido, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
+    public static EventoDelPartido restaurarEventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
         return new EventoDelPartido(id, equipo, jugador, minuto, tipo);
     }
 

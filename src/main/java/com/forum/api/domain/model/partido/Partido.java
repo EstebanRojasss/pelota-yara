@@ -3,8 +3,10 @@ package com.forum.api.domain.model.partido;
 import com.forum.api.domain.estado.*;
 import com.forum.api.domain.exception.EquipoNotFoundException;
 import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.Liga;
 import com.forum.api.domain.model.evento.EventoDelPartido;
+import com.forum.api.domain.model.evento.TipoEvento;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -147,8 +149,8 @@ public class Partido {
         }
     }
 
-    public void agregarEvento(EventoDelPartido eventoDelPartido){
-        eventosDelPartido.add(eventoDelPartido);
+    public void agregarEvento(EventoDelPartido evento){
+        eventosDelPartido.add(evento);
     }
 
     private boolean partidoTerminado(EstadoPartido estado){

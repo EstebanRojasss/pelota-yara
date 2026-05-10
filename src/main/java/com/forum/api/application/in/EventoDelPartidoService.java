@@ -2,6 +2,7 @@ package com.forum.api.application.in;
 
 import com.forum.api.domain.model.evento.EventoDelPartido;
 
+import java.util.List;
 import java.util.Set;
 
 public interface EventoDelPartidoService {
@@ -10,8 +11,10 @@ public interface EventoDelPartidoService {
 
      void borrarEventoDelPartido(Long id);
 
-     Set<EventoDelPartido> listarEventosDelPartido();
+     Set<EventoDelPartido> listarEventosDelPartidoDB();
 
-     EventoDelPartido encontrarEventosDelPartido(Long id);
+     EventoDelPartido encontrarEventoDelPartido(Long id);
+
+     List<EventoDelPartido> listarEventosDelPartidoAPI();
 }
 

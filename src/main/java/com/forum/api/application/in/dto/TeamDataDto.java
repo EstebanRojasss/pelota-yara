@@ -11,5 +11,9 @@ public record TeamDataDto(Long id,
         return new TeamDataDto(id, nombre, logo, pais, fundacion);
     }
 
+    public static TeamDataDto map(Long id, String nombre, String logo){
+        return new TeamDataDto(id, nombre, logo, null, null);
+    }
+
 
 }

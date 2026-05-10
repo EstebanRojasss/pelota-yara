@@ -1,9 +1,6 @@
 package com.forum.api.application.service;
 
-import com.forum.api.application.in.DataApiProvider;
-import com.forum.api.application.in.EquipoService;
-import com.forum.api.application.in.LigaService;
-import com.forum.api.application.in.PartidoService;
+import com.forum.api.application.in.*;
 import com.forum.api.application.in.command.CrearPartidoCommand;
 import com.forum.api.application.in.dto.FixtureData;
 import com.forum.api.application.out.PartidoRepository;
@@ -26,14 +23,16 @@ public class PartidoServiceImpl implements PartidoService {
     private final PartidoMapper partidoMapper;
     private final Map<Long, Partido> cachePartidos = new HashMap<>();
     private final LigaService ligaService;
+    private final EventoDelPartidoService eventoDelPartidoService;
 
 
-    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper, LigaService ligaService) {
+    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper, LigaService ligaService, EventoDelPartidoService eventoDelPartidoService) {
         this.partidoRepository = partidoRepository;
         this.equipoService = equipoService;
         this.fixtureProvider = fixtureProvider;
         this.partidoMapper = partidoMapper;
         this.ligaService = ligaService;
+        this.eventoDelPartidoService = eventoDelPartidoService;
     }
 
     public Partido encontrarPartido(Long id) {

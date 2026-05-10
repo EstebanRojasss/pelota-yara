@@ -26,7 +26,7 @@ public class EventoDelPartidoRepositoryAdapter implements EventoDelPartidoReposi
         repository.deleteById(id);
     }
 
-    public Optional<EventoDelPartido> findMatchEventById(Long id) {
+    public Optional<EventoDelPartido> findEventoDelPartidoById(Long id) {
         return repository.findById(id).map(EventoDelPartidoJpaEntity::toDomain);
     }
 }

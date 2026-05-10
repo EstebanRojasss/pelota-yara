@@ -1,10 +1,12 @@
 package com.forum.api.infra.adapter.out.api;
 
 import com.forum.api.application.in.DataApiProvider;
+import com.forum.api.application.in.dto.JugadorDataDto;
 import com.forum.api.application.in.dto.evento.EventoDataDto;
 import com.forum.api.application.in.dto.FixtureData;
 import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.infra.adapter.out.dto.FixtureWrapper;
+import com.forum.api.infra.adapter.out.dto.PlayerWrapper;
 import com.forum.api.infra.adapter.out.dto.TeamWrapper;
 import com.forum.api.infra.adapter.out.dto.event.EventData;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,14 +95,15 @@ public class ApiFootballConsumer implements DataApiProvider {
     public List<EventoDataDto> proveerEventosPartido(Long idPartido) {
         HttpHeaders headers = new HttpHeaders();
 
-        StringBuilder url = new StringBuilder("https://v3.football.api-sports.io/fixtures/events?fixture=");
+
 
         headers.set("x-apisports-key", apiKey);
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
+        String url = "https://v3.football.api-sports.io/fixtures/events?fixture=";
 
         ResponseEntity<ApiResponse<EventData>> response = restTemplate.exchange(
-                url.append(idPartido).toString(),
+                url + idPartido,
                 HttpMethod.GET,
                 entity,
                 new ParameterizedTypeReference<ApiResponse<EventData>>() {
@@ -116,6 +119,32 @@ public class ApiFootballConsumer implements DataApiProvider {
                 stream().
                 map(EventData::map)
                 .toList();
+    }
+
+    @Override
+    public List<JugadorDataDto> proveerJugadoresDeUnEquipo(Long idEquipo) {
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.set("x-apisports-key", apiKey);
+
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        String url = "https://v3.football.api-sports.io/players/squads?team=";
+
+        ResponseEntity<PlayerWrapper> response = restTemplate.exchange(
+                url + idEquipo,
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<PlayerWrapper>() {
+                }
+        );
+
+        if(response.getBody() != null){
+            throw new IllegalStateException("Respuesta vacía de API FOOTBALL");
+        }
+        return response.
+                getBody().
+                mapFromApiData();
     }
 
     private Predicate<FixtureData> filtrarLiga(Collection<Long> idsPermitidos) {

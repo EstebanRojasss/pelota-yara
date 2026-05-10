@@ -45,7 +45,7 @@ public class MatchEngine implements EngineUseCase {
         if(!jugadoresDeEquipo.containsKey(equipo)){
             jugadoresDeEquipo.put(
                     equipo,
-                    jugadorService.listarJugadoresEquipo(equipo.getId())
+                    jugadorService.listarJugadoresEquipoDB(equipo.getId())
             );
             log.info("---JUGADORES DEL EQUIPO---: {} {}",
                     equipo.getId(), jugadoresDeEquipo.get(equipo));
