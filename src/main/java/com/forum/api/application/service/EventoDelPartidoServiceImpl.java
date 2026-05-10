@@ -5,6 +5,7 @@ import com.forum.api.application.in.EventoDelPartidoService;
 import com.forum.api.application.out.EventoDelPartidoRepository;
 import com.forum.api.domain.exception.MatchEventNotFoundException;
 import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.partido.Partido;
 import org.springframework.stereotype.Service;
@@ -40,15 +41,14 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
         this.repository.deleteEventoDelPartido(id);
     }
 
-    public List<EventoDelPartido> obtenerEventosDelProvider(Partido partido) {
+    public List<EventoDelPartido> obtenerEventosDelProvider(Partido partido, Jugador jugador) {
         return eventoProvider.proveerEventosPartido(partido.getId())
                 .stream()
-                .map(eventoDataDto -> {
-                    eventoMapper.toNewDomain(
-                            resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
-
-                    )
-                });
+                .map(eventoDataDto -> eventoMapper.toNewDomain(
+                        resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
+                        jugador,
+                        eventoDataDto
+                )).toList();
     }
 
     @Override

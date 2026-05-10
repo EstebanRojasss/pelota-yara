@@ -1,6 +1,6 @@
 package com.forum.api.domain.model.evento;
 
-public enum TipoEventoPartido {
+public enum BORRARDESPUES {
     GOL(20),
     TARGETA_AMARILLA(5),
     TARGETA_ROJA(5),
@@ -10,7 +10,7 @@ public enum TipoEventoPartido {
 
     private final Integer probabilidad;
 
-    TipoEventoPartido(Integer probabilidad) {
+    BORRARDESPUES(Integer probabilidad) {
         this.probabilidad = probabilidad;
     }
 
