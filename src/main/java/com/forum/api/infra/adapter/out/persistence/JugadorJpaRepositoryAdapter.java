@@ -24,6 +24,13 @@ public class JugadorJpaRepositoryAdapter implements JugadorRepository {
                 .map(JugadorEntityJpa::toDomainExistent);
     }
 
+    @Override
+    public Optional<Jugador> encontrarJugadorPorFixtureId(Long fixtureId) {
+        return repository
+                .findByFixtureId(fixtureId)
+                .map(JugadorEntityJpa::toDomainExistent);
+    }
+
     public Jugador guardarJugador(Jugador jugador) {
         return repository
                 .save(JugadorEntityJpa.fromDomain(jugador))
@@ -42,4 +49,3 @@ public class JugadorJpaRepositoryAdapter implements JugadorRepository {
                 .collect(Collectors.toList());
     }
 }
-
