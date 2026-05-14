@@ -14,16 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class JugadorServiceImpl implements JugadorService {
     private final JugadorRepository jugadorRepository;
-    private final Map<Long, Jugador> cacheJugadoresPorEquipo = new HashMap<>();
+    private final Map<Long, Jugador> cacheJugadoresPorFixtureId = new HashMap<>();
     private final DataApiProvider jugadorProvider;
     private final EquipoService equipoService;
     private final JugadorMapper jugadorMapper;
@@ -58,17 +54,31 @@ public class JugadorServiceImpl implements JugadorService {
     @Transactional
     public Jugador guardarOActualizarJugador(JugadorDataDto jugadorData) {
         Equipo equipoJugador = equipoService.resolverExistenciaEquipo(jugadorData.equipoDto());
-        Jugador jugador = cacheJugadoresPorEquipo.get(jugadorData.id());
+        Jugador jugador = cacheJugadoresPorFixtureId.get(jugadorData.id());
         if (jugador == null) {
-            jugador = jugadorRepository.guardarJugador(
-                    jugadorMapper.toNewDomain(jugadorData, equipoJugador)
-            );
-            cacheJugadoresPorEquipo.put(jugador.getFixtureId(), jugador);
+            jugador = jugadorRepository
+                    .encontrarJugadorPorFixtureId(jugadorData.id())
+                    .orElseGet(() -> jugadorRepository.guardarJugador(
+                            jugadorMapper.toNewDomain(jugadorData, equipoJugador)
+                    ));
+            cacheJugadoresPorFixtureId.put(jugadorData.id(), jugador);
         }
-        if(jugador.getEquipo().getEquipoFixtureId().equals(jugadorData.equipoDto().id())){
+        if (jugador.getEquipo().getEquipoFixtureId().equals(jugadorData.equipoDto().id())) {
             jugadorMapper.actualizarSiHayCambios(jugadorData, jugador, equipoJugador);
+            cacheJugadoresPorFixtureId.put(jugadorData.id(), jugador);
         }
 
+        return jugador;
+    }
+
+    @Override
+    public Optional<Jugador> encontrarJugadorPorFixtureId(Long fixtureId) {
+        Jugador jugadorEnCache = cacheJugadoresPorFixtureId.get(fixtureId);
+        if (jugadorEnCache != null) {
+            return Optional.of(jugadorEnCache);
+        }
+        Optional<Jugador> jugador = jugadorRepository.encontrarJugadorPorFixtureId(fixtureId);
+        jugador.ifPresent(value -> cacheJugadoresPorFixtureId.put(fixtureId, value));
         return jugador;
     }
 
@@ -84,4 +94,3 @@ public class JugadorServiceImpl implements JugadorService {
         jugadorRepository.borrarJugador(id);
     }
 }
-
