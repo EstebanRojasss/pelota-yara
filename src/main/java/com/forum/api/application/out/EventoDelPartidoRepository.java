@@ -2,6 +2,7 @@ package com.forum.api.application.out;
 
 import com.forum.api.domain.model.evento.EventoDelPartido;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface EventoDelPartidoRepository {
@@ -10,5 +11,7 @@ public interface EventoDelPartidoRepository {
      void deleteEventoDelPartido(Long var1);
 
      Optional<EventoDelPartido> findEventoDelPartidoById(Long var1);
+
+     List<EventoDelPartido> findAllEventos();
 }
 

@@ -15,4 +15,6 @@ public interface JugadorRepository {
      void borrarJugador(Long var1);
 
      List<Jugador> listarJugadoresPorEquipo(Long id);
+
+     Optional<Jugador> encontrarJugadorPorFixtureId(Long fixtureId);
 }

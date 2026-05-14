@@ -91,7 +91,8 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
                         () -> new MatchEventNotFoundException("No se encuentra el match event"));
     }
 
-    public Set<EventoDelPartido> listarEventosDelPartidoDB() {
-        return Set.of();
+    public List<EventoDelPartido> listarEventosDelPartidoDB() {
+        return repository.findAllEventos();
     }
 }
+

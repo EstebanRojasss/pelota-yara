@@ -37,11 +37,6 @@ public class PartidoMapper {
         );
     }
 
-    public void agregarEvento(EventoDataDto evento, Partido partido, Equipo equipo, Jugador jugador){
-        partido.agregarEvento(
-                eventoMapper.toNewDomain(equipo, jugador, evento)
-        );
-    }
 
     public void actualizarDesdeFixture(FixtureData fixture, Partido partido) {
 

@@ -6,7 +6,9 @@ import com.forum.api.application.in.dto.FixtureData;
 import com.forum.api.application.out.PartidoRepository;
 import com.forum.api.domain.exception.PartidoNotFoundException;
 import com.forum.api.domain.model.Equipo;
+import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.Liga;
+import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.partido.Partido;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -121,7 +123,10 @@ public class PartidoServiceImpl implements PartidoService {
     }
 
 
-
+    @Override
+    public List<EventoDelPartido> obtenerNuevosEventos() {
+        return eventoDelPartidoService.listarEventosDelPartidoAPI();
+    }
 
 
     public List<Partido> listarTodosLosPartidos() {

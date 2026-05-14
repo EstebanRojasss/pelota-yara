@@ -1,6 +1,7 @@
 package com.forum.api.application.in;
 
 import com.forum.api.application.in.command.CrearPartidoCommand;
+import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.partido.Partido;
 
 import java.util.List;
@@ -22,5 +23,7 @@ public interface PartidoService {
     Optional<Partido> encontrarPartidoPorFixtureId(Long id);
 
     List<Partido> partidosEnVivo();
+
+    List<EventoDelPartido> obtenerNuevosEventos();
 }
 

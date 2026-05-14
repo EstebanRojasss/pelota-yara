@@ -6,6 +6,7 @@ import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.Liga;
 import com.forum.api.domain.model.evento.EventoDelPartido;
+import com.forum.api.domain.model.evento.StoreEvent;
 import com.forum.api.domain.model.evento.TipoEvento;
 
 import java.time.Duration;
@@ -29,6 +30,7 @@ public class Partido {
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
     private Liga liga;
+    private StoreEvent storeEvent = new StoreEvent();
 
     private List<EventoDelPartido> eventosDelPartido;
 
@@ -54,7 +56,7 @@ public class Partido {
         this.eventosDelPartido = eventosDelPartido;
         this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
-        this.estadoPartido = new NoIniciado();
+        this.estadoPartido = PartidoStateFactory.sincronizarEstado(status);
     }
 
     public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal) {
@@ -105,10 +107,10 @@ public class Partido {
                 fixtureId,
                 liga,
                 new ArrayList<>()
-                );
+        );
     }
 
-    public static Partido createFromLocal(Equipo equipoLocal, Equipo equipoVisitante){
+    public static Partido createFromLocal(Equipo equipoLocal, Equipo equipoVisitante) {
         return new Partido(null,
                 StatusPartido.NO_INICIADO,
                 equipoLocal,
@@ -120,6 +122,7 @@ public class Partido {
                 null,
                 null);
     }
+
     public void fijarBaseMinuto(Integer minutoBase) {
         this.minutoBase = minutoBase;
         this.timeStampBase = Instant.now();
@@ -128,7 +131,7 @@ public class Partido {
 
     public Integer calcularMinutoActual() {
         long segundos = Duration.between(timeStampBase, Instant.now()).getSeconds();
-        return minutoBase + (int)(segundos / 60);
+        return minutoBase + (int) (segundos / 60);
     }
 
     public void actualizarMinutoActual() {
@@ -142,29 +145,32 @@ public class Partido {
     }
 
 
-
     public void ejecutar() {
-        if(!partidoTerminado(this.estadoPartido)){
+        if (!partidoTerminado(this.estadoPartido)) {
             estadoFabrica.ejecutarEstado(this);
         }
     }
 
-    public void agregarEvento(EventoDelPartido evento){
-        eventosDelPartido.add(evento);
+    public void inicializarStoreEvent(StatusPartido status){
+        storeEvent.inicializar(status);
     }
 
-    private boolean partidoTerminado(EstadoPartido estado){
+    public void agregarEvento(List<EventoDelPartido> eventosDelPartido) {
+        storeEvent.agregarEvento(eventosDelPartido);
+    }
+
+    private boolean partidoTerminado(EstadoPartido estado) {
         return estado instanceof Finalizado;
     }
 
     public void aumentarMarcador(Equipo equipo) {
-        if (equipo.equals(this.equipoLocal))this.golLocal++;
+        if (equipo.equals(this.equipoLocal)) this.golLocal++;
         else if (equipo.equals(this.equipoVisitante)) this.golVisitante++;
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
 
-    public void restarMarcador(Equipo equipo){
-        if(equipo.equals(this.equipoLocal))this.golLocal--;
+    public void restarMarcador(Equipo equipo) {
+        if (equipo.equals(this.equipoLocal)) this.golLocal--;
         else if (equipo.equals(this.equipoVisitante)) this.golVisitante--;
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
@@ -302,7 +308,7 @@ public class Partido {
     }
 
     public String toString() {
-        return "Partido{id=" + this.id + ", status=" +this.status + ", estadoPartido=" +this.estadoPartido + ", equipoLocal=" + this.equipoLocal + ", equipoVisitante=" + this.equipoVisitante + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoBase=" + this.minutoBase + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
+        return "Partido{id=" + this.id + ", status=" + this.status + ", estadoPartido=" + this.estadoPartido + ", equipoLocal=" + this.equipoLocal + ", equipoVisitante=" + this.equipoVisitante + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoBase=" + this.minutoBase + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
     }
 }
 

@@ -5,17 +5,19 @@ import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.evento.TipoEvento;
+import com.forum.api.domain.model.partido.StatusPartido;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventoMapper {
 
-    public EventoDelPartido toNewDomain(Equipo equipo, Jugador jugador, EventoDataDto eventData){
+    public EventoDelPartido toNewDomain(Equipo equipo, Jugador jugador, EventoDataDto eventData, StatusPartido statusPartido){
         return EventoDelPartido.crearEventoDelPartido(
                 equipo,
                 jugador,
                 eventData.time(),
-                mapEventTypeToDomain(eventData.eventType())
+                mapEventTypeToDomain(eventData.eventType()),
+                statusPartido
         );
     }
 

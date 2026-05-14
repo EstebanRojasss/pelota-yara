@@ -3,6 +3,7 @@ package com.forum.api.domain.model.evento;
 import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.partido.Partido;
+import com.forum.api.domain.model.partido.StatusPartido;
 
 import java.util.Objects;
 
@@ -12,27 +13,30 @@ public class EventoDelPartido {
     private Jugador jugador;
     private Integer minuto;
     private TipoEvento tipo;
+    private StatusPartido status;
 
-    private EventoDelPartido(Long id,Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
+    private EventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status) {
         this.id = id;
         this.equipo = equipo;
         this.jugador = jugador;
         this.minuto = minuto;
         this.tipo = tipo;
+        this.status = status;
     }
 
-    public static EventoDelPartido crearEventoDelPartido(Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo){
+    public static EventoDelPartido crearEventoDelPartido(Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status){
         return new EventoDelPartido(
                 null,
                 equipo,
                 jugador,
                 minuto,
-                tipo
+                tipo,
+                status
         );
     }
 
-    public static EventoDelPartido restaurarEventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo) {
-        return new EventoDelPartido(id, equipo, jugador, minuto, tipo);
+    public static EventoDelPartido restaurarEventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status) {
+        return new EventoDelPartido(id, equipo, jugador, minuto, tipo, status);
     }
 
     public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, BORRARDESPUES BORRARDESPUES) {
@@ -79,6 +83,10 @@ public class EventoDelPartido {
 
     public void setTipo(TipoEvento tipo) {
         this.tipo = tipo;
+    }
+
+    public StatusPartido getStatus() {
+        return status;
     }
 
     public boolean equals(Object o) {

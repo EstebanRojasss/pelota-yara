@@ -13,7 +13,7 @@ public interface EventoDelPartidoService {
 
      void borrarEventoDelPartido(Long id);
 
-     Set<EventoDelPartido> listarEventosDelPartidoDB();
+     List<EventoDelPartido> listarEventosDelPartidoDB();
 
      EventoDelPartido encontrarEventoDelPartido(Long id);
 

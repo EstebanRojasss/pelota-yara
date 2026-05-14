@@ -1,7 +1,9 @@
 package com.forum.api.infra.adapter.in.scheduler;
 
+import com.forum.api.application.in.EventoDelPartidoService;
 import com.forum.api.application.in.PartidoService;
 import com.forum.api.application.in.SSeBroadcastUseCase;
+import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.infra.adapter.in.rest.dto.PartidoResponseDto;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,10 +15,12 @@ import java.util.List;
 public class ApiCallScheduler {
 
     private final PartidoService partidoService;
+    private final EventoDelPartidoService eventoService;
     private final SSeBroadcastUseCase broadcastUseCase;
 
-    public ApiCallScheduler(PartidoService partidoService, SSeBroadcastUseCase broadcastUseCase) {
+    public ApiCallScheduler(PartidoService partidoService, EventoDelPartidoService eventoService, SSeBroadcastUseCase broadcastUseCase) {
         this.partidoService = partidoService;
+        this.eventoService = eventoService;
         this.broadcastUseCase = broadcastUseCase;
     }
 
@@ -34,5 +38,11 @@ public class ApiCallScheduler {
                .toList();
 
        broadcastUseCase.broadcast(partidosDto);
+    }
+
+
+    @Scheduled(fixedRate = 120000)
+    public void llamarApiFootballEventos(Partido partido, ){
+        List<EventoDelPartido> eventos = eventoService.listarEventosDelPartidoAPI()
     }
 }

@@ -2,6 +2,7 @@ package com.forum.api.infra.adapter.out.persistence.entities;
 
 import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.evento.TipoEvento;
+import com.forum.api.domain.model.partido.StatusPartido;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,8 @@ public class EventoDelPartidoJpaEntity {
     private String tipoEvento;
     @Column(name = "detalle_evento")
     private String detalleEvento;
+    @Enumerated(EnumType.STRING)
+    private StatusPartido statusPartido;
 
 
 
@@ -37,7 +40,8 @@ public class EventoDelPartidoJpaEntity {
                 equipo.toDomainExistent(),
                 jugador.toDomainExistent(),
                 minuto,
-                new TipoEvento(tipoEvento, detalleEvento)
+                new TipoEvento(tipoEvento, detalleEvento),
+                statusPartido
                 );
     }
 
@@ -48,7 +52,8 @@ public class EventoDelPartidoJpaEntity {
                 JugadorEntityJpa.fromDomain(eventoDelPartido.getJugador()),
                 eventoDelPartido.getMinuto(),
                 eventoDelPartido.getTipo().tipo(),
-                eventoDelPartido.getTipo().detalleEvento());
+                eventoDelPartido.getTipo().detalleEvento(),
+                eventoDelPartido.getStatus());
     }
 
 }
