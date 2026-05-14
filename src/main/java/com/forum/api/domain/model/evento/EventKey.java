@@ -8,10 +8,10 @@ public record EventKey(
         String tipoEvento
 ) {
 
-    public static EventKey from(EventoDataDto eventData){
-        return new EventKey(eventData.time(),
-                eventData.playerEvent().id(),
-                eventData.eventType().type());
+    public static EventKey from(EventoDelPartido evento){
+        return new EventKey(evento.getMinuto(),
+                evento.getJugador().getId(),
+                evento.getTipo().tipo());
     }
 
 }
