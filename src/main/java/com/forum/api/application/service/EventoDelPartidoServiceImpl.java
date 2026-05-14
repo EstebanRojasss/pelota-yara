@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
@@ -53,12 +52,13 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
                 .map(eventoDataDto -> eventoMapper.toNewDomain(
                         resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
                         resolverJugadorEvento(eventoDataDto.playerEvent().id()),
-                        eventoDataDto
+                        eventoDataDto,
+                        partido.getStatus()
                 )).toList();
     }
 
     @Override
-    public List<EventoDelPartido> listarEventosDelPartidoAPI() {
+    public List<EventoDelPartido> listarEventosDelPartidoAPI(Partido partido) {
         return List.of();
     }
 

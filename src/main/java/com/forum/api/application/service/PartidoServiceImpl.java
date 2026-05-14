@@ -124,8 +124,8 @@ public class PartidoServiceImpl implements PartidoService {
 
 
     @Override
-    public List<EventoDelPartido> obtenerNuevosEventos() {
-        return eventoDelPartidoService.listarEventosDelPartidoAPI();
+    public List<EventoDelPartido> obtenerNuevosEventos(Partido partido) {
+        return eventoDelPartidoService.listarEventosDelPartidoAPI(partido);
     }
 
 

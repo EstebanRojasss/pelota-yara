@@ -42,7 +42,7 @@ public class ApiCallScheduler {
 
 
     @Scheduled(fixedRate = 120000)
-    public void llamarApiFootballEventos(Partido partido, ){
-        List<EventoDelPartido> eventos = eventoService.listarEventosDelPartidoAPI()
+    public void llamarApiFootballEventos(Partido partido){
+
     }
 }

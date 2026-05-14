@@ -16,5 +16,4 @@ public interface JugadorRepository {
 
      List<Jugador> listarJugadoresPorEquipo(Long id);
 
-     Optional<Jugador> encontrarJugadorPorFixtureId(Long fixtureId);
 }

@@ -17,6 +17,6 @@ public interface EventoDelPartidoService {
 
      EventoDelPartido encontrarEventoDelPartido(Long id);
 
-     List<EventoDelPartido> listarEventosDelPartidoAPI(Partido partido, Jugador jugador);
+     List<EventoDelPartido> listarEventosDelPartidoAPI(Partido partido);
 }
 

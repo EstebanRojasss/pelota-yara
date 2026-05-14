@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PartidoService {
-     Partido encontrarPartido(Long var1);
+     Partido encontrarPartido(Long id);
 
-     void borrarPartido(Long var1);
+     void borrarPartido(Long id);
 
-     Partido guardarPartido(CrearPartidoCommand var1);
+     Partido guardarPartido(CrearPartidoCommand id);
 
-     Partido actualizarDatosDePartido(Partido var1);
+     Partido actualizarDatosDePartido(Partido id);
 
      List<Partido> encontrarTodosLosPartidosEnVivo();
 
@@ -24,6 +24,6 @@ public interface PartidoService {
 
     List<Partido> partidosEnVivo();
 
-    List<EventoDelPartido> obtenerNuevosEventos();
+    List<EventoDelPartido> obtenerNuevosEventos(Partido partido);
 }
 
