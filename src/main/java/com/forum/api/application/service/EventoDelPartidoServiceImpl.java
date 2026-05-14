@@ -33,7 +33,7 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
         this.eventoMapper = eventoMapper;
         this.jugadorService = jugadorService;
     }
-
+    @Override
     public EventoDelPartido agregarNuevoEventoDelPartido(EventoDelPartido eventoDelPartido) {
         try {
             return this.repository.saveEventoDelPartido(eventoDelPartido);
@@ -41,11 +41,11 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
             throw new IllegalArgumentException();
         }
     }
-
+    @Override
     public void borrarEventoDelPartido(Long id) {
         this.repository.deleteEventoDelPartido(id);
     }
-
+    @Override
     public List<EventoDelPartido> obtenerEventosDelProvider(Partido partido) {
         return eventoProvider.proveerEventosPartido(partido.getFixtureId())
                 .stream()
@@ -83,14 +83,14 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
                 .encontrarJugadorPorFixtureId(jugadorFixtureId)
                 .orElseThrow(() -> new IllegalArgumentException("No existe jugador con fixture id: " + jugadorFixtureId));
     }
-
+    @Override
     public EventoDelPartido encontrarEventoDelPartido(Long id) {
         return repository
                 .findEventoDelPartidoById(id)
                 .orElseThrow(
                         () -> new MatchEventNotFoundException("No se encuentra el match event"));
     }
-
+    @Override
     public List<EventoDelPartido> listarEventosDelPartidoDB() {
         return repository.findAllEventos();
     }
