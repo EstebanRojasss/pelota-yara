@@ -6,14 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JugadorService {
-     Jugador agregarNuevoJugador(Jugador var1);
+     Jugador agregarNuevoJugador(Jugador jugador);
 
      List<Jugador> listarJugadoresEquipoDB(Long idJugador);
 
-     Jugador encontrarJugadorPorId(Long var1);
+     Jugador encontrarJugadorPorId(Long jugadorId);
 
      Optional<Jugador> encontrarJugadorPorFixtureId(Long fixtureId);
 
-     void eliminarJugadorPorId(Long var1);
+     void eliminarJugadorPorId(Long idJugador);
 
 }
