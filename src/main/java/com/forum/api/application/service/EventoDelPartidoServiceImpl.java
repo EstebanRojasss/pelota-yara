@@ -59,6 +59,11 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
     }
 
     @Override
+    public void agregarEventosPorFase(List<EventoDelPartido> eventoDelPartido) {
+        eventoRepository.saveEventosPorFase(eventoDelPartido);
+    }
+
+    @Override
     public List<EventoDelPartido> listarEventosDelPartidoAPI(Partido partido) {
         return List.of();
     }

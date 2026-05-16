@@ -13,5 +13,7 @@ public interface EventoDelPartidoRepository {
      Optional<EventoDelPartido> findEventoDelPartidoById(Long var1);
 
      List<EventoDelPartido> findAllEventos();
+
+     void saveEventosPorFase(List<EventoDelPartido> eventoDelPartido);
 }
 
