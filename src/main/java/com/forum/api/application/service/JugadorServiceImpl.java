@@ -70,6 +70,18 @@ public class JugadorServiceImpl implements JugadorService {
 
         return jugador;
     }
+    
+    @Override
+    public void guardarJugadorSiNoExiste(Jugador jugador){
+        Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.getFixtureId());
+
+        if(comprobarJugador.isPresent()){
+            return;
+        }
+
+        agregarNuevoJugador(jugador);
+    }
+
 
     @Override
     public Optional<Jugador> encontrarJugadorPorFixtureId(Long fixtureId) {
