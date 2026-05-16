@@ -17,7 +17,8 @@ public class EventoMapper {
                 jugador,
                 eventData.time(),
                 mapEventTypeToDomain(eventData.eventType()),
-                statusPartido
+                statusPartido,
+                partido
         );
     }
 

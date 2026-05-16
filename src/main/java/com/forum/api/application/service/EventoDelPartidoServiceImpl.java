@@ -53,7 +53,8 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
                         resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
                         resolverJugadorEvento(eventoDataDto.playerEvent().id()),
                         eventoDataDto,
-                        partido.getStatus()
+                        partido.getStatus(),
+                        partido
                 )).toList();
     }
 

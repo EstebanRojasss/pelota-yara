@@ -14,8 +14,9 @@ public class EventoDelPartido {
     private Integer minuto;
     private TipoEvento tipo;
     private StatusPartido status;
+    private Partido partido;
 
-    private EventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status) {
+    private EventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status, Partido partido) {
         this.id = id;
         this.equipo = equipo;
         this.jugador = jugador;
@@ -24,19 +25,20 @@ public class EventoDelPartido {
         this.status = status;
     }
 
-    public static EventoDelPartido crearEventoDelPartido(Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status){
+    public static EventoDelPartido crearEventoDelPartido(Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status, Partido partido){
         return new EventoDelPartido(
                 null,
                 equipo,
                 jugador,
                 minuto,
                 tipo,
-                status
+                status,
+                partido
         );
     }
 
-    public static EventoDelPartido restaurarEventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status) {
-        return new EventoDelPartido(id, equipo, jugador, minuto, tipo, status);
+    public static EventoDelPartido restaurarEventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status, Partido partido) {
+        return new EventoDelPartido(id, equipo, jugador, minuto, tipo, status, partido);
     }
 
     public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, BORRARDESPUES BORRARDESPUES) {

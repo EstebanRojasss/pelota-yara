@@ -32,7 +32,9 @@ public class EventoDelPartidoJpaEntity {
     private String detalleEvento;
     @Enumerated(EnumType.STRING)
     private StatusPartido statusPartido;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_partido")
+    private PartidoJpaEntity partido;
 
 
     public EventoDelPartido toDomain() {
@@ -41,7 +43,8 @@ public class EventoDelPartidoJpaEntity {
                 jugador.toDomainExistent(),
                 minuto,
                 new TipoEvento(tipoEvento, detalleEvento),
-                statusPartido
+                statusPartido,
+                partido.toDomainExistent()
                 );
     }
 
@@ -53,7 +56,8 @@ public class EventoDelPartidoJpaEntity {
                 eventoDelPartido.getMinuto(),
                 eventoDelPartido.getTipo().tipo(),
                 eventoDelPartido.getTipo().detalleEvento(),
-                eventoDelPartido.getStatus());
+                eventoDelPartido.getStatus(),
+                PartidoJpaEntity.fromDomain(eventoDelPartido.getPartido()));
     }
 
 }
