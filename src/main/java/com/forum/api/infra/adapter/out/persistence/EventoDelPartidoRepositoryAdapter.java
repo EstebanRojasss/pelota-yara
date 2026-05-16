@@ -11,32 +11,42 @@ import java.util.Optional;
 
 @Component
 public class EventoDelPartidoRepositoryAdapter implements EventoDelPartidoRepository {
-    private final EventoDelPartidoJpaRepository repository;
+    private final EventoDelPartidoJpaRepository eventoRepository;
 
-    public EventoDelPartidoRepositoryAdapter(EventoDelPartidoJpaRepository repository) {
-        this.repository = repository;
+    public EventoDelPartidoRepositoryAdapter(EventoDelPartidoJpaRepository eventoRepository) {
+        this.eventoRepository = eventoRepository;
     }
 
     public EventoDelPartido saveEventoDelPartido(EventoDelPartido eventoDelPartido) {
-        return repository
+        return eventoRepository
                 .save(EventoDelPartidoJpaEntity.fromDomain(eventoDelPartido))
                 .toDomain();
     }
 
     public void deleteEventoDelPartido(Long id) {
-        repository.deleteById(id);
+        eventoRepository.deleteById(id);
     }
 
     public Optional<EventoDelPartido> findEventoDelPartidoById(Long id) {
-        return repository.findById(id).map(EventoDelPartidoJpaEntity::toDomain);
+        return eventoRepository.findById(id).map(EventoDelPartidoJpaEntity::toDomain);
     }
 
     @Override
     public List<EventoDelPartido> findAllEventos() {
-        return repository.findAll()
+        return eventoRepository.findAll()
                 .stream()
                 .map(EventoDelPartidoJpaEntity::toDomain)
                 .toList();
+    }
+
+    @Override
+    public void saveEventosPorFase(List<EventoDelPartido> eventosDelPartido) {
+        eventoRepository.saveAll(
+                eventosDelPartido.
+                        stream().
+                        map(EventoDelPartidoJpaEntity::fromDomain).
+                        toList()
+        );
     }
 }
 

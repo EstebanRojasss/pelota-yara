@@ -2,6 +2,7 @@ package com.forum.api.application.service;
 
 import com.forum.api.application.in.DataApiProvider;
 import com.forum.api.application.in.EquipoService;
+import com.forum.api.application.in.JugadorService;
 import com.forum.api.application.in.dto.TeamDataDto;
 import com.forum.api.application.out.EquipoRepository;
 import com.forum.api.application.out.JugadorRepository;
@@ -19,15 +20,13 @@ import java.util.Optional;
 
 @Service
 public class EquipoServiceImpl implements EquipoService {
-    private final EquipoRepository equipoRepository;
-    private final JugadorRepository jugadorRepository;
+    private final EquipoRepository equipoRepository;;
     private final DataApiProvider equiposDesdeApiProvider;
     private final EquipoMapper equipoMapper;
     private final Map<Long, Equipo> cacheEquipos = new HashMap<>();
 
-    public EquipoServiceImpl(EquipoRepository repository, JugadorRepository jugadorRepository, DataApiProvider equiposDesdeApiProvider, EquipoMapper equipoMapper) {
+    public EquipoServiceImpl(EquipoRepository repository, DataApiProvider equiposDesdeApiProvider, EquipoMapper equipoMapper) {
         this.equipoRepository = repository;
-        this.jugadorRepository = jugadorRepository;
         this.equiposDesdeApiProvider = equiposDesdeApiProvider;
         this.equipoMapper = equipoMapper;
     }

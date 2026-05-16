@@ -35,7 +35,16 @@ public class PrimerTiempo extends AbstractEstadoPartido  {
         return null;
     }
 
+    @Override
+    public void onEnter(Partido partido) {
+        partido.faseTerminada(false);
+        partido.inicializarStoreEvent(partido.getStatus());
+    }
 
+    @Override
+    public void onExit(Partido partido) {
+        partido.faseTerminada(true);
+    }
 
     @Override
     public String nombreEstado() {

@@ -12,20 +12,24 @@ public class EventoDelPartido {
     private Equipo equipo;
     private Jugador jugador;
     private Integer minuto;
+    private Integer minutoExtra;
     private TipoEvento tipo;
     private StatusPartido status;
     private Partido partido;
 
-    private EventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status, Partido partido) {
+    private EventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto,  TipoEvento tipo, StatusPartido status, Partido partido, Integer minutoExtra) {
         this.id = id;
         this.equipo = equipo;
         this.jugador = jugador;
         this.minuto = minuto;
+        this.minutoExtra = minutoExtra;
         this.tipo = tipo;
         this.status = status;
+        this.partido = partido;
+
     }
 
-    public static EventoDelPartido crearEventoDelPartido(Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status, Partido partido){
+    public static EventoDelPartido crearEventoDelPartido(Equipo equipo, Jugador jugador, Integer minuto,TipoEvento tipo, StatusPartido status, Partido partido, Integer minutoExtra){
         return new EventoDelPartido(
                 null,
                 equipo,
@@ -33,15 +37,16 @@ public class EventoDelPartido {
                 minuto,
                 tipo,
                 status,
-                partido
+                partido,
+                minutoExtra
         );
     }
 
-    public static EventoDelPartido restaurarEventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status, Partido partido) {
-        return new EventoDelPartido(id, equipo, jugador, minuto, tipo, status, partido);
+    public static EventoDelPartido restaurarEventoDelPartido(Long id, Equipo equipo, Jugador jugador, Integer minuto, TipoEvento tipo, StatusPartido status, Partido partido, Integer minutoExtra) {
+        return new EventoDelPartido(id, equipo, jugador, minuto, tipo, status, partido, minutoExtra);
     }
 
-    public static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, BORRARDESPUES BORRARDESPUES) {
+    private static EventoDelPartido generateMatchEvent(Partido partido, Equipo equipo, Jugador jugador, Integer minuto, BORRARDESPUES BORRARDESPUES) {
 //        return switch (BORRARDESPUES) {
 //            case GOL , TARGETA_AMARILLA, TARGETA_ROJA, FALTA, SUSTITUCION ->  new EventoDelPartido(null, partido, equipo, jugador, minuto);
 //            default -> new EventoDelPartido(null, partido, null, null, null);
@@ -89,6 +94,14 @@ public class EventoDelPartido {
 
     public StatusPartido getStatus() {
         return status;
+    }
+
+    public Partido getPartido() {
+        return partido;
+    }
+
+    public Integer getMinutoExtra() {
+        return minutoExtra;
     }
 
     public boolean equals(Object o) {

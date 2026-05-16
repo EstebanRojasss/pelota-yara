@@ -3,7 +3,6 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.DataApiProvider;
 import com.forum.api.application.in.EventoDelPartidoService;
 import com.forum.api.application.in.JugadorService;
-import com.forum.api.application.in.command.CrearJugadorCommand;
 import com.forum.api.application.in.dto.evento.PlayerEventDataDto;
 import com.forum.api.application.out.EventoDelPartidoRepository;
 import com.forum.api.domain.exception.MatchEventNotFoundException;
@@ -86,7 +85,7 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
             throw new IllegalArgumentException("El evento no trae id de jugador");
         }
         return jugadorService
-                .guardarJugadorSiNoExiste(CrearJugadorCommand.from(playerEvent.id(), playerEvent.name()));
+                .retornarOGuardarSiNoExiste(playerEvent);
     }
     @Override
     public EventoDelPartido encontrarEventoDelPartido(Long id) {

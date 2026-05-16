@@ -40,8 +40,14 @@ public class SegundoTiempo extends AbstractEstadoPartido {
     @Override
     public void onEnter(Partido partido) {
         partido.setMinutoBase(45);
+        partido.inicializarStoreEvent(StatusPartido.SEGUNDO_TIEMPO);
+        partido.faseTerminada(false);
     }
 
+    @Override
+    public void onExit(Partido partido) {
+        partido.faseTerminada(true);
+    }
 
     @Override
     public String nombreEstado() {

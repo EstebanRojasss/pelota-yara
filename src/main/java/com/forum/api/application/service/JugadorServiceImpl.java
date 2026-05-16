@@ -3,7 +3,9 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.DataApiProvider;
 import com.forum.api.application.in.EquipoService;
 import com.forum.api.application.in.JugadorService;
+import com.forum.api.application.in.command.CrearJugadorCommand;
 import com.forum.api.application.in.dto.JugadorDataDto;
+import com.forum.api.application.in.dto.evento.PlayerEventDataDto;
 import com.forum.api.application.out.JugadorRepository;
 import com.forum.api.domain.exception.JugadorNotFoundException;
 import com.forum.api.domain.model.Equipo;
@@ -30,6 +32,7 @@ public class JugadorServiceImpl implements JugadorService {
         this.equipoService = equipoService;
         this.jugadorMapper = jugadorMapper;
     }
+    @Override
     @Transactional
     public Jugador agregarNuevoJugador(Jugador jugador) {
         try {
@@ -39,10 +42,11 @@ public class JugadorServiceImpl implements JugadorService {
         }
     }
 
+    @Override
     public List<Jugador> listarJugadoresEquipoDB(Long equipoId) {
         return jugadorRepository.listarJugadoresPorEquipo(equipoId);
     }
-
+    @Override
     public List<Jugador> listarJugadoresDesdeApi(Long id) {
         return jugadorProvider.
                 proveerJugadoresDeUnEquipo(id).
@@ -92,12 +96,11 @@ public class JugadorServiceImpl implements JugadorService {
         jugador.ifPresent(value -> cacheJugadoresPorFixtureId.put(fixtureId, value));
         return jugador;
     }
-
-
+    @Override
     public Jugador encontrarJugadorPorId(Long id) {
         return jugadorRepository.encontrarJugador(id).orElseThrow(() -> new JugadorNotFoundException("Jugador no encontrado."));
     }
-
+    @Override
     public void eliminarJugadorPorId(Long id) {
         if (jugadorRepository.encontrarJugador(id).isEmpty()) {
             throw new JugadorNotFoundException("Jugador no encontrado");

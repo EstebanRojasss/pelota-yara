@@ -38,4 +38,14 @@ public class TiempoExtra extends AbstractEstadoPartido {
         return null;
     }
 
+    @Override
+    public void onEnter(Partido partido) {
+        partido.inicializarStoreEvent(StatusPartido.TIEMPO_EXTRA);
+        partido.faseTerminada(false);
+    }
+
+    @Override
+    public void onExit(Partido partido) {
+        partido.faseTerminada(true);
+    }
 }

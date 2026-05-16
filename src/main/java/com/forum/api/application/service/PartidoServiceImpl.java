@@ -26,15 +26,17 @@ public class PartidoServiceImpl implements PartidoService {
     private final Map<Long, Partido> cachePartidos = new HashMap<>();
     private final LigaService ligaService;
     private final EventoDelPartidoService eventoDelPartidoService;
+    private final JugadorService jugadorService;
 
 
-    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper, LigaService ligaService, EventoDelPartidoService eventoDelPartidoService) {
+    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper, LigaService ligaService, EventoDelPartidoService eventoDelPartidoService, JugadorService jugadorService) {
         this.partidoRepository = partidoRepository;
         this.equipoService = equipoService;
         this.fixtureProvider = fixtureProvider;
         this.partidoMapper = partidoMapper;
         this.ligaService = ligaService;
         this.eventoDelPartidoService = eventoDelPartidoService;
+        this.jugadorService = jugadorService;
     }
 
     public Partido encontrarPartido(Long id) {
@@ -88,6 +90,8 @@ public class PartidoServiceImpl implements PartidoService {
                     partidoMapper.toNewDomain(fixture, local, visitante, liga)
             );
             cachePartidos.put(fixture.id(), partido);
+            jugadorService.listarJugadoresDesdeApi(local.getEquipoFixtureId());
+            jugadorService.listarJugadoresDesdeApi(visitante.getEquipoFixtureId());
 
         } else if (actualizarSiHayCambios(fixture, partido)) {
             partidoMapper.actualizarDesdeFixture(fixture, partido);

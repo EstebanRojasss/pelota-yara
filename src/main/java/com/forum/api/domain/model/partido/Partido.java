@@ -3,15 +3,12 @@ package com.forum.api.domain.model.partido;
 import com.forum.api.domain.estado.*;
 import com.forum.api.domain.exception.EquipoNotFoundException;
 import com.forum.api.domain.model.Equipo;
-import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.Liga;
 import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.evento.StoreEvent;
-import com.forum.api.domain.model.evento.TipoEvento;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,8 +28,7 @@ public class Partido {
     private Integer minutoAdicional2T;
     private Liga liga;
     private StoreEvent storeEvent = new StoreEvent();
-
-    private List<EventoDelPartido> eventosDelPartido;
+    private boolean faseTerminada;
 
     private final EstadoFabrica estadoFabrica = new EstadoFabrica();
 
@@ -44,7 +40,7 @@ public class Partido {
                     Integer golLocal,
                     Integer minutoBase,
                     Long fixtureId,
-                    Liga liga, List<EventoDelPartido> eventosDelPartido) {
+                    Liga liga) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
@@ -53,7 +49,6 @@ public class Partido {
         this.golLocal = golLocal;
         this.minutoBase = minutoBase;
         this.liga = liga;
-        this.eventosDelPartido = eventosDelPartido;
         this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
         this.estadoPartido = PartidoStateFactory.sincronizarEstado(status);
@@ -75,8 +70,7 @@ public class Partido {
                                   Integer golVisitante,
                                   Integer minutoBase,
                                   Long fixtureId,
-                                  Liga liga,
-                                  List<EventoDelPartido> eventosDelPartido) {
+                                  Liga liga) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
@@ -85,8 +79,7 @@ public class Partido {
                 golLocal,
                 minutoBase,
                 fixtureId,
-                liga,
-                eventosDelPartido);
+                liga);
     }
 
     public static Partido createFromApi(Equipo equipoLocal,
@@ -105,8 +98,7 @@ public class Partido {
                 golLocal,
                 minutoBase,
                 fixtureId,
-                liga,
-                new ArrayList<>()
+                liga
         );
     }
 
@@ -119,7 +111,6 @@ public class Partido {
                 0,
                 0,
                 0L,
-                null,
                 null);
     }
 
@@ -157,6 +148,14 @@ public class Partido {
 
     public void agregarEvento(List<EventoDelPartido> eventosDelPartido) {
         storeEvent.agregarEvento(eventosDelPartido);
+    }
+
+    public List<EventoDelPartido> obtenerEventosPorFase(StatusPartido status){
+        return storeEvent.obtenerEventosPorFase(status);
+    }
+
+    public void faseTerminada(boolean terminada){
+        this.faseTerminada =  terminada;
     }
 
     private boolean partidoTerminado(EstadoPartido estado) {
@@ -243,6 +242,7 @@ public class Partido {
         return this.minutoBase;
     }
 
+
     public List<Equipo> equiposDelPartido() {
         return List.of(this.equipoLocal, this.equipoVisitante);
     }
@@ -283,13 +283,6 @@ public class Partido {
         return fixtureId;
     }
 
-    public List<EventoDelPartido> getEventosDelPartido() {
-        return eventosDelPartido;
-    }
-
-    public void setEventosDelPartido(List<EventoDelPartido> eventosDelPartido) {
-        this.eventosDelPartido = eventosDelPartido;
-    }
 
     public EstadoFabrica getEstadoFabrica() {
         return estadoFabrica;

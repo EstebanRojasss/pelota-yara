@@ -39,7 +39,6 @@ public class PartidoJpaEntity {
     @JoinColumn(name = "liga_id")
     private LigaJpaEntity liga;
 
-    private List<EventoDelPartidoJpaEntity> eventosDelPartido;
 
     public static PartidoJpaEntity fromDomain(Partido partido) {
         return new PartidoJpaEntity(
@@ -51,12 +50,7 @@ public class PartidoJpaEntity {
                 partido.getGolLocal(),
                 partido.getMinutoBase(),
                 partido.getFixtureId(),
-                LigaJpaEntity.fromDomain(partido.getLiga()),
-                partido.
-                        getEventosDelPartido().
-                        stream().
-                        map(EventoDelPartidoJpaEntity::fromDomain).
-                        toList()
+                LigaJpaEntity.fromDomain(partido.getLiga())
                 );
     }
 
@@ -69,11 +63,7 @@ public class PartidoJpaEntity {
                 golVisitante,
                 minutoActual,
                 fixtureId,
-                liga.toDomainExistent(),
-                eventosDelPartido
-                        .stream()
-                        .map(EventoDelPartidoJpaEntity::toDomain)
-                        .toList()
+                liga.toDomainExistent()
                 );
     }
 
