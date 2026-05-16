@@ -1,6 +1,7 @@
 package com.forum.api.application.in;
 
 import com.forum.api.application.in.dto.evento.PlayerEventDataDto;
+import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Jugador;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public interface JugadorService {
 
      void eliminarJugadorPorId(Long idJugador);
 
-     Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto playerEventDataDto);
+     Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugador, Equipo equipo);
 
      List<Jugador> listarJugadoresDesdeApi(Long id);
 
