@@ -1,6 +1,5 @@
 package com.forum.api.domain.model.evento;
 
-import com.forum.api.application.in.dto.evento.EventoDataDto;
 
 public record EventKey(
         Integer minuto,
