@@ -6,11 +6,15 @@ import com.forum.api.application.in.SSeBroadcastUseCase;
 import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.infra.adapter.in.rest.dto.PartidoResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Slf4j
 @Component
 public class ApiCallScheduler {
 
@@ -41,8 +45,27 @@ public class ApiCallScheduler {
     }
 
 
-    @Scheduled(fixedRate = 120000)
-    public void llamarApiFootballEventos(Partido partido){
+    @Scheduled(initialDelay = 10000,fixedRate = 120000)
+    public void llamarApiFootballEventos(){
+        List<Partido> partidos = partidoService.partidosEnVivo();
 
+        Map<Long, List<EventoDelPartido>> eventosPorPartido = new HashMap<>();
+
+        for (Partido partido : partidos) {
+            try {
+                List<EventoDelPartido> eventos = eventoService.obtenerEventosDelProvider(partido);
+                partido.agregarEvento(eventos);
+                eventosPorPartido.put(partido.getId(), eventos);
+
+                if(partido.isFaseTerminada()){
+                    eventoService.agregarEventosPorFase(eventos);
+                }
+            }catch (Exception e){
+                log.error("Error procesando eventos del partido {}", partido.getId(), e);
+            }
+
+        }
+
+        broadcastUseCase.broadcast(eventosPorPartido);
     }
 }
