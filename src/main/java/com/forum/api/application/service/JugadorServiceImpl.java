@@ -75,7 +75,10 @@ public class JugadorServiceImpl implements JugadorService {
     public Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugador) {
         Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.id());
 
-        return comprobarJugador.orElseGet(() -> agregarNuevoJugador(jugador));
+        return comprobarJugador.orElseGet(() -> agregarNuevoJugador(
+                        CrearJugadorCommand.from(jugador.id(), jugador.name())
+                )
+        );
     }
 
 
