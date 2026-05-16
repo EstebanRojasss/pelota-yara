@@ -3,6 +3,8 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.DataApiProvider;
 import com.forum.api.application.in.EventoDelPartidoService;
 import com.forum.api.application.in.JugadorService;
+import com.forum.api.application.in.command.CrearJugadorCommand;
+import com.forum.api.application.in.dto.evento.PlayerEventDataDto;
 import com.forum.api.application.out.EventoDelPartidoRepository;
 import com.forum.api.domain.exception.MatchEventNotFoundException;
 import com.forum.api.domain.model.Equipo;
@@ -11,39 +13,37 @@ import com.forum.api.domain.model.evento.EventoDelPartido;
 import com.forum.api.domain.model.partido.Partido;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
 
-    private final EventoDelPartidoRepository repository;
+    private final EventoDelPartidoRepository eventoRepository;
     private final DataApiProvider eventoProvider;
     private final EventoMapper eventoMapper;
     private final JugadorService jugadorService;
-    private final Map<Long, List<EventoDelPartido>> colaEventosPartido = new HashMap<>();
 
-    public EventoDelPartidoServiceImpl(EventoDelPartidoRepository repository,
+    public EventoDelPartidoServiceImpl(EventoDelPartidoRepository eventoRepository,
                                        DataApiProvider eventoProvider,
                                        EventoMapper eventoMapper,
                                        JugadorService jugadorService) {
-        this.repository = repository;
+        this.eventoRepository = eventoRepository;
         this.eventoProvider = eventoProvider;
         this.eventoMapper = eventoMapper;
         this.jugadorService = jugadorService;
     }
     @Override
-    public EventoDelPartido agregarNuevoEventoDelPartido(EventoDelPartido eventoDelPartido) {
+    public EventoDelPartido agregarEvento(EventoDelPartido eventoDelPartido) {
         try {
-            return this.repository.saveEventoDelPartido(eventoDelPartido);
+            return this.eventoRepository.saveEventoDelPartido(eventoDelPartido);
         } catch (RuntimeException e) {
             throw new IllegalArgumentException();
         }
     }
     @Override
     public void borrarEventoDelPartido(Long id) {
-        this.repository.deleteEventoDelPartido(id);
+        this.eventoRepository.deleteEventoDelPartido(id);
     }
     @Override
     public List<EventoDelPartido> obtenerEventosDelProvider(Partido partido) {
@@ -51,7 +51,7 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
                 .stream()
                 .map(eventoDataDto -> eventoMapper.toNewDomain(
                         resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
-                        resolverJugadorEvento(eventoDataDto.playerEvent().id()),
+                        resolverJugadorEvento(eventoDataDto.playerEvent()),
                         eventoDataDto,
                         partido.getStatus(),
                         partido
@@ -81,24 +81,23 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
         throw new IllegalArgumentException("El equipo no forma parte del partido");
     }
 
-    private Jugador resolverJugadorEvento(Long jugadorFixtureId) {
-        if (jugadorFixtureId == null) {
+    private Jugador resolverJugadorEvento(PlayerEventDataDto playerEvent) {
+        if (playerEvent.id() == null) {
             throw new IllegalArgumentException("El evento no trae id de jugador");
         }
         return jugadorService
-                .encontrarJugadorPorFixtureId(jugadorFixtureId)
-                .orElseThrow(() -> new IllegalArgumentException("No existe jugador con fixture id: " + jugadorFixtureId));
+                .guardarJugadorSiNoExiste(CrearJugadorCommand.from(playerEvent.id(), playerEvent.name()));
     }
     @Override
     public EventoDelPartido encontrarEventoDelPartido(Long id) {
-        return repository
+        return eventoRepository
                 .findEventoDelPartidoById(id)
                 .orElseThrow(
                         () -> new MatchEventNotFoundException("No se encuentra el match event"));
     }
     @Override
     public List<EventoDelPartido> listarEventosDelPartidoDB() {
-        return repository.findAllEventos();
+        return eventoRepository.findAllEventos();
     }
 }
 
