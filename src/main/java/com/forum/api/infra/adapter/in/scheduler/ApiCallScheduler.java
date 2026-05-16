@@ -45,8 +45,8 @@ public class ApiCallScheduler {
     }
 
 
-    @Scheduled(initialDelay = 10000,fixedRate = 120000)
-    public void llamarApiFootballEventos(){
+    @Scheduled(initialDelay = 10000, fixedRate = 120000)
+    public void llamarApiFootballEventos() {
         List<Partido> partidos = partidoService.partidosEnVivo();
 
         Map<Long, List<EventoDelPartido>> eventosPorPartido = new HashMap<>();
@@ -57,10 +57,12 @@ public class ApiCallScheduler {
                 partido.agregarEvento(eventos);
                 eventosPorPartido.put(partido.getId(), eventos);
 
-                if(partido.isFaseTerminada()){
-                    eventoService.agregarEventosPorFase(eventos);
+                if (partido.isFaseTerminada()) {
+                    eventoService.agregarEventosPorFase(
+                            partido.getStoreEvent().obtenerEventosPorFase(partido.getStatus())
+                    );
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.error("Error procesando eventos del partido {}", partido.getId(), e);
             }
 
