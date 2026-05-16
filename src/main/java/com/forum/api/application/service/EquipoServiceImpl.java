@@ -56,9 +56,7 @@ public class EquipoServiceImpl implements EquipoService {
         return equipoRepository.findEquipoById(id).orElseThrow(() -> new EquipoNotFoundException("El equipo no encontrado."));
     }
 
-    public List<Jugador> listarJugadoresEquipo(Long id) {
-        return this.jugadorRepository.listarJugadoresPorEquipo(id);
-    }
+
 
     @Override
     public Optional<Equipo> buscarEquipoPorId(Long id) {
