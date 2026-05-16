@@ -295,6 +295,14 @@ public class Partido {
         return estadoFabrica;
     }
 
+    public StoreEvent getStoreEvent() {
+        return storeEvent;
+    }
+
+    public boolean isFaseTerminada() {
+        return faseTerminada;
+    }
+
     public boolean equals(Object o) {
         if (o == null || this.getClass() != o.getClass()) {
             return false;
