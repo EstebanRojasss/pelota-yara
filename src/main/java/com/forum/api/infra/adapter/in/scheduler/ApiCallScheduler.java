@@ -29,19 +29,19 @@ public class ApiCallScheduler {
     }
 
     @Scheduled(fixedRate = 60000)
-    public void llamarApiFootballVivo(){
-       List<Partido> partidos = partidoService.encontrarTodosLosPartidosEnVivo();
-       partidos.forEach(Partido::ejecutar);
+    public void llamarApiFootballVivo() {
+        List<Partido> partidos = partidoService.encontrarTodosLosPartidosEnVivo();
+        partidos.forEach(Partido::ejecutar);
 
-       List<PartidoResponseDto> partidosDto = partidos
-               .stream()
-               .map( p ->{
-                   p.actualizarMinutoActual();
-                   return PartidoResponseDto.fromDomainExistent(p);
-               })
-               .toList();
+        List<PartidoResponseDto> partidosDto = partidos
+                .stream()
+                .map(p -> {
+                    p.actualizarMinutoActual();
+                    return PartidoResponseDto.fromDomainExistent(p);
+                })
+                .toList();
 
-       broadcastUseCase.broadcast(partidosDto);
+        broadcastUseCase.broadcast(partidosDto);
     }
 
 
