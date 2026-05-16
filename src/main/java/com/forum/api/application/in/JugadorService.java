@@ -16,6 +16,6 @@ public interface JugadorService {
 
      void eliminarJugadorPorId(Long idJugador);
 
-     Jugador guardarJugadorSiNoExiste(Jugador jugador);
+     Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto playerEventDataDto);
 
 }

@@ -72,8 +72,8 @@ public class JugadorServiceImpl implements JugadorService {
     }
 
     @Override
-    public Jugador guardarJugadorSiNoExiste(Jugador jugador){
-        Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.getFixtureId());
+    public Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugador) {
+        Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.id());
 
         return comprobarJugador.orElseGet(() -> agregarNuevoJugador(jugador));
     }
