@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.forum.api.application.in.dto.evento.EventType;
 import com.forum.api.application.in.dto.evento.EventoDataDto;
+import com.forum.api.application.in.dto.evento.TimeEventDataDto;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record EventData(
         @JsonProperty("time")
-        Integer time,
+        TimeEventDto time,
         @JsonProperty("team")
         TeamEventDto teamDto,
         @JsonProperty("player")
@@ -20,7 +21,10 @@ public record EventData(
 
         public EventoDataDto map(){
                 return new EventoDataDto(
-                        time,
+                        TimeEventDataDto.from(
+                                time.time(),
+                                time().extraTime()
+                        ),
                         teamDto.map(),
                         playerDto.map(),
                         new EventType(
