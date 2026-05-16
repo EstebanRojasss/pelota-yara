@@ -30,7 +30,7 @@ public class JugadorServiceImpl implements JugadorService {
         this.equipoService = equipoService;
         this.jugadorMapper = jugadorMapper;
     }
-
+    @Transactional
     public Jugador agregarNuevoJugador(Jugador jugador) {
         try {
             return jugadorRepository.guardarJugador(jugador);
@@ -70,16 +70,12 @@ public class JugadorServiceImpl implements JugadorService {
 
         return jugador;
     }
-    
+
     @Override
-    public void guardarJugadorSiNoExiste(Jugador jugador){
+    public Jugador guardarJugadorSiNoExiste(Jugador jugador){
         Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.getFixtureId());
 
-        if(comprobarJugador.isPresent()){
-            return;
-        }
-
-        agregarNuevoJugador(jugador);
+        return comprobarJugador.orElseGet(() -> agregarNuevoJugador(jugador));
     }
 
 
