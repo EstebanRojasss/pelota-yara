@@ -90,8 +90,6 @@ public class PartidoServiceImpl implements PartidoService {
                     partidoMapper.toNewDomain(fixture, local, visitante, liga)
             );
             cachePartidos.put(fixture.id(), partido);
-            jugadorService.listarJugadoresDesdeApi(local.getEquipoFixtureId());
-            jugadorService.listarJugadoresDesdeApi(visitante.getEquipoFixtureId());
 
         } else if (actualizarSiHayCambios(fixture, partido)) {
             partidoMapper.actualizarDesdeFixture(fixture, partido);
