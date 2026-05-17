@@ -41,6 +41,7 @@ public class SegundoTiempo extends AbstractEstadoPartido {
     public void onEnter(Partido partido) {
         partido.setMinutoBase(45);
         partido.inicializarStoreEvent(StatusPartido.SEGUNDO_TIEMPO);
+        partido.getStoreEvent().cambiarFase(StatusPartido.SEGUNDO_TIEMPO);
         partido.faseTerminada(false);
     }
 

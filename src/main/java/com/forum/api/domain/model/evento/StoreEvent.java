@@ -26,14 +26,15 @@ public class StoreEvent {
     }
 
     public void agregarEvento(List<EventoDelPartido> eventos) {
-        if (!eventos.isEmpty()) {
+        if (!eventos.isEmpty() && faseActual != null) {
             for (EventoDelPartido evento : eventos) {
                 if (eventosProcesados.contains(EventKey.from(evento))) {
                     return;
                 }
 
-                eventosProcesados.add(EventKey.from(evento));
-                eventosPorFase.get(this.faseActual).add(evento);
+                    eventosProcesados.add(EventKey.from(evento));
+                    eventosPorFase.get(this.faseActual).add(evento);
+
             }
             log.info("Fase {}: [{}]", this.faseActual, eventosPorFase.get(faseActual));
         }
