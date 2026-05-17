@@ -3,7 +3,6 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.DataApiProvider;
 import com.forum.api.application.in.EquipoService;
 import com.forum.api.application.in.JugadorService;
-import com.forum.api.application.in.command.CrearJugadorCommand;
 import com.forum.api.application.in.dto.JugadorDataDto;
 import com.forum.api.application.in.dto.evento.PlayerEventDataDto;
 import com.forum.api.application.out.JugadorRepository;
@@ -76,11 +75,15 @@ public class JugadorServiceImpl implements JugadorService {
     }
 
     @Override
-    public Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugador) {
+    public Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugador, Equipo equipo) {
         Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.id());
 
         return comprobarJugador.orElseGet(() -> agregarNuevoJugador(
-                        CrearJugadorCommand.from(jugador.id(), jugador.name())
+                        Jugador.create(
+                                jugador.name(),
+                                null,
+                                jugador.id(),
+                                equipo)
                 )
         );
     }

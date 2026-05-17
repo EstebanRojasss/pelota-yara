@@ -50,7 +50,9 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
                 .stream()
                 .map(eventoDataDto -> eventoMapper.toNewDomain(
                         resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
-                        resolverJugadorEvento(eventoDataDto.playerEvent()),
+                        resolverJugadorEvento(
+                                eventoDataDto.playerEvent(),
+                                resolverEquipoEvento(partido, eventoDataDto.teamEvent().id())),
                         eventoDataDto,
                         partido.getStatus(),
                         partido
@@ -80,12 +82,12 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
         throw new IllegalArgumentException("El equipo no forma parte del partido");
     }
 
-    private Jugador resolverJugadorEvento(PlayerEventDataDto playerEvent) {
+    private Jugador resolverJugadorEvento(PlayerEventDataDto playerEvent, Equipo equipo) {
         if (playerEvent.id() == null) {
             throw new IllegalArgumentException("El evento no trae id de jugador");
         }
         return jugadorService
-                .retornarOGuardarSiNoExiste(playerEvent);
+                .retornarOGuardarSiNoExiste(playerEvent, equipo);
     }
     @Override
     public EventoDelPartido encontrarEventoDelPartido(Long id) {
