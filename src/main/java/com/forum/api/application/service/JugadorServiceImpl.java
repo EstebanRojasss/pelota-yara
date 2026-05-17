@@ -42,7 +42,7 @@ public class JugadorServiceImpl implements JugadorService {
     }
 
     @Override
-    public List<Jugador> listarJugadoresEquipoDB(Long equipoId) {
+    public List<Jugador> listarJugadoresPorEquipo(Long equipoId) {
         return jugadorRepository.listarJugadoresPorEquipo(equipoId);
     }
     @Override
