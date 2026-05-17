@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.Set;
 
 public interface JugadorJpaRepository extends JpaRepository<JugadorEntityJpa, Long> {
+    @Query("SELECT j FROM JugadorEntityJpa j LEFT JOIN FETCH j.equipo WHERE j.fixtureId = :fixtureId")
     Optional<JugadorEntityJpa> findByFixtureId(Long fixtureId);
 
     @Query(value = "SELECT DISTINCT j FROM JugadorEntityJpa j LEFT JOIN FETCH j.equipo e WHERE e.id = :id")
