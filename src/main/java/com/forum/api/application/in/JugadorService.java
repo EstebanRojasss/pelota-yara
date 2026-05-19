@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface JugadorService {
      Jugador agregarNuevoJugador(Jugador jugador);
 
-     List<Jugador> listarJugadoresEquipoDB(Long idJugador);
+     List<Jugador> listarJugadoresPorEquipo(Long equipoId);
 
      Jugador encontrarJugadorPorId(Long jugadorId);
 

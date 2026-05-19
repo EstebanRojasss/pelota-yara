@@ -13,6 +13,7 @@ import com.forum.api.domain.model.partido.Partido;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -22,15 +23,17 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
     private final DataApiProvider eventoProvider;
     private final EventoMapper eventoMapper;
     private final JugadorService jugadorService;
+    private final PartidoContextService contextService;
 
     public EventoDelPartidoServiceImpl(EventoDelPartidoRepository eventoRepository,
                                        DataApiProvider eventoProvider,
                                        EventoMapper eventoMapper,
-                                       JugadorService jugadorService) {
+                                       JugadorService jugadorService, PartidoContextService contextService) {
         this.eventoRepository = eventoRepository;
         this.eventoProvider = eventoProvider;
         this.eventoMapper = eventoMapper;
         this.jugadorService = jugadorService;
+        this.contextService = contextService;
     }
     @Override
     public EventoDelPartido agregarEvento(EventoDelPartido eventoDelPartido) {
@@ -52,7 +55,8 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
                         resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
                         resolverJugadorEvento(
                                 eventoDataDto.playerEvent(),
-                                resolverEquipoEvento(partido, eventoDataDto.teamEvent().id())),
+                                resolverEquipoEvento(partido, eventoDataDto.teamEvent().id()),
+                                partido),
                         eventoDataDto,
                         partido.getStatus(),
                         partido
@@ -64,9 +68,29 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
         eventoRepository.saveEventosPorFase(eventoDelPartido);
     }
 
-    @Override
-    public List<EventoDelPartido> listarEventosDelPartidoAPI(Partido partido) {
-        return List.of();
+    private Jugador resolverJugadorEvento(PlayerEventDataDto playerEvent, Equipo equipo, Partido partido) {
+        if (playerEvent == null || playerEvent.id() == null) {
+            return null;
+        }
+
+        PartidoRuntimeContext contexto = contextService.obtenerContexto(partido.getFixtureId());
+
+        Jugador jugador = contexto.consultarJugador(playerEvent.id());
+
+        if(jugador == null){
+            jugador = Jugador.create(playerEvent.name(), null, playerEvent.id(), equipo);
+            contexto.consultarYAgregarJugadorSiNoExiste(jugador);
+            return jugador;
+        }
+
+        return jugadorService.encontrarJugadorPorFixtureId(playerEvent.id())
+                .orElse(jugadorService.agregarNuevoJugador(
+                        Jugador.create(playerEvent.name(),
+                                null,
+                                playerEvent.id(),
+                                equipo)
+                )
+        );
     }
 
     private Equipo resolverEquipoEvento(Partido partido, Long idEvent) {
@@ -82,13 +106,6 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
         throw new IllegalArgumentException("El equipo no forma parte del partido");
     }
 
-    private Jugador resolverJugadorEvento(PlayerEventDataDto playerEvent, Equipo equipo) {
-        if (playerEvent.id() == null) {
-            throw new IllegalArgumentException("El evento no trae id de jugador");
-        }
-        return jugadorService
-                .retornarOGuardarSiNoExiste(playerEvent, equipo);
-    }
     @Override
     public EventoDelPartido encontrarEventoDelPartido(Long id) {
         return eventoRepository
@@ -99,6 +116,10 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
     @Override
     public List<EventoDelPartido> listarEventosDelPartidoDB() {
         return eventoRepository.findAllEventos();
+    }
+    @Override
+    public List<EventoDelPartido> listarEventosDelPartidoAPI(Partido partido) {
+        return List.of();
     }
 }
 

@@ -6,13 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JugadorRepository {
-     Optional<Jugador> encontrarJugador(Long var1);
+     Optional<Jugador> encontrarJugador(Long idJugador);
 
      Optional<Jugador> encontrarJugadorPorFixtureId(Long fixtureId);
 
      Jugador guardarJugador(Jugador jugador);
 
-     void borrarJugador(Long var1);
+     void borrarJugador(Long idJugador);
 
      List<Jugador> listarJugadoresPorEquipo(Long id);
 

@@ -27,9 +27,10 @@ public class PartidoServiceImpl implements PartidoService {
     private final LigaService ligaService;
     private final EventoDelPartidoService eventoDelPartidoService;
     private final JugadorService jugadorService;
+    private final PartidoContextService partidoContextService;
 
 
-    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper, LigaService ligaService, EventoDelPartidoService eventoDelPartidoService, JugadorService jugadorService) {
+    public PartidoServiceImpl(PartidoRepository partidoRepository, EquipoService equipoService, DataApiProvider fixtureProvider, PartidoMapper partidoMapper, LigaService ligaService, EventoDelPartidoService eventoDelPartidoService, JugadorService jugadorService, PartidoContextService partidoContextService) {
         this.partidoRepository = partidoRepository;
         this.equipoService = equipoService;
         this.fixtureProvider = fixtureProvider;
@@ -37,6 +38,7 @@ public class PartidoServiceImpl implements PartidoService {
         this.ligaService = ligaService;
         this.eventoDelPartidoService = eventoDelPartidoService;
         this.jugadorService = jugadorService;
+        this.partidoContextService = partidoContextService;
     }
 
     public Partido encontrarPartido(Long id) {
@@ -91,6 +93,10 @@ public class PartidoServiceImpl implements PartidoService {
             );
             cachePartidos.put(fixture.id(), partido);
 
+            partidoContextService.inicializarContexto(
+                    partido,
+                    resolverJugadoresDelPartido(local.getId(), visitante.getId())
+            );
         } else if (actualizarSiHayCambios(fixture, partido)) {
             partidoMapper.actualizarDesdeFixture(fixture, partido);
         }
@@ -139,5 +145,16 @@ public class PartidoServiceImpl implements PartidoService {
     public Optional<Partido> encontrarPartidoPorFixtureId(Long id) {
         return partidoRepository.findByFixtureId(id);
     }
+
+
+    private List<Jugador> resolverJugadoresDelPartido(Long equipoLocal, Long equipoVisitante ){
+        List<Jugador> locales =  jugadorService.listarJugadoresPorEquipo(equipoLocal);
+        List<Jugador> visitantes =  jugadorService.listarJugadoresPorEquipo(equipoVisitante);
+        List<Jugador> jugadoresDelPartido = new ArrayList<>();
+        jugadoresDelPartido.addAll(locales);
+        jugadoresDelPartido.addAll(visitantes);
+        return jugadoresDelPartido;
+    }
+
 }
 
