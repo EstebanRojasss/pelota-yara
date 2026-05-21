@@ -36,8 +36,11 @@ public class JugadorServiceImpl implements JugadorService {
     public Jugador agregarNuevoJugador(Jugador jugador) {
         try {
             return jugadorRepository.guardarJugador(jugador);
+        } catch (DataIntegrityViolationException e) {
+            return jugadorRepository.encontrarJugadorPorFixtureId(jugador.getFixtureId())
+                    .orElseThrow(() -> new RuntimeException("Error al guardar jugador"));
         } catch (RuntimeException e) {
-            throw new RuntimeException("Ocurrio un error al intentar agregar nuevo jugador");
+            throw new RuntimeException("Ocurrió un error al intentar agregar nuevo jugador", e);
         }
     }
 
