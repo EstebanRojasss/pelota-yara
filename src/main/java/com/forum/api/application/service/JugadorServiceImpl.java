@@ -72,7 +72,7 @@ public class JugadorServiceImpl implements JugadorService {
                     ));
             cacheJugadoresPorFixtureId.put(jugadorData.id(), jugador);
         }
-        if (jugador.getEquipo().getEquipoFixtureId().equals(jugadorData.equipoDto().id())) {
+        if (!jugador.getEquipo().getEquipoFixtureId().equals(jugadorData.equipoDto().id())) {
             jugadorMapper.actualizarSiHayCambios(jugadorData, jugador, equipoJugador);
             cacheJugadoresPorFixtureId.put(jugadorData.id(), jugador);
         }
