@@ -9,6 +9,7 @@ import com.forum.api.application.out.JugadorRepository;
 import com.forum.api.domain.exception.JugadorNotFoundException;
 import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Jugador;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ public class JugadorServiceImpl implements JugadorService {
         this.equipoService = equipoService;
         this.jugadorMapper = jugadorMapper;
     }
+
     @Override
     @Transactional
     public Jugador agregarNuevoJugador(Jugador jugador) {
@@ -48,6 +50,7 @@ public class JugadorServiceImpl implements JugadorService {
     public List<Jugador> listarJugadoresPorEquipo(Long equipoId) {
         return jugadorRepository.listarJugadoresPorEquipo(equipoId);
     }
+
     @Override
     public List<Jugador> listarJugadoresDesdeApi(Long id) {
         return jugadorProvider.
@@ -79,16 +82,23 @@ public class JugadorServiceImpl implements JugadorService {
 
     @Override
     public Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugador, Equipo equipo) {
-        Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.id());
+        try {
+            Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.id());
 
-        return comprobarJugador.orElseGet(() -> agregarNuevoJugador(
-                        Jugador.create(
-                                jugador.name(),
-                                null,
-                                jugador.id(),
-                                equipo)
-                )
-        );
+            return comprobarJugador.orElseGet(() -> agregarNuevoJugador
+                    (
+                            Jugador.create(
+                                    jugador.name(),
+                                    null,
+                                    jugador.id(),
+                                    equipo)
+                    )
+            );
+
+        } catch (DataIntegrityViolationException e) {
+            return encontrarJugadorPorFixtureId(jugador.id())
+                    .orElseThrow(() -> new RuntimeException("No se pudo guardar ni recuperar el jugador"));
+        }
     }
 
 
@@ -102,10 +112,12 @@ public class JugadorServiceImpl implements JugadorService {
         jugador.ifPresent(value -> cacheJugadoresPorFixtureId.put(fixtureId, value));
         return jugador;
     }
+
     @Override
     public Jugador encontrarJugadorPorId(Long id) {
         return jugadorRepository.encontrarJugador(id).orElseThrow(() -> new JugadorNotFoundException("Jugador no encontrado."));
     }
+
     @Override
     public void eliminarJugadorPorId(Long id) {
         if (jugadorRepository.encontrarJugador(id).isEmpty()) {
