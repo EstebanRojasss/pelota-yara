@@ -38,6 +38,7 @@ public class PartidoJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "liga_id")
     private LigaJpaEntity liga;
+    private Integer minutoExtra;
 
 
     public static PartidoJpaEntity fromDomain(Partido partido) {
@@ -50,7 +51,8 @@ public class PartidoJpaEntity {
                 partido.getGolLocal(),
                 partido.getMinutoBase(),
                 partido.getFixtureId(),
-                LigaJpaEntity.fromDomain(partido.getLiga())
+                LigaJpaEntity.fromDomain(partido.getLiga()),
+                partido.getMinutoAdicional()
                 );
     }
 
@@ -63,7 +65,8 @@ public class PartidoJpaEntity {
                 golVisitante,
                 minutoActual,
                 fixtureId,
-                liga.toDomainExistent()
+                liga.toDomainExistent(),
+                minutoExtra
                 );
     }
 
