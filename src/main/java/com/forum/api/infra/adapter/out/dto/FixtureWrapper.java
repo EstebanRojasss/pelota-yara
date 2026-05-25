@@ -42,7 +42,7 @@ public record FixtureWrapper(
                 wrapper.goals.away(),
                 wrapper.fixture.status().elapsed(),
                 StatusPartidoFixture.fromShortValue(wrapper.fixture.status().shortStatus()),
-                wrapper.fixture.status().elapsed(),
+                wrapper.fixture.status().extraMinute(),
                 LigaDataDto.map(
                         wrapper.league().id(),
                         wrapper.league.name(),
