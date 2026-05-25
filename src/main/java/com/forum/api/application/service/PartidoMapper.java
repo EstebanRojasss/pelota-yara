@@ -3,9 +3,7 @@ package com.forum.api.application.service;
 import com.forum.api.application.in.dto.FixtureData;
 import com.forum.api.application.in.dto.LigaDataDto;
 import com.forum.api.application.in.dto.StatusPartidoFixture;
-import com.forum.api.application.in.dto.evento.EventoDataDto;
 import com.forum.api.domain.model.Equipo;
-import com.forum.api.domain.model.Jugador;
 import com.forum.api.domain.model.Liga;
 import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.domain.model.partido.StatusPartido;
@@ -21,16 +19,19 @@ public class PartidoMapper {
 
 
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante, Liga liga) {
-        log.info("MINUTO BASE AL CREAR EL PARTIDO: {}", fixtureData.minuto());
+        Integer minutoExtra = fixtureData.minutoExtra() != null ? fixtureData.minutoExtra() : 0;
+        Integer minutoBase = solucionarMinuto(fixtureData);
+        log.info("MINUTO BASE AL CREAR EL PARTIDO: {}", minutoBase);
         return Partido.createFromApi(
                 local,
                 visitante,
                 fixtureData.golLocal(),
                 fixtureData.golVisitante(),
-                fixtureData.minuto(),
+                minutoBase,
                 mapStatus(fixtureData.statusFixture()),
                 fixtureData.id(),
-                liga
+                liga,
+                minutoExtra
         );
     }
 
@@ -38,12 +39,13 @@ public class PartidoMapper {
     public void actualizarDesdeFixture(FixtureData fixture, Partido partido) {
 
         if (!Objects.equals(fixture.minuto(), partido.getMinutoBase())) {
-            int count = 0;
-            log.info("Minuto base: \nContador de veces que se actualiza {} {}",
-                    partido.getMinutoBase(),
-                    ++count);
             partido.fijarBaseMinuto(fixture.minuto());
         }
+
+        if(!Objects.equals(fixture.minutoExtra(), partido.getMinutoAdicional())){
+            partido.setMinutoAdicional(fixture.minutoExtra());
+        }
+
         partido.actualizar(
                 mapStatus(fixture.statusFixture()),
                 partido.getEquipoLocal(),
@@ -52,10 +54,10 @@ public class PartidoMapper {
                 fixture.golLocal());
     }
 
-    private Integer establecerTiempoAdicional(FixtureData fixture, Partido partido) {
+    private Integer solucionarMinuto(FixtureData fixture) {
         return switch (fixture.statusFixture()) {
-            case FIRST_HALF -> fixture.minutoExtra() != null ? fixture.minutoExtra() : partido.getMinutoAdicional1T();
-            case SECOND_HALF -> fixture.minutoExtra() != null ? fixture.minutoExtra() : partido.getMinutoAdicional2T();
+            case FIRST_HALF -> fixture.minuto() != null ? fixture.minuto() : 45;
+            case SECOND_HALF -> fixture.minuto() != null ? fixture.minuto() : 90;
             default -> 0;
         };
     }

@@ -24,8 +24,7 @@ public class Partido {
     private Integer minutoBase;
     private Instant timeStampBase;
     private Integer minutoActual;
-    private Integer minutoAdicional1T;
-    private Integer minutoAdicional2T;
+    private Integer minutoAdicional;
     private Liga liga;
     private final StoreEvent storeEvent = new StoreEvent();
     private boolean faseTerminada;
@@ -40,7 +39,7 @@ public class Partido {
                     Integer golLocal,
                     Integer minutoBase,
                     Long fixtureId,
-                    Liga liga) {
+                    Liga liga, Integer minutoAdicional) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
@@ -52,6 +51,7 @@ public class Partido {
         this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
         this.estadoPartido = PartidoStateFactory.sincronizarEstado(status);
+        this.minutoAdicional = minutoAdicional;
     }
 
     public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal) {
@@ -70,7 +70,8 @@ public class Partido {
                                   Integer golVisitante,
                                   Integer minutoBase,
                                   Long fixtureId,
-                                  Liga liga) {
+                                  Liga liga,
+                                  Integer minutoAdicional) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
@@ -79,7 +80,8 @@ public class Partido {
                 golLocal,
                 minutoBase,
                 fixtureId,
-                liga);
+                liga,
+                minutoAdicional);
     }
 
     public static Partido createFromApi(Equipo equipoLocal,
@@ -89,7 +91,8 @@ public class Partido {
                                         Integer minutoBase,
                                         StatusPartido status,
                                         Long fixtureId,
-                                        Liga liga) {
+                                        Liga liga,
+                                        Integer minutoAdicional) {
         return new Partido(null,
                 status,
                 equipoLocal,
@@ -98,7 +101,8 @@ public class Partido {
                 golLocal,
                 minutoBase,
                 fixtureId,
-                liga
+                liga,
+                minutoAdicional
         );
     }
 
@@ -111,7 +115,8 @@ public class Partido {
                 0,
                 0,
                 0L,
-                null);
+                null,
+                0);
     }
 
     public void fijarBaseMinuto(Integer minutoBase) {
@@ -251,20 +256,12 @@ public class Partido {
         this.status = status;
     }
 
-    public void setMinutoAdicional1T(Integer minutoAdicional1T) {
-        this.minutoAdicional1T = minutoAdicional1T;
+    public void setMinutoAdicional(Integer minutoAdicional) {
+        this.minutoAdicional = minutoAdicional;
     }
 
-    public void setMinutoAdicional2T(Integer minutoAdicional2T) {
-        this.minutoAdicional2T = minutoAdicional2T;
-    }
-
-    public Integer getMinutoAdicional1T() {
-        return this.minutoAdicional1T;
-    }
-
-    public Integer getMinutoAdicional2T() {
-        return this.minutoAdicional2T;
+    public Integer getMinutoAdicional() {
+        return this.minutoAdicional;
     }
 
     public void setLiga(Liga liga) {
@@ -309,7 +306,7 @@ public class Partido {
     }
 
     public String toString() {
-        return "Partido{id=" + this.id + ", status=" + this.status + ", estadoPartido=" + this.estadoPartido + ", equipoLocal=" + this.equipoLocal + ", equipoVisitante=" + this.equipoVisitante + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoBase=" + this.minutoBase + ", minutoAdicional1T=" + this.minutoAdicional1T + ", minutoAdicional2T=" + this.minutoAdicional2T + "}";
+        return "Partido{id=" + this.id + ", status=" + this.status + ", estadoPartido=" + this.estadoPartido + ", equipoLocal=" + this.equipoLocal + ", equipoVisitante=" + this.equipoVisitante + ", golVisitante=" + this.golVisitante + ", golLocal=" + this.golLocal + ", minutoBase=" + this.minutoBase + ", minutoAdicional=" + this.minutoAdicional + "}";
     }
 }
 

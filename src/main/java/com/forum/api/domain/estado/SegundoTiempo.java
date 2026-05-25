@@ -26,7 +26,7 @@ public class SegundoTiempo extends AbstractEstadoPartido {
 
         int minutoActual = calcularMinutoActual(partido);
 
-        if(!partidoEnJuego(partido.getStatus())){
+        if (!partidoEnJuego(partido.getStatus())) {
             return new Finalizado();
         }
 

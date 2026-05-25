@@ -57,11 +57,10 @@ public class ApiFootballConsumer implements DataApiProvider {
         }
         return body.getResponse().
                 stream().
-                map(FixtureWrapper::map)
-//                filter(
-//                        filtrarLiga(List.of(39L, 250L, 130L, 128L, 1032L, 2L, 3L, 73L, 13L, 11L))
-//                )
-                .toList();
+                map(FixtureWrapper::map).
+                filter(
+                        filtrarLiga(List.of(39L, 250L, 130L, 128L, 1032L, 2L, 3L, 73L, 13L, 862L))
+                ).toList();
     }
 
     @Override
@@ -95,7 +94,6 @@ public class ApiFootballConsumer implements DataApiProvider {
     @Override
     public List<EventoDataDto> proveerEventosPartido(Long idPartido) {
         HttpHeaders headers = new HttpHeaders();
-
 
 
         headers.set("x-apisports-key", apiKey);
@@ -140,7 +138,7 @@ public class ApiFootballConsumer implements DataApiProvider {
                 }
         );
 
-        if(response.getBody() == null){
+        if (response.getBody() == null) {
             throw new IllegalStateException("Respuesta vacía de API FOOTBALL");
         }
         return response.
