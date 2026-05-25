@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 public class JugadorServiceImpl implements JugadorService {
     private final JugadorRepository jugadorRepository;
-    private final Map<Long, Jugador> cacheJugadoresPorFixtureId = new HashMap<>();
+    private final Map<Long, Jugador> cacheJugadoresPorFixtureId = new ConcurrentHashMap<>();
     private final DataApiProvider jugadorProvider;
     private final EquipoService equipoService;
     private final JugadorMapper jugadorMapper;
