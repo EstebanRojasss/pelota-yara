@@ -78,19 +78,11 @@ public class EventoDelPartidoServiceImpl implements EventoDelPartidoService {
         Jugador jugador = contexto.consultarJugador(playerEvent.id());
 
         if(jugador == null){
-            jugador = Jugador.create(playerEvent.name(), null, playerEvent.id(), equipo);
+            jugador = jugadorService.retornarOGuardarSiNoExiste(playerEvent,equipo);
             contexto.consultarYAgregarJugadorSiNoExiste(jugador);
-            return jugador;
         }
 
-        return jugadorService.encontrarJugadorPorFixtureId(playerEvent.id())
-                .orElse(jugadorService.agregarNuevoJugador(
-                        Jugador.create(playerEvent.name(),
-                                null,
-                                playerEvent.id(),
-                                equipo)
-                )
-        );
+        return jugador;
     }
 
     private Equipo resolverEquipoEvento(Partido partido, Long idEvent) {

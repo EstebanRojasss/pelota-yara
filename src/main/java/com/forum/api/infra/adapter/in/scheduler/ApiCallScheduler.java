@@ -35,10 +35,7 @@ public class ApiCallScheduler {
 
         List<PartidoResponseDto> partidosDto = partidos
                 .stream()
-                .map(p -> {
-                    p.actualizarMinutoActual();
-                    return PartidoResponseDto.fromDomainExistent(p);
-                })
+                .map(PartidoResponseDto::fromDomainExistent)
                 .toList();
 
         broadcastUseCase.broadcast(partidosDto);

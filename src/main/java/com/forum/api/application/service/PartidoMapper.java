@@ -25,6 +25,7 @@ public class PartidoMapper {
     }
 
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante, Liga liga) {
+        log.info("MINUTO BASE AL CREAR EL PARTIDO: {}", fixtureData.minuto());
         return Partido.createFromApi(
                 local,
                 visitante,

@@ -11,12 +11,13 @@ import com.forum.api.domain.model.Equipo;
 import com.forum.api.domain.model.Jugador;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class JugadorServiceImpl implements JugadorService {
@@ -34,13 +35,10 @@ public class JugadorServiceImpl implements JugadorService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Jugador agregarNuevoJugador(Jugador jugador) {
         try {
             return jugadorRepository.guardarJugador(jugador);
-        } catch (DataIntegrityViolationException e) {
-            return jugadorRepository.encontrarJugadorPorFixtureId(jugador.getFixtureId())
-                    .orElseThrow(() -> new RuntimeException("Error al guardar jugador"));
         } catch (RuntimeException e) {
             throw new RuntimeException("Ocurrió un error al intentar agregar nuevo jugador", e);
         }
@@ -81,22 +79,24 @@ public class JugadorServiceImpl implements JugadorService {
     }
 
     @Override
-    public Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugador, Equipo equipo) {
-        try {
-            Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugador.id());
+    public Jugador retornarOGuardarSiNoExiste(PlayerEventDataDto jugadorDto, Equipo equipo) {
+            Optional<Jugador> comprobarJugador = encontrarJugadorPorFixtureId(jugadorDto.id());
 
-            return comprobarJugador.orElseGet(() -> agregarNuevoJugador
-                    (
-                            Jugador.create(
-                                    jugador.name(),
-                                    null,
-                                    jugador.id(),
-                                    equipo)
-                    )
+            if(comprobarJugador.isPresent()){
+                return comprobarJugador.get();
+            }
+
+        try {
+            return agregarNuevoJugador(
+                    Jugador.create(
+                            jugadorDto.name(),
+                            null,
+                            jugadorDto.id(),
+                            equipo)
             );
 
         } catch (DataIntegrityViolationException e) {
-            return encontrarJugadorPorFixtureId(jugador.id())
+            return encontrarJugadorPorFixtureId(jugadorDto.id())
                     .orElseThrow(() -> new RuntimeException("No se pudo guardar ni recuperar el jugador"));
         }
     }

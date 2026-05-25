@@ -16,7 +16,7 @@ public class Partido {
     private final Long id;
     private StatusPartido status;
     private EstadoPartido estadoPartido;
-    private Long fixtureId;
+    private final Long fixtureId;
     private Equipo equipoLocal;
     private Equipo equipoVisitante;
     private Integer golVisitante;
@@ -27,7 +27,7 @@ public class Partido {
     private Integer minutoAdicional1T;
     private Integer minutoAdicional2T;
     private Liga liga;
-    private StoreEvent storeEvent = new StoreEvent();
+    private final StoreEvent storeEvent = new StoreEvent();
     private boolean faseTerminada;
 
     private final EstadoFabrica estadoFabrica = new EstadoFabrica();

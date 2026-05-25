@@ -57,10 +57,11 @@ public class ApiFootballConsumer implements DataApiProvider {
         }
         return body.getResponse().
                 stream().
-                map(FixtureWrapper::map).
-                filter(
-                        filtrarLiga(List.of(39L, 250L, 130L, 128L, 1032L, 2L, 3L, 73L, 13L, 11L))
-                ).toList();
+                map(FixtureWrapper::map)
+//                filter(
+//                        filtrarLiga(List.of(39L, 250L, 130L, 128L, 1032L, 2L, 3L, 73L, 13L, 11L))
+//                )
+                .toList();
     }
 
     @Override
