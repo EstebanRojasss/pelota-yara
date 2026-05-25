@@ -4,7 +4,7 @@ package com.forum.api.infra.adapter.in.rest.dto;
 import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.domain.model.partido.StatusPartido;
 
-public record PartidoResponseDto(Long id, StatusPartido status,EquipoPartidoDto equipoLocal, EquipoPartidoDto equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional1T, Integer minutoAdicional2T,
+public record PartidoResponseDto(Long id, StatusPartido status, EquipoPartidoDto equipoLocal, EquipoPartidoDto equipoVisitante, Integer golVisitante, Integer golLocal, Integer minutoActual, Integer minutoAdicional,
                                  LigaResponseDto liga) {
 
     public static PartidoResponseDto fromDomainExistent(Partido partido) {
@@ -15,8 +15,7 @@ public record PartidoResponseDto(Long id, StatusPartido status,EquipoPartidoDto 
                 partido.getGolVisitante(),
                 partido.getGolLocal(),
                 partido.getMinutoActual(),
-                partido.getMinutoAdicional1T(),
-                partido.getMinutoAdicional2T(),
+                partido.getMinutoAdicional(),
                 LigaResponseDto.fromDomain(partido.getLiga()));
     }
 }
