@@ -22,17 +22,20 @@ public class PartidoMapper {
         Integer minutoExtra = fixtureData.minutoExtra() != null ? fixtureData.minutoExtra() : 0;
         Integer minutoBase = solucionarMinuto(fixtureData);
         log.info("MINUTO BASE AL CREAR EL PARTIDO: {}", minutoBase);
-        return Partido.createFromApi(
+        Partido partido = Partido.createFromApi(
                 local,
                 visitante,
                 fixtureData.golLocal(),
                 fixtureData.golVisitante(),
-                minutoBase,
                 mapStatus(fixtureData.statusFixture()),
                 fixtureData.id(),
-                liga,
-                minutoExtra
+                liga
         );
+
+        partido.fijarBaseMinuto(minutoBase);
+        partido.setMinutoAdicional(minutoExtra);
+
+        return partido;
     }
 
 

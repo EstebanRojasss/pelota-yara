@@ -26,20 +26,16 @@ public class PartidoJpaEntity {
     @OneToOne
     @JoinColumn(name = "equipo_local")
     private EquipoEntityJpa equipoLocal;
-
     @OneToOne
     @JoinColumn(name = "equipo_visitante")
     private EquipoEntityJpa equipoVisitante;
     private Integer golVisitante;
     private Integer golLocal;
-    private Integer minutoActual;
     @Column(unique = true)
     private Long fixtureId;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "liga_id")
     private LigaJpaEntity liga;
-    private Integer minutoExtra;
-
 
     public static PartidoJpaEntity fromDomain(Partido partido) {
         return new PartidoJpaEntity(
@@ -49,10 +45,8 @@ public class PartidoJpaEntity {
                 EquipoEntityJpa.fromDomain(partido.getEquipoVisitante()),
                 partido.getGolVisitante(),
                 partido.getGolLocal(),
-                partido.getMinutoBase(),
                 partido.getFixtureId(),
-                LigaJpaEntity.fromDomain(partido.getLiga()),
-                partido.getMinutoAdicional()
+                LigaJpaEntity.fromDomain(partido.getLiga())
                 );
     }
 
@@ -63,10 +57,8 @@ public class PartidoJpaEntity {
                 equipoVisitante.toDomainExistent(),
                 golLocal,
                 golVisitante,
-                minutoActual,
                 fixtureId,
-                liga.toDomainExistent(),
-                minutoExtra
+                liga.toDomainExistent()
                 );
     }
 

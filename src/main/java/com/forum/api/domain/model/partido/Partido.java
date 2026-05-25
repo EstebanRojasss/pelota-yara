@@ -37,21 +37,18 @@ public class Partido {
                     Equipo equipoVisitante,
                     Integer golVisitante,
                     Integer golLocal,
-                    Integer minutoBase,
                     Long fixtureId,
-                    Liga liga, Integer minutoAdicional) {
+                    Liga liga) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
         this.equipoVisitante = equipoVisitante;
         this.golVisitante = golVisitante;
         this.golLocal = golLocal;
-        this.minutoBase = minutoBase;
         this.liga = liga;
         this.timeStampBase = Instant.now();
         this.fixtureId = fixtureId;
         this.estadoPartido = PartidoStateFactory.sincronizarEstado(status);
-        this.minutoAdicional = minutoAdicional;
     }
 
     public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal) {
@@ -68,41 +65,33 @@ public class Partido {
                                   Equipo equipoVisitante,
                                   Integer golLocal,
                                   Integer golVisitante,
-                                  Integer minutoBase,
                                   Long fixtureId,
-                                  Liga liga,
-                                  Integer minutoAdicional) {
+                                  Liga liga) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
                 equipoVisitante,
                 golVisitante,
                 golLocal,
-                minutoBase,
                 fixtureId,
-                liga,
-                minutoAdicional);
+                liga);
     }
 
     public static Partido createFromApi(Equipo equipoLocal,
                                         Equipo equipoVisitante,
                                         Integer golLocal,
                                         Integer golVisitante,
-                                        Integer minutoBase,
                                         StatusPartido status,
                                         Long fixtureId,
-                                        Liga liga,
-                                        Integer minutoAdicional) {
+                                        Liga liga) {
         return new Partido(null,
                 status,
                 equipoLocal,
                 equipoVisitante,
                 golVisitante,
                 golLocal,
-                minutoBase,
                 fixtureId,
-                liga,
-                minutoAdicional
+                liga
         );
     }
 
@@ -113,10 +102,8 @@ public class Partido {
                 equipoVisitante,
                 0,
                 0,
-                0,
                 0L,
-                null,
-                0);
+                null);
     }
 
     public void fijarBaseMinuto(Integer minutoBase) {
