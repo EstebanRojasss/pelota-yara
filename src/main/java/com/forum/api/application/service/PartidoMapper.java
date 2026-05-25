@@ -18,11 +18,7 @@ import java.util.Objects;
 @Component
 public class PartidoMapper {
 
-    private final EventoMapper eventoMapper;
 
-    public PartidoMapper(EventoMapper eventoMapper) {
-        this.eventoMapper = eventoMapper;
-    }
 
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante, Liga liga) {
         log.info("MINUTO BASE AL CREAR EL PARTIDO: {}", fixtureData.minuto());
