@@ -41,7 +41,7 @@ public class PartidoController {
     public ResponseEntity<List<PartidoResponseDto>> listarTodosLosPartidosEnVivo() {
         List<Partido> partidos = partidoService.partidosEnVivo();
 
-        partidos.forEach(Partido::actualizarMinutoActual);
+
         return ResponseEntity.ok().body(
                 partidos.stream().
                 map(PartidoResponseDto::fromDomainExistent).

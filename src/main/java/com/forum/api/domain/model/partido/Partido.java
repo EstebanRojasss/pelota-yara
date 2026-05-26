@@ -23,7 +23,6 @@ public class Partido {
     private Integer golLocal;
     private Integer minutoBase;
     private Instant timeStampBase;
-    private Integer minutoActual;
     private Integer minutoAdicional;
     private Liga liga;
     private final StoreEvent storeEvent = new StoreEvent();
@@ -38,7 +37,9 @@ public class Partido {
                     Integer golVisitante,
                     Integer golLocal,
                     Long fixtureId,
-                    Liga liga) {
+                    Liga liga,
+                    Integer minutoBase,
+                    Instant timeStampBase) {
         this.id = id;
         this.status = status;
         this.equipoLocal = equipoLocal;
@@ -46,9 +47,10 @@ public class Partido {
         this.golVisitante = golVisitante;
         this.golLocal = golLocal;
         this.liga = liga;
-        this.timeStampBase = Instant.now();
+        this.timeStampBase = timeStampBase;
         this.fixtureId = fixtureId;
         this.estadoPartido = PartidoStateFactory.sincronizarEstado(status);
+        this.minutoBase = minutoBase;
     }
 
     public void actualizar(StatusPartido status, Equipo equipoLocal, Equipo equipoVisitante, Integer golVisitante, Integer golLocal) {
@@ -66,7 +68,9 @@ public class Partido {
                                   Integer golLocal,
                                   Integer golVisitante,
                                   Long fixtureId,
-                                  Liga liga) {
+                                  Liga liga, Integer minutoBase,
+                                  Instant timeStampBase
+                                  ) {
         return new Partido(id,
                 statusPartido,
                 equipoLocal,
@@ -74,7 +78,10 @@ public class Partido {
                 golVisitante,
                 golLocal,
                 fixtureId,
-                liga);
+                liga,
+                minutoBase,
+                timeStampBase
+                );
     }
 
     public static Partido createFromApi(Equipo equipoLocal,
@@ -83,7 +90,8 @@ public class Partido {
                                         Integer golVisitante,
                                         StatusPartido status,
                                         Long fixtureId,
-                                        Liga liga) {
+                                        Liga liga,
+                                        Integer minutoBase) {
         return new Partido(null,
                 status,
                 equipoLocal,
@@ -91,9 +99,21 @@ public class Partido {
                 golVisitante,
                 golLocal,
                 fixtureId,
-                liga
-        );
+                liga,
+                minutoBase,
+                Instant.now());
     }
+
+    public void fijarBaseMinuto(Integer minutoBase) {
+        this.minutoBase = minutoBase;
+        this.timeStampBase = Instant.now();
+    }
+
+    public Integer calcularMinutoActual() {
+        long segundos = Duration.between(timeStampBase, Instant.now()).getSeconds();
+        return minutoBase + (int) (segundos / 60);
+    }
+
 
     public static Partido createFromLocal(Equipo equipoLocal, Equipo equipoVisitante) {
         return new Partido(null,
@@ -103,24 +123,9 @@ public class Partido {
                 0,
                 0,
                 0L,
+                null,
+                0,
                 null);
-    }
-
-    public void fijarBaseMinuto(Integer minutoBase) {
-        this.minutoBase = minutoBase;
-        this.timeStampBase = Instant.now();
-        this.minutoActual = minutoBase;
-    }
-
-    public Integer calcularMinutoActual() {
-        long segundos = Duration.between(timeStampBase, Instant.now()).getSeconds();
-        return minutoBase + (int) (segundos / 60);
-    }
-
-    public void actualizarMinutoActual() {
-        if (timeStampBase != null) {
-            this.minutoActual = calcularMinutoActual();
-        }
     }
 
     public void aumentarMinuto() {
@@ -166,6 +171,14 @@ public class Partido {
         else throw new EquipoNotFoundException("El equipo no forma parte del partido");
     }
 
+    public Integer getMinutoActual() {
+        if (minutoBase == null || timeStampBase == null) {
+            return 0;
+        }
+
+        return calcularMinutoActual();
+    }
+
     public void setEquipoLocal(Equipo equipoLocal) {
         this.equipoLocal = equipoLocal;
     }
@@ -186,13 +199,6 @@ public class Partido {
         this.minutoBase = minutoBase;
     }
 
-    public void setMinutoActual(Integer minutoActual) {
-        this.minutoActual = minutoActual;
-    }
-
-    public Integer getMinutoActual() {
-        return minutoActual;
-    }
 
     public void cambiarEstado(EstadoPartido estado) {
         this.estadoPartido = estado;

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,10 +24,10 @@ public class PartidoJpaEntity {
     @Enumerated(value = EnumType.STRING)
     private StatusPartido status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "equipo_local")
     private EquipoEntityJpa equipoLocal;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "equipo_visitante")
     private EquipoEntityJpa equipoVisitante;
     private Integer golVisitante;
@@ -36,6 +37,8 @@ public class PartidoJpaEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "liga_id")
     private LigaJpaEntity liga;
+    private Integer minutoBase;
+    private Instant timeStampBase;
 
     public static PartidoJpaEntity fromDomain(Partido partido) {
         return new PartidoJpaEntity(
@@ -46,8 +49,10 @@ public class PartidoJpaEntity {
                 partido.getGolVisitante(),
                 partido.getGolLocal(),
                 partido.getFixtureId(),
-                LigaJpaEntity.fromDomain(partido.getLiga())
-                );
+                LigaJpaEntity.fromDomain(partido.getLiga()),
+                partido.getMinutoBase(),
+                partido.getTimeStampBase()
+        );
     }
 
     public Partido toDomainExistent() {
@@ -58,8 +63,10 @@ public class PartidoJpaEntity {
                 golLocal,
                 golVisitante,
                 fixtureId,
-                liga.toDomainExistent()
-                );
+                liga.toDomainExistent(),
+                minutoBase,
+                timeStampBase
+        );
     }
 
 }

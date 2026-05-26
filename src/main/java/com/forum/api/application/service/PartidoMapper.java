@@ -17,7 +17,6 @@ import java.util.Objects;
 public class PartidoMapper {
 
 
-
     public Partido toNewDomain(FixtureData fixtureData, Equipo local, Equipo visitante, Liga liga) {
         Integer minutoExtra = fixtureData.minutoExtra() != null ? fixtureData.minutoExtra() : 0;
         Integer minutoBase = solucionarMinuto(fixtureData);
@@ -29,12 +28,11 @@ public class PartidoMapper {
                 fixtureData.golVisitante(),
                 mapStatus(fixtureData.statusFixture()),
                 fixtureData.id(),
-                liga
+                liga,
+                minutoBase
         );
-
-        partido.fijarBaseMinuto(minutoBase);
         partido.setMinutoAdicional(minutoExtra);
-
+        log.info("Minuto dominio: {}: ", partido.getMinutoActual());
         return partido;
     }
 
@@ -45,7 +43,7 @@ public class PartidoMapper {
             partido.fijarBaseMinuto(fixture.minuto());
         }
 
-        if(!Objects.equals(fixture.minutoExtra(), partido.getMinutoAdicional())){
+        if (!Objects.equals(fixture.minutoExtra(), partido.getMinutoAdicional())) {
             partido.setMinutoAdicional(fixture.minutoExtra());
         }
 
@@ -83,7 +81,7 @@ public class PartidoMapper {
         };
     }
 
-    public Liga mapLigaDtoToDomain(LigaDataDto dto){
+    public Liga mapLigaDtoToDomain(LigaDataDto dto) {
         return Liga.create(
                 dto.nombre(),
                 dto.pais(),
