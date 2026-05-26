@@ -42,7 +42,7 @@ public class ApiCallScheduler {
     }
 
 
-    @Scheduled(initialDelay = 10000, fixedRate = 200000)
+    @Scheduled(initialDelay = 10000, fixedRate = 600000)
     public void llamarApiFootballEventos() {
         List<Partido> partidos = partidoService.partidosEnVivo();
 
@@ -50,10 +50,6 @@ public class ApiCallScheduler {
 
         for (Partido partido : partidos) {
             try {
-                log.info("{} vs {} Min: {}",
-                        partido.getEquipoLocal().getNombre(),
-                        partido.getEquipoVisitante().getNombre(),
-                        partido.getMinutoActual());
                 List<EventoDelPartido> eventos = eventoService.obtenerEventosDelProvider(partido);
                 partido.agregarEvento(eventos);
                 eventosPorPartido.put(partido.getId(), eventos);
