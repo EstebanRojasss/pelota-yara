@@ -48,6 +48,7 @@ public class StoreEvent {
     public void cambiarFase(StatusPartido nuevaFase) {
         log.info("Cambiando fase {} -> {}", faseActual, nuevaFase);
         faseActual = nuevaFase;
+        eventosPorFase.putIfAbsent(nuevaFase, new ArrayList<>());
     }
 
 }
