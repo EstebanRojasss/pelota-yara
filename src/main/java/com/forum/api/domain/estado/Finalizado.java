@@ -5,7 +5,7 @@ import com.forum.api.domain.model.partido.StatusPartido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Finalizado implements EstadoPartido {
+public class Finalizado extends AbstractEstadoPartido {
     private static final Logger log = LoggerFactory.getLogger(Finalizado.class);
 
     public void ejecutar(Partido partido) {
