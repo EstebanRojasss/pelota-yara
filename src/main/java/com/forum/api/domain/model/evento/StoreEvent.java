@@ -22,14 +22,14 @@ public class StoreEvent {
 
 
     public List<EventoDelPartido> obtenerEventosPorFase(StatusPartido fase) {
-        return eventosPorFase.getOrDefault(fase, new ArrayList<>());
+        return eventosPorFase.putIfAbsent(fase, new ArrayList<>());
     }
 
     public void agregarEvento(List<EventoDelPartido> eventos) {
         if (!eventos.isEmpty() && faseActual != null) {
             for (EventoDelPartido evento : eventos) {
                 if (eventosProcesados.contains(EventKey.from(evento))) {
-                    return;
+                    continue;
                 }
 
                     eventosProcesados.add(EventKey.from(evento));
