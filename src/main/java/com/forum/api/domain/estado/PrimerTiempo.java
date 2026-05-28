@@ -38,11 +38,11 @@ public class PrimerTiempo extends AbstractEstadoPartido  {
     @Override
     public void onEnter(Partido partido) {
         log.info("Estado en OnEnterPartido: {}", partido.getStatus());
-        partido.faseTerminada(false);
         partido.getStoreEvent().cambiarFase(StatusPartido.PRIMER_TIEMPO);
+        log.info("Estado en OnEnterPartido: {}", partido.getStatus());
         partido.inicializarStoreEvent(partido.getStatus());
     }
-    
+
 
     @Override
     public String nombreEstado() {

@@ -40,9 +40,10 @@ public class TiempoExtra extends AbstractEstadoPartido {
 
     @Override
     public void onEnter(Partido partido) {
-        partido.inicializarStoreEvent(StatusPartido.TIEMPO_EXTRA);
-        partido.faseTerminada(false);
+        log.info("Estado en OnEnterPartido: {}", partido.getStatus());
         partido.getStoreEvent().cambiarFase(StatusPartido.TIEMPO_EXTRA);
+        log.info("Estado en OnEnterPartido: {}", partido.getStatus());
+        partido.inicializarStoreEvent(partido.getStatus());
     }
 
     @Override
