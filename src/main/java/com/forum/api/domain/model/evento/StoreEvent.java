@@ -51,4 +51,8 @@ public class StoreEvent {
         eventosPorFase.putIfAbsent(nuevaFase, new ArrayList<>());
     }
 
+    public void limpiarEventosProcesados(){
+        this.eventosProcesados.clear();
+    }
+
 }
