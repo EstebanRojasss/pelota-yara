@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 public class Descanso extends AbstractEstadoPartido {
     private static final Logger log = LoggerFactory.getLogger(Descanso.class);
 
+    @Override
+    public StatusPartido obtenerFaseFinalizada() {
+        return StatusPartido.PRIMER_TIEMPO;
+    }
+
     public void ejecutar(Partido partido) {
         log.info("Descanso {} vs {}: ",
                 partido.getEquipoLocal().getNombre(),

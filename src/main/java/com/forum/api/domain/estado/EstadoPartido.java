@@ -1,6 +1,7 @@
 package com.forum.api.domain.estado;
 
 import com.forum.api.domain.model.partido.Partido;
+import com.forum.api.domain.model.partido.StatusPartido;
 
 public interface EstadoPartido {
      void ejecutar(Partido partido);
@@ -10,6 +11,8 @@ public interface EstadoPartido {
      EstadoPartido siguienteEstado(Partido partido);
 
      String nombreEstado();
+
+     StatusPartido obtenerFaseFinalizada();
 
      default void onEnter(Partido partido){}
 

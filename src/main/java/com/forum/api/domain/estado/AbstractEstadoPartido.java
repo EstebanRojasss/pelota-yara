@@ -14,6 +14,11 @@ public  abstract class AbstractEstadoPartido implements EstadoPartido {
     }
 
     @Override
+    public StatusPartido obtenerFaseFinalizada() {
+        return null;
+    }
+
+    @Override
     public String nombreEstado() {
         return "";
     }

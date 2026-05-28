@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 public class Finalizado extends AbstractEstadoPartido {
     private static final Logger log = LoggerFactory.getLogger(Finalizado.class);
 
+    @Override
+    public StatusPartido obtenerFaseFinalizada() {
+        return StatusPartido.SEGUNDO_TIEMPO;
+    }
+
     public void ejecutar(Partido partido) {
 
     }
