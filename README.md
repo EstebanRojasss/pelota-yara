@@ -1,4 +1,4 @@
-# Pelota Yara  - REST API para Fútbol Paraguayo
+# Pelota Yara  - REST API para Fútbol 
 
 **API Backend moderna construida con Spring Boot y arquitectura hexagonal para gestionar partidos de fútbol en vivo, ligas, equipos y eventos en tiempo real.**
 
