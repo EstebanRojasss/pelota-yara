@@ -79,7 +79,6 @@ public class PartidoController {
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Partido creado exitosamente"),
         @ApiResponse(responseCode = "400", description = "Solicitud inválida - Validaciones fallidas"),
-        @ApiResponse(responseCode = "401", description = "No autorizado - Token JWT inválido o ausente"),
         @ApiResponse(responseCode = "403", description = "Prohibido - El usuario no tiene permisos administrativos"),
         @ApiResponse(responseCode = "404", description = "No encontrado - Uno o ambos equipos no existen"),
         @ApiResponse(responseCode = "409", description = "Conflicto - Partido duplicado"),
