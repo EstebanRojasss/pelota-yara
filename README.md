@@ -75,7 +75,7 @@ infrastructure/
     └── api/        # External API Consumer
 ```
 
-### 2. **State Machine Pattern**
+### . **State Machine Pattern**
 Gestión de estados de partidos con transiciones explícitas y comportamientos específicos por estado:
 
 ```java
@@ -86,28 +86,14 @@ interface EstadoPartido {
     void onExit(Partido partido);
 }
 
-// Implementaciones:
+
 class PrimerTiempo extends AbstractEstadoPartido { ... }
 class Descanso extends AbstractEstadoPartido { ... }
 class SegundoTiempo extends AbstractEstadoPartido { ... }
 class Finalizado extends AbstractEstadoPartido { ... }
 ```
 
-### 3. **Factory Pattern**
-Gestión dinámica de handlers de eventos según tipo y detalle:
-
-```java
-class EventoHandlerFactory {
-    private final Map<String, EventoHandler> categorias = new HashMap<>();
-    
-    public EventoHandler getHandler(String type, String detail) {
-        String key = generarKey(type, detail);
-        return categorias.get(key); 
-    }
-}
-```
-
-### 4. **Repository Pattern**
+### . **Repository**
 Abstracción de la persistencia a través de interfaces:
 
 ```java
@@ -118,7 +104,7 @@ interface PartidoRepository {
 }
 ```
 
-### 5. **Service Locator + Dependency Injection**
+### . **Service Locator + Dependency Injection**
 Inyección de dependencias a través de constructores en todas las clases de servicio:
 
 ```java
@@ -137,7 +123,7 @@ public class PartidoServiceImpl implements PartidoService {
 }
 ```
 
-### 6. **DTO Pattern (Data Transfer Object)**
+### . **DTO (Data Transfer Object)**
 Separación entre objetos de dominio y transferencia de datos:
 
 ```java
@@ -153,7 +139,7 @@ record PartidoResponseDto(
 }
 ```
 
-### 7. **Cache Pattern**
+### . **Cache**
 Caché en memoria para partidos en vivo con actualización scheduled:
 
 ```java
@@ -167,7 +153,7 @@ public class PartidoServiceImpl implements PartidoService {
 }
 ```
 
-### 8. **Scheduled Tasks Pattern**
+### . **Scheduled**
 Ejecución periódica de sincronización con API externa:
 
 ```java
@@ -179,7 +165,7 @@ public void llamarApiFootballVivo() {
 }
 ```
 
-### 9. **Server-Sent Events (SSE) Pattern**
+### 9. **Server-Sent Events (SSE)**
 Streaming en tiempo real de eventos:
 
 ```java
@@ -190,7 +176,7 @@ public SseEmitter stream() {
 }
 ```
 
-### 10. **Mapper Pattern**
+### 10. **Mapper**
 Transformación entre diferentes capas:
 
 ```java
@@ -233,7 +219,7 @@ public class PartidoMapper {
 
 ---
 
-## 📊 Stack Tecnológico
+## Stack Tecnológico
 
 ### Framework & Runtime
 - **Spring Boot 4.0.3** - Framework principal
@@ -362,7 +348,7 @@ src/main/java/com/forum/api/
 
 ---
 
-## 🔄 Flujo de Datos
+##  Flujo de Datos
 
 ### Crear un Partido
 
@@ -409,7 +395,7 @@ Clientes GET /api/partidos/stream reciben evento
 
 ##  Testing
 
-El proyecto incluye **tests unitarios** con arquitectura Layer:
+**tests unitarios**:
 
 ```java
 @ExtendWith(MockitoExtension.class)
@@ -529,13 +515,8 @@ Cada estado tiene comportamiento y transiciones definidas.
 ##  Próximas Mejoras
 
 - [ ] Agregar autenticación y autorización (JWT)
-- [ ] Implementar paginación en listados
-- [ ] Agregar filtering y sorting en endpoints
-- [ ] Métricas con Micrometer/Prometheus
 - [ ] Circuit breaker para API externa (Resilience4j)
-- [ ] Logging distribuido (ELK Stack)
 - [ ] Tests de integración E2E
-- [ ] API GraphQL alternativa
 
 ---
 
