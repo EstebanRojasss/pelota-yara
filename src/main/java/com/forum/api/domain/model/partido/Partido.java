@@ -178,7 +178,6 @@ public class Partido {
 
         return calcularMinutoActual();
     }
-
     public void setEquipoLocal(Equipo equipoLocal) {
         this.equipoLocal = equipoLocal;
     }

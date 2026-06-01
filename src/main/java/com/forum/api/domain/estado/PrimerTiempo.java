@@ -5,6 +5,8 @@ import com.forum.api.domain.model.partido.StatusPartido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 public class PrimerTiempo extends AbstractEstadoPartido  {
     private static final Logger log = LoggerFactory.getLogger(PrimerTiempo.class);
 
@@ -43,11 +45,14 @@ public class PrimerTiempo extends AbstractEstadoPartido  {
         partido.inicializarStoreEvent(partido.getStatus());
     }
 
+    @Override
+    public void onExit(Partido partido) {
+        partido.getStoreEvent().limpiarEventosProcesados();
+    }
 
     @Override
     public String nombreEstado() {
         return "Primer Tiempo";
     }
-
 }
 

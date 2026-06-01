@@ -1,7 +1,10 @@
 package com.forum.api.domain.estado;
 
 
+import com.forum.api.domain.model.partido.Partido;
 import com.forum.api.domain.model.partido.StatusPartido;
+
+import java.util.Optional;
 
 public  abstract class AbstractEstadoPartido implements EstadoPartido {
 
@@ -14,8 +17,8 @@ public  abstract class AbstractEstadoPartido implements EstadoPartido {
     }
 
     @Override
-    public StatusPartido obtenerFaseFinalizada() {
-        return null;
+    public Optional<StatusPartido> obtenerFaseFinalizada(Partido partido) {
+        return Optional.empty();
     }
 
     @Override

@@ -54,11 +54,14 @@ public class ApiCallScheduler {
                 partido.agregarEvento(eventos);
                 eventosPorPartido.put(partido.getId(), eventos);
 
-                if (partido.isFaseTerminada()) {
-                    eventoService.agregarEventosPorFase(
-                            partido.getStoreEvent().obtenerEventosPorFase(partido.getStatus())
-                    );
-                }
+                partido
+                        .getEstadoPartido()
+                        .obtenerFaseFinalizada(partido)
+                        .ifPresent(
+                                fase -> eventoService.agregarEventosPorFase(
+                                        partido.getStoreEvent().obtenerEventosPorFase(fase)
+                                )
+                        );
             } catch (Exception e) {
                 log.error("Error procesando eventos del partido {}", partido.getId(), e);
             }

@@ -55,4 +55,8 @@ public class StoreEvent {
         this.eventosProcesados.clear();
     }
 
+    public StatusPartido faseFinalizada(StatusPartido statusPartido){
+        return statusPartido;
+    }
+
 }

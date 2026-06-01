@@ -5,12 +5,14 @@ import com.forum.api.domain.model.partido.StatusPartido;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Optional;
+
 public class Descanso extends AbstractEstadoPartido {
     private static final Logger log = LoggerFactory.getLogger(Descanso.class);
 
     @Override
-    public StatusPartido obtenerFaseFinalizada() {
-        return StatusPartido.PRIMER_TIEMPO;
+    public Optional<StatusPartido> obtenerFaseFinalizada(Partido partido) {
+         return Optional.of(StatusPartido.PRIMER_TIEMPO);
     }
 
     public void ejecutar(Partido partido) {
