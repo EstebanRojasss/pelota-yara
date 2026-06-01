@@ -1,22 +1,22 @@
-# Pelota Yara 🏈 - REST API para Fútbol Paraguayo
+# Pelota Yara  - REST API para Fútbol Paraguayo
 
 **API Backend moderna construida con Spring Boot y arquitectura hexagonal para gestionar partidos de fútbol en vivo, ligas, equipos y eventos en tiempo real.**
 
 ---
 
-## 📋 Descripción del Proyecto
+##  Descripción del Proyecto
 
 Pelota Yara es una API REST robusta diseñada para servir como backend de una plataforma integral de fútbol paraguayo. Proporciona:
 
-- 🎯 **Vista de partidos en vivo** con actualización en tiempo real
-- 📊 **Tabla de posiciones** y gestión de ligas
-- 🏟️ **Catálogo dinámico de equipos** por competencia
-- 📅 **Resultados por fecha** con eventos detallados
-- 🔄 **Sincronización en tiempo real** con API externa de fútbol
+-  **Vista de partidos en vivo** con actualización en tiempo real
+-  **Tabla de posiciones** y gestión de ligas
+-  **Catálogo dinámico de equipos** por competencia
+-  **Resultados por fecha** con eventos detallados
+-  **Sincronización en tiempo real** con API externa de fútbol
 
 ---
 
-## 🏗️ Arquitectura
+##  Arquitectura
 
 El proyecto implementa **Arquitectura Hexagonal (Ports & Adapters)** garantizando:
 
@@ -51,7 +51,7 @@ El proyecto implementa **Arquitectura Hexagonal (Ports & Adapters)** garantizand
 
 ---
 
-## 🎨 Patrones Implementados
+##  Patrones Implementados
 
 ### 1. **Hexagonal Architecture (Ports & Adapters)**
 Independencia del framework y facilidad para testear. La lógica de negocio está completamente desacoplada de detalles técnicos.
@@ -102,7 +102,7 @@ class EventoHandlerFactory {
     
     public EventoHandler getHandler(String type, String detail) {
         String key = generarKey(type, detail);
-        return categorias.get(key); // ✅ Extensible
+        return categorias.get(key); 
     }
 }
 ```
@@ -204,32 +204,32 @@ public class PartidoMapper {
 
 ---
 
-## 🚀 Funcionalidades Principales
+##  Funcionalidades Principales
 
 ### Gestión de Partidos
-- ✅ **Crear partidos** entre equipos
-- ✅ **Listar todos los partidos** registrados
-- ✅ **Obtener partidos en vivo** (en progreso)
-- ✅ **Stream en tiempo real** de actualizaciones (SSE)
-- ✅ **Sincronización automática** con API de fútbol
+-  **Crear partidos** entre equipos
+-  **Listar todos los partidos** registrados
+-  **Obtener partidos en vivo** (en progreso)
+-  **Stream en tiempo real** de actualizaciones (SSE)
+-  **Sincronización automática** con API de fútbol
 
 ### Gestión de Equipos
-- ✅ **Cargar equipos** desde API externa (football-data.org)
-- ✅ **Listar equipos** por liga
-- ✅ **Gestión de logotipos**
+-  **Cargar equipos** desde API externa (football-data.org)
+-  **Listar equipos** por liga
+-  **Gestión de logotipos**
 
 ### Gestión de Ligas
-- ✅ **Crear ligas** automáticamente
-- ✅ **Cache de ligas** para optimizar queries
+-  **Crear ligas** automáticamente
+-  **Cache de ligas** para optimizar queries
 
 ### Gestión de Eventos
-- ✅ **Generar eventos** automáticos durante partidos
-- ✅ **Mapeo de eventos** desde API externa
-- ✅ **Clasificación por tipo** (gol, tarjeta, sustitución)
+-  **Generar eventos** automáticos durante partidos
+-  **Mapeo de eventos** desde API externa
+-  **Clasificación por tipo** (gol, tarjeta, sustitución)
 
 ### Gestión de Jugadores
-- ✅ **Cargar jugadores** desde API externa
-- ✅ **Listar jugadores por equipo**
+-  **Cargar jugadores** desde API externa
+-  **Listar jugadores por equipo**
 
 ---
 
@@ -268,7 +268,7 @@ public class PartidoMapper {
 
 ---
 
-## 📂 Estructura del Proyecto
+##  Estructura del Proyecto
 
 ```
 src/main/java/com/forum/api/
@@ -335,10 +335,10 @@ src/main/java/com/forum/api/
         │   │   ├── JugadorController.java
         │   │   └── dto/ (Request/Response DTOs)
         │   ├── scheduler/
-        │   │   ├── ApiCallScheduler.java  # ✅ Scheduled tasks
+        │   │   ├── ApiCallScheduler.java  
         │   │   └── MatchTaskSchedule.java
         │   └── stream/
-        │       └── SSeService.java         # ✅ Real-time updates
+        │       └── SSeService.java        
         │
         └── out/
             ├── persistence/
@@ -353,11 +353,11 @@ src/main/java/com/forum/api/
             │       └── ... (más implementaciones)
             │
             ├── api/
-            │   ├── ApiFootballConsumer.java  # ✅ API consumer
+            │   ├── ApiFootballConsumer.java  
             │   └── dto/ (DTO externos)
             │
             └── config/
-                └── SwaggerConfig.java       # OpenAPI config
+                └── SwaggerConfig.java      
 ```
 
 ---
@@ -407,7 +407,7 @@ Clientes GET /api/partidos/stream reciben evento
 
 ---
 
-## 🧪 Testing
+##  Testing
 
 El proyecto incluye **tests unitarios** con arquitectura Layer:
 
@@ -427,7 +427,7 @@ class PartidoServiceImplTest {
 
 ---
 
-## 🐳 Docker & Deployment
+## Docker & Deployment
 
 ### Ejecutar localmente con Docker Compose
 
@@ -450,7 +450,7 @@ ENTRYPOINT ["java","-jar","app.jar"]
 
 ---
 
-## 📝 Endpoints Principales
+##  Endpoints Principales
 
 | Método | Endpoint | Descripción | Response |
 |--------|----------|-------------|----------|
@@ -468,9 +468,9 @@ ENTRYPOINT ["java","-jar","app.jar"]
 
 ---
 
-## 🔑 Características Destacadas
+##  Características Destacadas
 
-### ✨ Real-time Updates (SSE)
+###  Real-time Updates (SSE)
 ```java
 @GetMapping(value = "/partidos/stream", 
             produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -487,21 +487,21 @@ eventSource.addEventListener('partidos', (event) => {
 });
 ```
 
-### 🤖 Sincronización Automática
+###  Sincronización Automática
 Scheduled task que cada 60 segundos:
 1. Obtiene fixtures activos de API externa
 2. Actualiza marcadores y estados
 3. Genera eventos si hay cambios
 4. Broadcast a clientes conectados
 
-### 🎯 State Machine para Partidos
+### State Machine para Partidos
 Estados: `PROGRAMADO` → `PRIMER_TIEMPO` → `MEDIO_TIEMPO` → `SEGUNDO_TIEMPO` → `FINALIZADO`
 
 Cada estado tiene comportamiento y transiciones definidas.
 
 ---
 
-## 📚 Recursos Utilizados
+##  Recursos Utilizados
 
 - **API Externa**: [Football-Data.org API](https://www.football-data.org/)
 - **Spring Boot Docs**: [spring.io/projects/spring-boot](https://spring.io/projects/spring-boot)
@@ -509,7 +509,7 @@ Cada estado tiene comportamiento y transiciones definidas.
 
 ---
 
-## 🎓 Patrones y Conceptos Aplicados
+##  Patrones y Conceptos Aplicados
 
 | Patrón | Ubicación | Beneficio |
 |--------|-----------|-----------|
@@ -526,7 +526,7 @@ Cada estado tiene comportamiento y transiciones definidas.
 
 ---
 
-## 🚀 Próximas Mejoras
+##  Próximas Mejoras
 
 - [ ] Agregar autenticación y autorización (JWT)
 - [ ] Implementar paginación en listados
@@ -539,13 +539,7 @@ Cada estado tiene comportamiento y transiciones definidas.
 
 ---
 
-## 📄 Licencia
-
-Este proyecto está bajo licencia MIT.
-
----
-
-## 👨‍💻 Autor
+##  Autor
 
 **Esteban Rojas**  
 GitHub: [@EstebanRojasss](https://github.com/EstebanRojasss)
@@ -559,5 +553,5 @@ Para reportar bugs o sugerir features, crear un [Issue](https://github.com/Esteb
 ---
 
 <p align="center">
-  <strong>Built with ❤️ using Spring Boot & Hexagonal Architecture</strong>
+  <strong>Built with using Spring Boot & Hexagonal Architecture</strong>
 </p>
